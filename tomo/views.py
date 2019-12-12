@@ -24,5 +24,5 @@ def login(request):
             print("OK")
             return render(request, 'login.html', context)
     else:
-        contex = {}
+        context = {}
         return render(request, 'login.html', context)
