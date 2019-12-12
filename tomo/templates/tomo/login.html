@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Log In</title>
+    </head>
+    <body>
+        {% if wrongUsername %}
+        <div><bold>Wrong Username!</bold></div> 
+        {% endif %}
+        {% if wrongPassword %}
+        <div>Wrong Password!</div>
+        {% endif %}
+        <form method="POST" action="login">
+            {% csrf_token %}
+            <label for="username">Username: </label>
+            <input name="username" placeholder="Username" type="text">
+            <br>
+            <label for="password">Password: </label>
+            <input name="password" placeholder="Password" type="password">
+            <br>
+            <button type="submit">Log In</button>
+        </form>
+    </body>
+</html>
