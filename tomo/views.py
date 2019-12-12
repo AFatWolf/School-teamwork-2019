@@ -13,16 +13,16 @@ def login(request):
             context = {
                 'wrongUsername': True 
             }
-            return render(request, 'tomo/login.html', context)
+            return render(request, 'login.html', context)
         if password != user.password:
             context = {
                 'wrongPassword': True
             }
-            return render(request, 'tomo/login.html', context)
+            return render(request, 'login.html', context)
         else:
             context = {}
             print("OK")
-            return render(request, 'tomo/login.html', context)
+            return render(request, 'login.html', context)
     else:
         contex = {}
-        return render(request, 'tomo/login.html', context)
+        return render(request, 'login.html', context)
