@@ -56,7 +56,7 @@ def detail(request, event_id):
     if request == 'POST':
         comment = Comment(event=event, text=request.POST['text'], date=timezone.now())
     context = {
-        'event': event
+        'event': event,
         'comment': event.comments.order_by('-posted_at')
     }
     return render(request, 'templates/detail.html', context)
