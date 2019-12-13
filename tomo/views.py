@@ -39,7 +39,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             #login(request, user)
-            return redirect('templates\login.html')
+            return redirect('login')
     else:
         form = UserCreationForm()
         
