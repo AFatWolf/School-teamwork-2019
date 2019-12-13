@@ -2,6 +2,7 @@ from django.db import models
 #from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 from django.utils import timezone
+from django.contrib.auth.models import User as AuthUser
 
 # Create your models here.
 class User(models.Model):
@@ -40,7 +41,8 @@ class Comment(models.Model):
     date = models.DateTimeField()
     # author
     # ForeginKey for Event
-    event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(AuthUser, related_name='comments', on_delete=models.CASCADE, default=1)
 
 
 

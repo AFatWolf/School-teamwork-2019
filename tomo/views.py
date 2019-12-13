@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import *
+from .models import Attend, Host, Tag, Event, Comment
 
 
 # Create your views here.
@@ -12,14 +13,13 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         try:
-            # [0] because it is a query set
-            user = User.objects.filter(username=username)[0]
-        except:
+            user = AuthUser.objects.get(username=username)
+        except Exception as e:
             context = {
                 'wrongUsername': True 
             }
             return render(request, 'login.html', context)
-        if password != user.password:
+        if authenticate(username=username, password=password) == None:
             context = {
                 'wrongPassword': True
             }
@@ -27,7 +27,7 @@ def login(request):
         else:
             context = {}
             print("OK")
-            return render(request, 'login.html', context)
+            return index(request)
     else:
         context = {}
         return render(request, 'login.html', context)
