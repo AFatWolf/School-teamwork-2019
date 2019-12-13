@@ -39,6 +39,8 @@ class Comment(models.Model):
     dislike = models.IntegerField(default=0)
     date = models.DateTimeField()
     # author
+    # ForeginKey for Event
+    event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE)
 
 
 

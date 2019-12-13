@@ -9,5 +9,33 @@
         <h1>{{ event.name }}</h1>
         <p>{{ event.hosted_at }}</p>
         <p>{{ event.detail }}</p>
+        <h2>Comments</h2>
+        <!-- Post a comment -->
+        <form action="{% url 'detail' event.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="textInput">Text</label>
+              <textarea id="textInput" name="text" class="form-control" row="3"></textarea>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        
+         <!-- View comments -->
+        {% if comments %}
+        {% for comment in comments %}
+        <div class="card mb-3">
+            <div class="card-hearder">
+                <small>[{{ comment.date }}]</small>
+            </div>
+            <div class="card-body">
+                {{ comment.text | linebreaksbr }}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No comment yet.</p>
+        {% endif %}
     </body>
 </html>

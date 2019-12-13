@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.utils import timezone
 from .models import *
 
 # Create your views here.
@@ -52,8 +53,10 @@ def detail(request, event_id):
         event = Event.object.get(pk=event_id)
     except Event.DoesNotExist:
         raise Http404("Event does not exist")
-    
+    if request == 'POST':
+        comment = Comment(event=event, text=request.POST['text'], date=timezone.now())
     context = {
         'event': event
+        'comment': event.comments.order_by('-posted_at')
     }
     return render(request, 'templates/detail.html', context)
