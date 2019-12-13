@@ -9,4 +9,5 @@ urlpatterns = [
     path(r'index/', views.index, name = 'index'),
     path(r'index', views.index, name = 'index'),
     path('detail/<int:event_id>/', views.detail, name='detail') #event_detail
+    
 ]
