@@ -36,10 +36,10 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            #return redirect('home')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            #login(request, user)
+            return redirect('login')
     else:
         form = UserCreationForm()
         
@@ -49,3 +49,15 @@ def index(request):
     events = Event.objects.all()
     data = { 'events': events }
     return render(request, 'index.html', data)
+
+# Detail of the Event
+def detail(request, event_id):
+    try:
+        event = Event.object.get(pk=event_id)
+    except Event.DoesNotExist:
+        raise Http404("Event does not exist")
+    
+    context = {
+        'event': event
+    }
+    return render(request, 'templates/detail.html', context)
