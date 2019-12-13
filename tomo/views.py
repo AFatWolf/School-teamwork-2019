@@ -50,10 +50,10 @@ def signup(request):
 # Detail of the Event
 def detail(request, event_id):
     try:
-        event = Event.object.get(pk=event_id)
+        event = Event.objects.get(pk=event_id)
     except Event.DoesNotExist:
         raise Http404("Event does not exist")
-    if request == 'POST':
+    if request.method == 'POST':
         comment = Comment(event=event, text=request.POST['text'], date=timezone.now())
     context = {
         'event': event,
