@@ -44,3 +44,16 @@ def signup(request):
         form = UserCreationForm()
         
     return render(request, 'signup.html', {'form':form})
+
+
+# Detail of the Event
+def detail(request, event_id):
+    try:
+        event = Event.object.get(pk=event_id)
+    except Event.DoesNotExist:
+        raise Http404("Event does not exist")
+    
+    context = {
+        'event': event
+    }
+    return render(request, 'templates/detail.html', context)
