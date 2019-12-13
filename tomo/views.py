@@ -44,3 +44,8 @@ def signup(request):
         form = UserCreationForm()
         
     return render(request, 'signup.html', {'form':form})
+
+def index(request):
+    events = Event.objects.all()
+    data = { 'events': events }
+    return render(request, 'index.html', data)

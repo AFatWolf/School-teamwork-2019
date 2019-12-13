@@ -2,9 +2,34 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Welcome to *website's name here*</title>
         <meta charset="utf-8">
+        <!-- <link rel="stylesheet" href="{% static 'css/style_index.css' %}" /> -->
     </head>
     <body>
-
+        <form action="{% url 'login' %}">
+            <input type="submit" value="Login" />
+        </form>
+        <form action="{% url 'signup' %}">
+            <input type="submit" value="Signup" />
+        </form>
+        <h1>Most popular events</h1>
+        <ul>
+            <li>Gay party at Thanh's room</li>
+            <li>Gay party at Thanh's room</li>
+            <li>Gay party at Thanh's room</li>
+            <li>Gay party at Thanh's room</li>
+        </ul>
+        <!-- <ul>
+            {% for e in events }
+            <tr>
+                <td><a class="number">{{diary.id}}</a></td>
+                <td><a class="diary" href="">{{ diary.title }}</a></td>
+                <td><a class="update" href="">Update</a></td>
+                <td><a class="delete" href="">Delete</a></td>
+            </tr>
+            <ul href="#">{{ e.name }}</ul>
+            {% endfor }
+        </ul> -->
     </body>
 </html>
