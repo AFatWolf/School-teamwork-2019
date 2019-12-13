@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.http import Http404
 from .models import Attend, Host, Tag, Event, Comment
 
+def user(request):
+    if 
 
 # Create your views here.
 def login(request):
