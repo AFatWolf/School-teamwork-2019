@@ -87,3 +87,13 @@ def update(request, event_id):
         'event': event,
     }
     return render(request, 'update.html', context)
+
+def create(request):
+    if request.method == 'POST':
+        event = Event.objects.create(
+            name = request.POST['title'],
+            detail = request.POST['detail'],
+            hosted_at = request.POST['hosted_at']
+        )
+        return redirect('detail', event.id)
+    return render(request, 'create.html')
