@@ -6,8 +6,8 @@ from django.utils import timezone
 from django.http import Http404
 from .models import Attend, Host, Tag, Event, Comment
 
-def user(request):
-    if 
+# def user(request):
+#     if 
 
 # Create your views here.
 def login(request):
@@ -73,3 +73,17 @@ def detail(request, event_id):
         'comment': event.comments.order_by('-posted_at')
     }
     return render(request, 'detail.html', context)
+
+def update(request, event_id):
+    event = Event.objects.get(pk=event_id)
+    if request.method == 'POST':
+        event.name = request.POST['name']
+        event.detail= request.POST['detail']
+        event.hosted_at = request.POST['hosted_at']
+        event.save()
+        return redirect(detail, event_id)
+
+    context = {
+        'event': event,
+    }
+    return render(request, 'update.html', context)
