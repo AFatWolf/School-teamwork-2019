@@ -8,5 +8,6 @@ urlpatterns = [
     path(r'signup/', views.signup),
     path(r'index/', views.index, name = 'index'),
     path(r'index', views.index, name = 'index'),
-    path('detail/<int:event_id>/', views.detail, name='detail') #event_detail
+    path('detail/<int:event_id>/', views.detail, name='detail'), #event_detail
+    path(r'detail/<int:event_id>/update', views.update, name = 'update'),
 ]

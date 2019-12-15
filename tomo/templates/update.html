@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Update {{event.name}}</title>
+        <meta charset="utf-8">
+        <!-- <link rel="stylesheet" href="{% static 'css/style_index.css' %}" /> -->
+    </head>
+    <body>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Sign up</a>
+        <!-- <form action="{% url 'signup' %}">
+            <input type="submit" value="Signup" />
+        </form> -->
+        <h1>{{event.name}}</h1>
+        <form action="{% url 'update' event.id %}" method="post">
+            {% csrf_token %}
+            <input name="name" type="text" placeholder="Event's name" value="{{event.name}}"></br>
+            <textarea name="detail" placeholder="Event's detail">{{ event.detail }}</textarea></br>
+            <input name="hosted_at" type="datetime-local"></br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

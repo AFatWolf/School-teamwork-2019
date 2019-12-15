@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your event</title>
+    <meta charset="utf-8">
+    <!-- link rel="stylesheet" href="{% static 'css/style_1.css' %}" -->
+<head>
+
+<body>
+    <h1><b>Your Event</b></h1>
+    <form action='{% url 'create' %}' method="POST">
+        {% csrf_token %}
+        <input type="text" name='title' placeholder='Event name'>
+        <br />
+        <textarea name='detail'  placeholder='Event detail' /></textarea>
+        <br />
+        <label>User Name: </label>
+        <select name = 'user' >
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.name }}</option>
+                {% endfor %}
+        </select>
+        <br />
+        <input type='date' name='created' placeholder='日付' />
+        <br />
+        <input type="submit" value="submit">
+    </form>
+    <a id='blue' href= ''> Detail page</a> </br>
+    <a id='red' href= "{% url 'index'%}"> detail page</a>
+</body>
+</html>
