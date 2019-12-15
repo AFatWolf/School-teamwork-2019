@@ -5,15 +5,22 @@ from django.utils import timezone
 from django.contrib.auth.models import User as AuthUser
 
 # Create your models here.
-class User(models.Model):
-    username = models.CharField(max_length=256)
-    name = models.CharField(max_length=32)
-    password = models.CharField(max_length=32)
+class User(AuthUser):
+    # username
+    # password
+    # first_name
+    # last_name
+    description = models.TextField(default="")
+    contact = models.TextField(default="")
+    age = models.IntegerField(default=0)
+    
 
 class Attend(models.Model):
+    # lists of events that you attend = slide display like homepage
     pass
 
 class Host(models.Model):
+    # lists of events that you host = this too 
     pass
 
 class Tag(models.Model):
@@ -38,7 +45,7 @@ class Comment(models.Model):
     content = models.TextField()
     like = models.IntegerField(default=0)
     dislike = models.IntegerField(default=0)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     # author
     # ForeginKey for Event
     event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE, default=1)

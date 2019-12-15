@@ -4,7 +4,7 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment
+from .models import Attend, Host, Tag, Event, Comment, User
 
 
 # Create your views here.
@@ -13,7 +13,7 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         try:
-            user = AuthUser.objects.get(username=username)
+            user = User.objects.get(username=username)
         except Exception as e:
             context = {
                 'wrongUsername': True 
