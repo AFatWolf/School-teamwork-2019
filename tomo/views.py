@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
 from .models import Attend, Host, Tag, Event, Comment, User
+from .helper import *
 
 # def user(request):
 #     if 
@@ -27,8 +28,10 @@ def login(request):
             }
             return render(request, 'login.html', context)
         else:
-            context = {}
-            print("OK")
+            try:
+                setUserId(request, username=username)
+            except Exception as e:
+                print(e)
             return index(request)
     else:
         context = {}
@@ -51,6 +54,7 @@ def signup(request):
     return render(request, 'signup.html', {'form':form})
 
 def index(request):
+    print(getCurrentUserId(request))
     events = Event.objects.all()
     data = { 'events': events }
     return render(request, 'index.html', data)
