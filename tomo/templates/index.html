@@ -7,11 +7,14 @@
         <!-- <link rel="stylesheet" href="{% static 'css/style_index.css' %}" /> -->
     </head>
     <body>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign up</a>
-        <!-- <form action="{% url 'signup' %}">
-            <input type="submit" value="Signup" />
-        </form> -->
+        <!-- {% if not current_user %}
+            <a href="login">Login</a>
+            <a href="signup">Sign up</a>
+        {% endif %}
+        {% if current_user %}
+            <a href="#">{{current_user}}</a>
+        {% endif %} -->
+        <a href="#">{{ current_user.username }}</a>
         <h1>Most popular events</h1>
         <ul>
             <li>Gay party at Thanh's room</li>
