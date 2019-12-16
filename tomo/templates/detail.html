@@ -10,7 +10,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top">
         <a class="navbar-brand" href="{% url 'index' %}">
-            Django Sample Application
+            Event
         </a>
         </nav>
 
@@ -28,7 +28,7 @@
             <span id = 'like{{event.id}}'>{{event.like}}</span>
             </a>
             
-            <a href="{#% url 'dislike' article.id %}" class="btn btn-outline-dark btn-sm">
+            <a href="{}" class="btn btn-outline-dark btn-sm">
             <i class="fas fa-thumbs-down"></i>
             {{article.dislike}} 
             </a> <!--# remove '#' from django template language-->
@@ -45,7 +45,7 @@
         </div>
         <hr>
         <h2> Comments</h2>
-        <form action = "{% url 'detail' event.id %}" method = "post">
+        <form action = "{}" method = "post">
             {% csrf_token %}
             <div class = "form-group">
             <label for ="textInput">Text</label>
