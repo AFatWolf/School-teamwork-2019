@@ -13,8 +13,8 @@ class User(AuthUser):
     description = models.TextField(default="")
     contact = models.TextField(default="")
     age = models.IntegerField(default=0)
+    first_time = models.IntegerField(default=0)
     
-
 class Attend(models.Model):
     # lists of events that you attend = slide display like homepage
     pass
