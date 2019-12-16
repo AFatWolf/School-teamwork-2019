@@ -16,10 +16,13 @@ def getEventWithTags(tags):
         return ret.distinct()
 
 def getCurrentUserId(request):
+    # if there is session
     if 'user_id' in request.session:
         return request.session['user_id']
     else:
+        # default 0 is no user
         return NO_USER
+
 # receive request object, user id
 def setUserId(request, user_id=0, username=""):
     if user_id != 0:

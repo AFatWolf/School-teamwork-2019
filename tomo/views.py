@@ -32,11 +32,31 @@ def login(request):
                 setUserId(request, username=username)
             except Exception as e:
                 print(e)
-            return redirect(index)
+            if not user.first_time:
+                user.first_time = 1
+                return redirect(addTags)
+            else:
+                return redirect(index)
     else:
         context = {}
         return render(request, 'login.html', context)
 
+def addTags(request):
+    user_id = getCurrentUserId(request)
+    user = User.objects.get(id=user_id)
+    # if not first time log in
+    if not user.first_time:
+        return redirect(index)
+    else:
+        if request.method == 'GET':
+            tags = Tag.objects().all()
+            context = {
+                'tags': tags,
+            }
+            return render(request, 'addtags.html', context)
+        else if request.method == 'POST':
+            pass
+            return redirect(index)
 
 def signup(request):
     if request.method == 'POST':
@@ -45,7 +65,7 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
+            user = User.objects.create_user(username=username, password=password)
             #login(request, user)
             return redirect('login')
     else:
