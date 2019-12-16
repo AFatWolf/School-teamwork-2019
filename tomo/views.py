@@ -54,7 +54,7 @@ def addTags(request):
                 'tags': tags,
             }
             return render(request, 'addtags.html', context)
-        else if request.method == 'POST':
+        elif request.method == 'POST':
             pass
             return redirect(index)
 
@@ -74,12 +74,13 @@ def signup(request):
     return render(request, 'signup.html', {'form':form})
 
 def index(request):
-    if getCurrentUserId(request) != 0:
-        current_user=User.objects.get(pk=getCurrentUserId(request))
+    if getCurrentUserId(request) != NO_USER:
+        current_user = User.objects.get(pk=getCurrentUserId(request))
         print(current_user)
         events = Event.objects.all()
-        data = { 'events': events,
-                 'user': current_user,
+        data = { 
+            'events': events,
+            'user': current_user,
         }
     else:
         events = Event.objects.all()
