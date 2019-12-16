@@ -32,7 +32,7 @@ def login(request):
                 setUserId(request, username=username)
             except Exception as e:
                 print(e)
-            return index(request)
+            return redirect(index)
     else:
         context = {}
         return render(request, 'login.html', context)
