@@ -4,38 +4,70 @@
     <head>
         <meta charset="utf-8">
         <title>{{ event.name }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/all.min.css' %}" />
     </head>
     <body>
-        <h1>{{ event.name }}</h1>
-        <p>{{ event.hosted_at }}</p>
-        <p>{{ event.detail }}</p>
-        <h2>Comments</h2>
-        <!-- Post a comment -->
-        <form action="{% url 'detail' event.id %}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="textInput">Text</label>
-              <textarea id="textInput" name="comment_text" class="form-control" row="3"></textarea>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-        
-         <!-- View comments -->
-        {% if comments %}
-        {% for comment in comments %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            Django Sample Application
+        </a>
+        </nav>
+
+        <div class="container-fluid mt-3">
+        <h1>{{event.name}}</h1>
+        <small>{{event.hosted_at}}</small>
         <div class="card mb-3">
-            <div class="card-hearder">
-                <small>[{{ comment.date }}]</small>
-            </div>
             <div class="card-body">
-                {{ comment.text | linebreaksbr }}
+            {{event.detail| linebreaksbr}}
             </div>
         </div>
-        {% endfor %}
-        {% else %}
-        <p>No comment yet.</p>
-        {% endif %}
+        <div>
+            <a onclick="like({{event.id}});" class="btn btn-outline-dark btn-sm">
+            <i class="fas fa-thumbs-up"></i>
+            <span id = 'like{{event.id}}'>{{event.like}}</span>
+            </a>
+            
+            <a href="{#% url 'dislike' article.id %}" class="btn btn-outline-dark btn-sm">
+            <i class="fas fa-thumbs-down"></i>
+            {{article.dislike}} 
+            </a> <!--# remove '#' from django template language-->
+            <span class="float-right">
+            <!-- <a href="" class="btn btn-warning btn-sm"> -->
+                <i class="fas fa-pen"></i>
+                Update
+            </a>
+            <a href='' class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+                Delete
+            </a>
+            </span>
+        </div>
+        <hr>
+        <h2> Comments</h2>
+        <form action = "{% url 'detail' event.id %}" method = "post">
+            {% csrf_token %}
+            <div class = "form-group">
+            <label for ="textInput">Text</label>
+            <textarea id='textInput' name="text" class="form-control" rows="3"></textarea>
+            </div> 
+            <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            {% if comments %}
+            {% for comment in comments %}
+            <div class="card mb-3">
+            <div class="card-header">
+                <small>[{{comment.date }}]</small>
+            </div>
+            <div class="card-body">
+                {{comment.text | linebreaksbr}}
+            </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p> No comment. </p>
+            {% endif %}
+        </div>
     </body>
 </html>
