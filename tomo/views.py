@@ -37,6 +37,8 @@ def login(request):
         context = {}
         return render(request, 'login.html', context)
 
+def
+
 
 def signup(request):
     if request.method == 'POST':
@@ -45,7 +47,7 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
+            user = User.objects.create_user(username=username, password=password)
             #login(request, user)
             return redirect('login')
     else:
