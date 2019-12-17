@@ -38,8 +38,11 @@ def login(request):
             else:
                 return redirect(index)
     else:
-        context = {}
-        return render(request, 'login.html', context)
+        if getCurrentUserId(request) != NO_USER:
+            return redirect(index)
+        else:
+            context = {}
+            return render(request, 'login.html', context)
 
 def logout(request):
     deleteCookieUserId(request)
