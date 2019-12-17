@@ -4,8 +4,9 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment, User
+from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
+
 
 # def user(request):
 #     if 
@@ -60,20 +61,16 @@ def addTags(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            first_name = form.cleaned_data.get('first name')
-            last_name = form.cleaned_data.get('last name')
-            email = form.cleaned_data.get('email')
-            user = User.objects.create_user(username=username, password=password, first_name =first_name, last_name=last_name, email = email)
-            #login(request, user)
+            password = form.cleaned_data.get('password')
+            user = User.objects.create_user(username=username, password=password)
+            login(request, user)
             return redirect('login')
     else:
-        form = UserCreationForm()
-        
+        form = SignUpForm()
     return render(request, 'signup.html', {'form':form})
 
 def index(request):
