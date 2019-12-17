@@ -41,6 +41,9 @@ def login(request):
         context = {}
         return render(request, 'login.html', context)
 
+def logout(request):
+    pass
+
 def addTags(request):
     user_id = getCurrentUserId(request)
     user = User.objects.get(id=user_id)
