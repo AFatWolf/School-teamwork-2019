@@ -12,4 +12,5 @@ urlpatterns = [
     path('detail/<int:event_id>/', views.detail, name='detail'), #event_detail
     path(r'detail/<int:event_id>/update', views.update, name = 'update'),
     path(r'create', views.create, name = 'create'),
+    path(r'setting', views.setting, name = 'setting'),
 ]

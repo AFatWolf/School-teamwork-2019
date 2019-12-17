@@ -65,7 +65,10 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = User.objects.create_user(username=username, password=password)
+            first_name = form.cleaned_data.get('first name')
+            last_name = form.cleaned_data.get('last name')
+            email = form.cleaned_data.get('email')
+            user = User.objects.create_user(username=username, password=password, first_name ='first name', last_name='last name', email = 'email')
             #login(request, user)
             return redirect('login')
     else:
@@ -130,3 +133,10 @@ def create(request):
         )
         return redirect('detail', event.id)
     return render(request, 'create.html')
+
+def setting(request, edit_id):
+    edit = User.objects.get(pk=edit_id)
+    if request.method == 'POST':
+        edit.name = request.POST['name']
+        edit.contact
+        
