@@ -42,7 +42,8 @@ def login(request):
         return render(request, 'login.html', context)
 
 def logout(request):
-    pass
+    deleteCookieUserId(request)
+    return redirect(login)
 
 def addTags(request):
     user_id = getCurrentUserId(request)
