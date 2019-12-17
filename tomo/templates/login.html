@@ -11,7 +11,7 @@
         {% if wrongPassword %}
         <div>Wrong Password!</div>
         {% endif %}
-        <form method="POST" action="login">
+        <form method="POST" action="">
             {% csrf_token %}
             <label for="username">Username: </label>
             <input name="username" placeholder="Username" type="text">
