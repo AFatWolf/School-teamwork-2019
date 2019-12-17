@@ -68,7 +68,7 @@ def signup(request):
             first_name = form.cleaned_data.get('first name')
             last_name = form.cleaned_data.get('last name')
             email = form.cleaned_data.get('email')
-            user = User.objects.create_user(username=username, password=password, first_name ='first name', last_name='last name', email = 'email')
+            user = User.objects.create_user(username=username, password=password, first_name =first_name, last_name=last_name, email = email)
             #login(request, user)
             return redirect('login')
     else:
