@@ -7,14 +7,14 @@
         <!-- <link rel="stylesheet" href="{% static 'css/style_index.css' %}" /> -->
     </head>
     <body>
-        <!-- {% if not current_user %}
+        {% if not user.id %}
             <a href="login">Login</a>
             <a href="signup">Sign up</a>
         {% endif %}
-        {% if current_user %}
-            <a href="#">{{current_user}}</a>
-        {% endif %} -->
-        <a href="#">{{ user.username }}</a>
+        {% if user.id %}
+            <a href="#">It is {{ user }}</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
         <h1>Most popular events</h1>
         <ul>
             <li>Gay party at Thanh's room</li>
