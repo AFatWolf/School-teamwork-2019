@@ -71,15 +71,21 @@ def addTags(request):
             print("User tags: ", user.tags.all())
             return redirect(index)
 
-def signup(request):
+def signup(request, AuthUser):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+<<<<<<< Updated upstream
             password = form.cleaned_data.get('password1')
             user = User.objects.create_user(username=username, password=password)
             #login(request, user)
+=======
+            password = form.cleaned_data.get('password')
+            user = AuthUser.objects.createuser(username=username, password=password)
+            #login(signup)
+>>>>>>> Stashed changes
             return redirect('login')
     else:
         form = UserCreationForm()
