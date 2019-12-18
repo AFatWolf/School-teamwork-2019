@@ -66,8 +66,13 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+<<<<<<< Updated upstream
             user = User.objects.create_user(username=username, password=password)
             login(request, user)
+=======
+            user = AuthUser.objects.create_user(username=username, password=password)
+            #login(signup)
+>>>>>>> Stashed changes
             return redirect('login')
     else:
         form = SignUpForm()
@@ -131,9 +136,16 @@ def create(request):
         return redirect('detail', event.id)
     return render(request, 'create.html')
 
+<<<<<<< Updated upstream
 def setting(request, edit_id):
     edit = User.objects.get(pk=edit_id)
     if request.method == 'POST':
         edit.name = request.POST['name']
         edit.contact
+=======
+
+def setting(request):
+    edit = User.objects.get(pk = )
+    if request.method == 'POST'
+>>>>>>> Stashed changes
         

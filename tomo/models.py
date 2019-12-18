@@ -15,6 +15,11 @@ class User(AuthUser):
     description = models.TextField(default="")
     contact = models.TextField(default="")
     age = models.IntegerField(default=0)
+<<<<<<< Updated upstream
+=======
+    first_time = models.IntegerField(default=1)
+    tags = models.ManyToManyField(Tag)
+>>>>>>> Stashed changes
     first_time = models.IntegerField(default=0)
 
 class SignUpForm(UserCreationForm):
