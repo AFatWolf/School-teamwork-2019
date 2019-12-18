@@ -54,9 +54,18 @@ def signup(request):
     return render(request, 'signup.html', {'form':form})
 
 def index(request):
-    print(getCurrentUserId(request))
-    events = Event.objects.all()
-    data = { 'events': events }
+    if getCurrentUserId(request) != NO_USER:
+        current_user = User.objects.get(pk=getCurrentUserId(request))
+        print(getCurrentUserId(request))
+        events = Event.objects.all()
+        data = { 
+            'events': events,
+            'user': current_user,
+        }
+    else:
+        events = Event.objects.all()
+        data = { 'events': events,
+        }
     return render(request, 'index.html', data)
 
 # Detail of the Event
