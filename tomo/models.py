@@ -5,6 +5,12 @@ from django.utils import timezone
 from django.contrib.auth.models import User as AuthUser
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.name
+
 class User(AuthUser):
     # username
     # password
@@ -13,7 +19,8 @@ class User(AuthUser):
     description = models.TextField(default="")
     contact = models.TextField(default="")
     age = models.IntegerField(default=0)
-    first_time = models.IntegerField(default=0)
+    first_time = models.IntegerField(default=1)
+    tags = models.ManyToManyField(Tag)
     
 class Attend(models.Model):
     # lists of events that you attend = slide display like homepage
@@ -22,12 +29,6 @@ class Attend(models.Model):
 class Host(models.Model):
     # lists of events that you host = this too 
     pass
-
-class Tag(models.Model):
-    name = models.CharField(max_length=32)
-
-    def __str__(self):
-        return self.name
 
 class Event(models.Model):
     name = models.CharField(max_length=1024)
