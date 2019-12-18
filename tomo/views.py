@@ -4,9 +4,8 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
+from .models import Attend, Host, Tag, Event, Comment, User,SignUpForm
 from .helper import *
-
 
 # def user(request):
 #     if 
@@ -33,64 +32,76 @@ def login(request):
                 setUserId(request, username=username)
             except Exception as e:
                 print(e)
-            if not user.first_time:
-                user.first_time = 1
+            if user.first_time:
+                user.first_time = 0
                 return redirect(addTags)
             else:
                 return redirect(index)
     else:
-        context = {}
-        return render(request, 'login.html', context)
+        if getCurrentUserId(request) != NO_USER:
+            return redirect(index)
+        else:
+            context = {}
+            return render(request, 'login.html', context)
+
+def logout(request):
+    deleteCookieUserId(request)
+    return redirect(login)
 
 def addTags(request):
     user_id = getCurrentUserId(request)
     user = User.objects.get(id=user_id)
     # if not first time log in
-    if not user.first_time:
+    if int(user.first_time) == 0:
+        print(user.first_time)
         return redirect(index)
     else:
         if request.method == 'GET':
-            tags = Tag.objects().all()
+            tags = Tag.objects.all()
             context = {
                 'tags': tags,
             }
             return render(request, 'addtags.html', context)
         elif request.method == 'POST':
-            pass
+            tags_id = request.POST.getlist('tags')
+            print("Tags from checkbox: ", tags_id)
+            for tag_id in tags_id:
+                tag = Tag.objects.get(pk=tag_id)
+                user.tags.add(tag)
+            print("User tags: ", user.tags.all())
             return redirect(index)
 
-def signup(request):
+def signup(SignUpForm):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-<<<<<<< Updated upstream
             user = User.objects.create_user(username=username, password=password)
-            login(request, user)
-=======
-            user = AuthUser.objects.create_user(username=username, password=password)
             #login(signup)
->>>>>>> Stashed changes
             return redirect('login')
     else:
-        form = SignUpForm()
+        form = UserCreationForm()
+        
     return render(request, 'signup.html', {'form':form})
 
 def index(request):
     if getCurrentUserId(request) != NO_USER:
         current_user = User.objects.get(pk=getCurrentUserId(request))
-        print(current_user)
+        print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 
             'events': events,
             'user': current_user,
         }
     else:
+        print("No no")
+        print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }
+    print(data)
     return render(request, 'index.html', data)
 
 # Detail of the Event
@@ -136,16 +147,14 @@ def create(request):
         return redirect('detail', event.id)
     return render(request, 'create.html')
 
-<<<<<<< Updated upstream
-def setting(request, edit_id):
-    edit = User.objects.get(pk=edit_id)
-    if request.method == 'POST':
-        edit.name = request.POST['name']
-        edit.contact
-=======
 
-def setting(request):
-    edit = User.objects.get(pk = )
-    if request.method == 'POST'
->>>>>>> Stashed changes
-        
+def setting(request, user_id):
+    edit = User.objects.get(pk = user_id )
+    if request.method == 'POST':
+        edit.first_name = request.POST['first_name']
+        edit.last_name = request.POST['last_name']
+        edit.description = request.POST['description']
+        edit.age = request.POST['age']
+        edit.password = request.POST['password']
+    
+    return render(request, 'settings.html')
