@@ -4,13 +4,29 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment, User
+from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 
 # def user(request):
 #     if 
 
 # Create your views here.
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            #form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = User.objects.create_user(username=username, password=password)
+            #login(request)
+            #login(signup)
+            return redirect('login')
+    else:
+        form = SignUpForm()
+        
+    return render(request, 'signup.html', {'form':form})
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -71,23 +87,6 @@ def addTags(request):
             print("User tags: ", user.tags.all())
             return redirect(index)
 
-def signup(request, AuthUser):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = User.objects.create_user(username=username, password=password)
-            #login(request, user)
-            password = form.cleaned_data.get('password')
-            user = AuthUser.objects.createuser(username=username, password=password)
-            #login(signup)
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-        
-    return render(request, 'signup.html', {'form':form})
 
 def index(request):
     if getCurrentUserId(request) != NO_USER:
