@@ -42,3 +42,4 @@ def deleteCookieUserId(request):
         del request.session['user_id']
     except:
         pass
+
