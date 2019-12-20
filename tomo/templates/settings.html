@@ -7,13 +7,14 @@
 </head>
 <body>
     <h1><b>Setting and Privacy</b><h1>
-    <form action="{% url 'setting' user.id %}" method="post">
+    <form action="{% url 'settings' AuthUser.id %}" method="post">
     {% csrf_token %}
-            <input name="first_name" type="text" placeholder="first_name" value="{{edit.first_name}}"></br>
-            <input name="last_name" type="text" placeholder="last_name" value="{{edit.last_name}}">
-            <textarea name="description" placeholder="description">{{ edit.description }}</textarea></br>
+            <input name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}"></br>
+            <input name="last_name" type="text" placeholder="Last name" value="{{edit.last_name}}"></br>
+            <!-- textarea name="description" placeholder="description">{{ edit.description }}</textarea></br -->
             <input name="password" type="password" placeholder="password">{{edit.password}}</br>
-            <input name="new_password" type="password" placeholder="new_password">{{edit.password}}</br>
+            <!-- input name="new_password" type="password" placeholder="new password">{{edit.password}}</br -->
+            <!-- input name="confirm" type="password" placeholder="confirm password">{{edit.password}}</br -->
             <input type="submit" value="Submit">
     </form>
 </body>

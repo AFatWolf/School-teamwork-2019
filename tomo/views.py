@@ -11,6 +11,26 @@ from .helper import *
 #     if 
 
 # Create your views here.
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            email=form.cleaned_data.get('email')
+            first_name=form.cleaned_data.get('first_name')
+            last_name=form.cleaned_data.get('last_name')
+            user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name )
+            #login(signup)
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+        
+    return render(request, 'signup.html', {'form':form})
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -71,20 +91,6 @@ def addTags(request):
             print("User tags: ", user.tags.all())
             return redirect(index)
 
-def signup(SignUpForm):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = User.objects.create_user(username=username, password=password)
-            #login(signup)
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-        
-    return render(request, 'signup.html', {'form':form})
 
 def index(request):
     if getCurrentUserId(request) != NO_USER:
@@ -148,13 +154,13 @@ def create(request):
     return render(request, 'create.html')
 
 
-def setting(request, user_id):
+def settings(request, user_id):
     edit = User.objects.get(pk = user_id )
     if request.method == 'POST':
-        edit.first_name = request.POST['first_name']
-        edit.last_name = request.POST['last_name']
-        edit.description = request.POST['description']
-        edit.age = request.POST['age']
-        edit.password = request.POST['password']
+        edit.first_name = request.POST.get('first_name')
+        edit.last_name = request.POST.get('last_name')
+        edit.description = request.POST.get('description')
+        edit.age = request.POST.get('age')
+        edit.password = request.POST.get('password')
     
     return render(request, 'settings.html')
