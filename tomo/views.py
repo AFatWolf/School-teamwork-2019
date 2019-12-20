@@ -54,7 +54,7 @@ def addTags(request):
                 'tags': tags,
             }
             return render(request, 'addtags.html', context)
-        else if request.method == 'POST':
+        elif request.method == 'POST':
             pass
             return redirect(index)
 
