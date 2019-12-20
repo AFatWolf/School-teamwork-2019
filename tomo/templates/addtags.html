@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Choosee tags</title>
+        <script type="text/javascript" src="{% static 'js/addtags.js' %}"></script>
+    </head>
+    <body>
+        <form action="" method="POST">
+        {% csrf_token %}
+        {% if tags %}
+            {% for tag in tags%}
+                <input type="checkbox" name="tags" value="{{ tag.id }}">{{ tag.name }}<br>
+            {% endfor %}
+        {% endif %}
+        <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

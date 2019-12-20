@@ -32,8 +32,8 @@ def login(request):
                 setUserId(request, username=username)
             except Exception as e:
                 print(e)
-            if not user.first_time:
-                user.first_time = 1
+            if user.first_time:
+                user.first_time = 0
                 return redirect(addTags)
             else:
                 return redirect(index)
@@ -52,28 +52,40 @@ def addTags(request):
     user_id = getCurrentUserId(request)
     user = User.objects.get(id=user_id)
     # if not first time log in
-    if not user.first_time:
+    if int(user.first_time) == 0:
+        print(user.first_time)
         return redirect(index)
     else:
         if request.method == 'GET':
-            tags = Tag.objects().all()
+            tags = Tag.objects.all()
             context = {
                 'tags': tags,
             }
             return render(request, 'addtags.html', context)
         elif request.method == 'POST':
-            pass
+            tags_id = request.POST.getlist('tags')
+            print("Tags from checkbox: ", tags_id)
+            for tag_id in tags_id:
+                tag = Tag.objects.get(pk=tag_id)
+                user.tags.add(tag)
+            print("User tags: ", user.tags.all())
             return redirect(index)
 
-def signup(request):
+def signup(request, AuthUser):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+<<<<<<< Updated upstream
             password = form.cleaned_data.get('password1')
             user = User.objects.create_user(username=username, password=password)
             #login(request, user)
+=======
+            password = form.cleaned_data.get('password')
+            user = AuthUser.objects.createuser(username=username, password=password)
+            #login(signup)
+>>>>>>> Stashed changes
             return redirect('login')
     else:
         form = UserCreationForm()
@@ -90,12 +102,9 @@ def index(request):
             'user': current_user,
         }
     else:
-        print("No no")
-        print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }
-    print(data)
     return render(request, 'index.html', data)
 
 # Detail of the Event
