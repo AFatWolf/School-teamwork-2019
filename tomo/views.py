@@ -4,14 +4,13 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment, User,SignUpForm
+from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 
 # def user(request):
 #     if 
 
 # Create your views here.
-
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -19,18 +18,14 @@ def signup(request):
             #form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            #email = form.cleaned_data.get('email') //unnecessary
-            #first_name = form.cleaned_data.get('first_name')
-            #last_name = form.cleaned_data.get('last_name')
-        
             user = User.objects.create_user(username=username, password=password)
-            #login(request, user)
+            #login(request)
+            #login(signup)
             return redirect('login')
     else:
         form = SignUpForm()
         
     return render(request, 'signup.html', {'form':form})
-
 
 def login(request):
     if request.method == 'POST':
@@ -172,3 +167,15 @@ def settings(request):
             return redirect("login")  
         
     return render(request, 'settings.html')
+
+    
+def profile(request, user_name):
+    try:
+        user = User.objects.get(username=user_name)
+    except Event.DoesNotExist:
+        raise Http404("Event does not exist")
+    
+    context = {
+        'user': user,
+    }
+    return render(request, 'profile.html', context)

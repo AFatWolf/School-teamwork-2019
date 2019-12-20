@@ -17,7 +17,12 @@ def getEventWithTags(tags):
 
 def getCurrentUserId(request):
     # if there is session
-    if 'user_id' in request.session:
+    if 'user_id' in request.session and request.session['user_id']:
+        user_id = request.session['user_id']
+        try:
+            user = User.objects.get(pk=user_id)
+        except:
+            return NO_USER
         return request.session['user_id']
     else:
         # default 0 is no user
@@ -37,3 +42,4 @@ def deleteCookieUserId(request):
         del request.session['user_id']
     except:
         pass
+

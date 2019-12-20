@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path(r'login', views.login, name='login'),
     path(r'login/', views.login),
+    path(r'logout', views.logout, name='logout'),
     path(r'addtags', views.addTags, name='addTags'), 
     path(r'signup', views.signup, name='signup'),
     path(r'signup/', views.signup),
@@ -12,6 +13,5 @@ urlpatterns = [
     path('detail/<int:event_id>/', views.detail, name='detail'), #event_detail
     path(r'detail/<int:event_id>/update', views.update, name = 'update'),
     path(r'create', views.create, name = 'create'),
-    path(r'settings/$', views.settings, name = 'settings'),
-   
+    path(r'/profile/<str:user_name>/', views.profile, name='user_profile'),
 ]
