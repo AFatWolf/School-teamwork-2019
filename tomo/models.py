@@ -3,11 +3,8 @@ from django.db import models
 from datetime import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User as AuthUser
-<<<<<<< Updated upstream
-=======
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as Form
->>>>>>> Stashed changes
 
 # Create your models here.
 class Tag(models.Model):
@@ -24,11 +21,8 @@ class User(AuthUser):
     description = models.TextField(default="")
     contact = models.TextField(default="")
     age = models.IntegerField(default=0)
-<<<<<<< Updated upstream
     first_time = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag)
-=======
-    first_time = models.IntegerField(default=0)
 
 class SignUpForm(Form):
     first_name=forms.CharField(max_length=30, required=False)
@@ -38,7 +32,6 @@ class SignUpForm(Form):
     class Meta:
         model = AuthUser
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
->>>>>>> Stashed changes
     
 class Attend(models.Model):
     # lists of events that you attend = slide display like homepage

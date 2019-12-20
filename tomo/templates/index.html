@@ -24,8 +24,9 @@
     <h1>Most popular events</h1>
     <div class="container">
         <div class="row">
-            <div class="MultiCarousel" data-items="1,1,1,4" data-slide="4" id="MultiCarousel" data-interval="1000">
+            <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
                 <div class="MultiCarousel-inner">
+                    {% for i in "x"|rjust:"100" %}
                     <div class="item">
                         <div class="pad15">
                             <p class="lead">Multi Item Carousel</p>
@@ -34,126 +35,7 @@
                             <p>50% off</p>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="pad15">
-                            <p class="lead">Multi Item Carousel</p>
-                            <p>₹ 1</p>
-                            <p>₹ 6000</p>
-                            <p>50% off</p>
-                        </div>
-                    </div>
+                    {%endfor%}
                 </div>
                 <button class="btn btn-primary leftLst">
                     <</button> <button class="btn btn-primary rightLst">>
@@ -173,7 +55,7 @@
     <h1>Nearby events</h1>
     <div class="container">
         <div class="row">
-            <div class="MultiCarousel" data-items="1,50,3,4" data-slide="4" id="MultiCarousel" data-interval="1000">
+            <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
                 <div class="MultiCarousel-inner">
                     {% for event in events %}
                     <div class="item">
@@ -195,15 +77,15 @@
     <h1>Featured</h1>
     <div class="container">
         <div class="row">
-            <div class="MultiCarousel" data-items="1,50,3,4" data-slide="4" id="MultiCarousel" data-interval="1000">
+            <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
                 <div class="MultiCarousel-inner">
                     {% for i in "x"|rjust:"100" %}
                     <div class="item">
                         <div class="pad15">
-                            <p class="lead">Gay party at Thanh's room</p>
-                            <p>WiLd HOt dOG gY 5Ex</p>
+                            <p class="lead">Straight party at Thanh's room</p>
+                            <p>Polite and formal party for gentlement ( ͡° ͜ʖ ͡°)</p>
                             <p>Date: now</p>
-                            <p>GAY, THANH, HOT_SEX</p>
+                            <p>None</p>
                         </div>
                     </div>
                     {%endfor%}
