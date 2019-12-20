@@ -14,19 +14,20 @@ from .helper import *
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            #form.save()
             username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            email=form.cleaned_data.get('email')
-            first_name=form.cleaned_data.get('first_name')
-            last_name=form.cleaned_data.get('last_name')
-            user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name )
-            #login(signup)
+            password = form.cleaned_data.get('password1')
+            #email = form.cleaned_data.get('email') //unnecessary
+            #first_name = form.cleaned_data.get('first_name')
+            #last_name = form.cleaned_data.get('last_name')
+        
+            user = User.objects.create_user(username=username, password=password)
+            #login(request, user)
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
         
     return render(request, 'signup.html', {'form':form})
 
@@ -154,13 +155,20 @@ def create(request):
     return render(request, 'create.html')
 
 
-def settings(request, user_id):
-    edit = User.objects.get(pk = user_id )
+def settings(request):
+    edit = User.objects.get(pk=getCurrentUserId(request))
     if request.method == 'POST':
         edit.first_name = request.POST.get('first_name')
         edit.last_name = request.POST.get('last_name')
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')
-        edit.password = request.POST.get('password')
-    
+        edit.new_password = request.POST.get('new_password')
+        edit.confirm_password = request.POST.get('confirm_passowrd')  # reconfirm password
+
+        
+        if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
+            edit.password = edit.new_password
+            edit.password.save()
+            return redirect("login")  
+        
     return render(request, 'settings.html')
