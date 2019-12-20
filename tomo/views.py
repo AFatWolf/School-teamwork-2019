@@ -4,7 +4,7 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment, User
+from .models import *
 from .helper import *
 
 # def user(request):
@@ -33,7 +33,6 @@ def login(request):
             except Exception as e:
                 print(e)
             if user.first_time:
-                user.first_time = 0
                 return redirect(addTags)
             else:
                 return redirect(index)
@@ -63,6 +62,7 @@ def addTags(request):
             }
             return render(request, 'addtags.html', context)
         elif request.method == 'POST':
+            user.first_time = 0
             tags_id = request.POST.getlist('tags')
             print("Tags from checkbox: ", tags_id)
             for tag_id in tags_id:
@@ -73,16 +73,16 @@ def addTags(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            # form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = User.objects.create_user(username=username, password=password)
             #login(request, user)
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
         
     return render(request, 'signup.html', {'form':form})
 
