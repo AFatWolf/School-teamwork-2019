@@ -10,17 +10,20 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style_index.css' %}" />
     <script src="{% static 'js/index.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
+    <div class="cred">
     {% if not user.id %}
-    <a href="login">Login</a>
-    <a href="signup">Sign up</a>
+    <a href="login" class="btn btn-secondary">Login</a>
+    <a href="signup" class="btn btn-primary">Sign up</a>
     {% endif %}
     {% if user.id %}
-    <a href="#">It is {{ user }}</a>
-    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'user_profile' user.username%}" class="btn btn-primary">Hello {{ user }}!</a>
+    <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
     {% endif %}
+</div>
     <h1>Most popular events</h1>
     <div class="container">
         <div class="row">
