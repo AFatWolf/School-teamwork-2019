@@ -49,6 +49,8 @@ class Event(models.Model):
     # the time event is created
     created_at = models.DateTimeField(default=timezone.now())
     tags = models.ManyToManyField(Tag)
+    host = models.ForeignKey(User, related_name="events", on_delete=models.CASCADE, default=8)
+    attendees = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
@@ -61,7 +63,7 @@ class Comment(models.Model):
     # author
     # ForeginKey for Event
     event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE, default=1)
-    user = models.ForeignKey(AuthUser, related_name='comments', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE, default=8)
 
 
 
