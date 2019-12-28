@@ -5,25 +5,28 @@
 <head>
     <title>Welcome to *website's name here*</title>
     <meta charset="utf-8">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style_index.css' %}" />
     <script src="{% static 'js/index.js' %}"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
     <div class="cred">
-    {% if not user.id %}
-    <a href="login" class="btn btn-secondary">Login</a>
-    <a href="signup" class="btn btn-primary">Sign up</a>
-    {% endif %}
-    {% if user.id %}
-    <a href="{% url 'user_profile' user.username%}" class="btn btn-primary">Hello {{ user }}!</a>
-    <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
-    {% endif %}
-</div>
+        {% if not user.id %}
+        <a href="login" class="btn btn-secondary">Login</a>
+        <a href="signup" class="btn btn-primary">Sign up</a>
+        {% endif %}
+        {% if user.id %}
+        <a href="{% url 'user_profile' user.username%}" class="btn btn-primary">Hello {{ user }}!</a>
+        <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+        {% endif %}
+    </div>
     <h2>Nearby events</h2>
     <div class="container">
         <div class="row">
@@ -36,19 +39,22 @@
                             <p>{{event.detail}}</p>
                             <p>Date: {{event.hosted_at}}</p>
                             <p>Host: {{event.host}}</p>
-                            <p> {{event.attendees.all}}</p>
+                            <!-- <p>{{event.attendees.all}}</p> -->
                             <p>{{event.attendees.all.count}} people will go</p>
                         </div>
                     </div>
                     {%endfor%}
                 </div>
                 <button class="btn btn-primary leftLst">
-                    <</button> <button class="btn btn-primary rightLst">>
+                    <span class="fas fa-chevron-left"></span>
+                </button>
+                <button class="btn btn-primary rightLst">
+                    <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
         </div>
     </div>
-    <h1>Featured</h1>
+    <h2>Featured</h2>
     <div class="container">
         <div class="row">
             <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
@@ -56,6 +62,8 @@
                     {% for i in "x"|rjust:"100" %}
                     <div class="item">
                         <div class="pad15">
+                            <img src="https://www.meme-arsenal.com/memes/f786351845be7acd9ff36fd1e7b6b0d7.jpg"
+                                style='height: 100%; width: 100%; object-fit: contain'>
                             <a class="lead">Straight party at Thanh's room</a>
                             <p>Polite and formal party for gentlement ( ͡° ͜ʖ ͡°)</p>
                             <p>Date: now</p>
