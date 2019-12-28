@@ -102,6 +102,7 @@ def index(request):
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
+        'user': user
         }
     print(data)
     return render(request, 'index.html', data)
