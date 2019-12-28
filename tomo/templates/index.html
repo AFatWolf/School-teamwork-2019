@@ -60,7 +60,7 @@
                     {% for event in events %}
                     <div class="item">
                         <div class="pad15">
-                            <p class="lead">{{event.name}}</p>
+                            <a class="lead" href="{% url 'detail' event.id%}">{{event.name}}</a>
                             <p>{{event.detail}}</p>
                             <p>Date: {{event.hosted_at}}</p>
                             <p>{{event.tags}}</p>
@@ -82,7 +82,7 @@
                     {% for i in "x"|rjust:"100" %}
                     <div class="item">
                         <div class="pad15">
-                            <p class="lead">Straight party at Thanh's room</p>
+                            <a class="lead">Straight party at Thanh's room</a>
                             <p>Polite and formal party for gentlement ( ͡° ͜ʖ ͡°)</p>
                             <p>Date: now</p>
                             <p>None</p>

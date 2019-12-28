@@ -4,13 +4,29 @@ from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.http import Http404
-from .models import Attend, Host, Tag, Event, Comment, User
+from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 
 # def user(request):
 #     if 
 
 # Create your views here.
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            #form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = User.objects.create_user(username=username, password=password)
+            #login(request)
+            #login(signup)
+            return redirect('login')
+    else:
+        form = SignUpForm()
+        
+    return render(request, 'signup.html', {'form':form})
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -71,23 +87,6 @@ def addTags(request):
             print("User tags: ", user.tags.all())
             return redirect(index)
 
-def signup(request, AuthUser):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = User.objects.create_user(username=username, password=password)
-            #login(request, user)
-            password = form.cleaned_data.get('password')
-            user = AuthUser.objects.createuser(username=username, password=password)
-            #login(signup)
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-        
-    return render(request, 'signup.html', {'form':form})
 
 def index(request):
     if getCurrentUserId(request) != NO_USER:
@@ -99,9 +98,12 @@ def index(request):
             'user': current_user,
         }
     else:
+        print("No no")
+        print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }
+    print(data)
     return render(request, 'index.html', data)
 
 # Detail of the Event
@@ -146,3 +148,34 @@ def create(request):
         )
         return redirect('detail', event.id)
     return render(request, 'create.html')
+
+
+def settings(request):
+    edit = User.objects.get(pk=getCurrentUserId(request))
+    if request.method == 'POST':
+        edit.first_name = request.POST.get('first_name')
+        edit.last_name = request.POST.get('last_name')
+        edit.description = request.POST.get('description')
+        edit.age = request.POST.get('age')
+        edit.new_password = request.POST.get('new_password')
+        edit.confirm_password = request.POST.get('confirm_passowrd')  # reconfirm password
+
+        
+        if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
+            edit.password = edit.new_password
+            edit.password.save()
+            return redirect("login")  
+        
+    return render(request, 'settings.html')
+
+    
+def profile(request, user_name):
+    try:
+        user = User.objects.get(username=user_name)
+    except Event.DoesNotExist:
+        raise Http404("Event does not exist")
+    
+    context = {
+        'user': user,
+    }
+    return render(request, 'profile.html', context)
