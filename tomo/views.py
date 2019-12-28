@@ -93,6 +93,9 @@ def index(request):
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
+        for e in events:
+            att = e.attendees.all()
+            num_att = len(att)
         data = { 
             'events': events,
             'user': current_user,
@@ -102,7 +105,6 @@ def index(request):
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
-        'user': user
         }
     print(data)
     return render(request, 'index.html', data)
