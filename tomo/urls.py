@@ -13,5 +13,5 @@ urlpatterns = [
     path('detail/<int:event_id>/', views.detail, name='detail'), #event_detail
     path(r'detail/<int:event_id>/update', views.update, name = 'update'),
     path(r'create', views.create, name = 'create'),
-    path(r'/profile/<str:user_name>/', views.profile, name='user_profile'),
+    path(r'profile/<str:user_name>/', views.profile, name='user_profile'),
 ]

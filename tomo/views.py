@@ -173,7 +173,7 @@ def profile(request, user_name):
     try:
         user = User.objects.get(username=user_name)
     except Event.DoesNotExist:
-        raise Http404("Event does not exist")
+        raise Http404("User does not exist")
     
     context = {
         'user': user,
