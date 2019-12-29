@@ -15,4 +15,6 @@ urlpatterns = [
     path(r'create', views.create, name = 'create'),
     path(r'/profile/<str:user_name>/', views.profile, name='user_profile'),
     path(r'settings/', views.settings, name='settings'),
+    # path('api/slide_view', views.api_view),
+    # path('api/calendar_view', views.api_view),
 ]

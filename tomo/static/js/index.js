@@ -104,3 +104,16 @@ $(document).ready(function () {
     }
 
 });
+
+// function view(method) {
+//     var req = new XMLHttpRequest();
+//     req.onreadystatechange = function(){
+//         if ((req.readyState == 4) && (req.status == 200)) {
+//             var json = JSON.parse(req.responseText);
+//             var element =  document.getElementById('like'+json.id);
+//             element.textContent = json.like;
+//         }
+//     }
+//     req.open('GET', '/api/date_sort');
+//     req.send(null);
+// }

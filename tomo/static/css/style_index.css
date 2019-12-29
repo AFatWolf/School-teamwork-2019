@@ -1,3 +1,7 @@
+.cred {
+    text-align: right;
+}
+
 .MultiCarousel {
     float: left;
     overflow: hidden;
@@ -21,6 +25,8 @@
     margin: 10px;
     background: #f1f1f1;
     color: #666;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
 }
 
 .MultiCarousel .leftLst,
@@ -43,3 +49,22 @@
     pointer-events: none;
     background: #ccc;
 }
+
+
+.section {
+    margin: 0 100px 0 100px;
+    padding: 32px 0 0;
+}
+
+/* h3 {
+    text-align: right;
+} */
+/* .MultiCarousel .MultiCarousel-inner .item>div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+} */
+/* img {
+    max-width: 50%;
+    max-height: 50%;
+  } */
