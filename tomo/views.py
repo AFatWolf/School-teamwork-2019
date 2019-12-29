@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 
@@ -93,11 +93,22 @@ def index(request):
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
-        state = 'slide'
+        state=True
+        # for e in events:
+        #     u1=e.attendees.all()[0].username
+        #     u2=e.attendees.all()[1].username
+        if 'view' in request.GET:
+            if request.GET["view"] == "slide":
+                state = True
+            else:
+                events = Event.objects.order_by('-hosted_at')
+                state = False
         data = { 
             'events': events,
             'user': current_user,
             'state': state,
+            # 'user1': u1,
+            # 'user2': u2,
         }
     else:
         print("No no")
@@ -108,19 +119,6 @@ def index(request):
     print(data)
     return render(request, 'index.html', data)
 
-def api_view(request):
-    if 'view' in request.GET:
-        if request.GET["view"] == "slide":
-            events = Event.objects.order_by('-hosted_at')
-            state = 'slide'
-        else:
-            events = Event.objects.order_by('-hosted_at')
-            state = 'caledar'
-    result = {
-        'moded_view': events,
-        'state': state
-    }
-    return JsonResponse(result)
 
 # Detail of the Event
 def detail(request, event_id):
