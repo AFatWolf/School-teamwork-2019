@@ -33,17 +33,17 @@ def login(request):
         password = request.POST['password']
         try:
             user = User.objects.get(username=username)
-        except Exception as e: # no user
+        except Exception as e:
             context = {
                 'wrongUsername': True 
             }
             return render(request, 'login.html', context)
-        if authenticate(username=username, password=password) == None: # wrong password
+        if authenticate(username=username, password=password) == None:
             context = {
                 'wrongPassword': True
             }
             return render(request, 'login.html', context)
-        else: # ok
+        else:
             try:
                 setUserId(request, username=username)
             except Exception as e:
