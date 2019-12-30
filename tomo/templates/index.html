@@ -24,7 +24,8 @@
         {% endif %}
         {% if user.id %}
         <a href="{% url 'user_profile' user.username%}" class="btn btn-primary">Hello {{ user }}!</a>
-        <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+        <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a> </br>
+        <a href="#" class="btn btn-tertiary">Settings</a>
         {% endif %}
     </div>
     {% if not user.id %}
