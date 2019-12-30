@@ -1,11 +1,14 @@
 
 <!DOCTYPE html>
 {% load widget_tweaks %}
+{% load static %}
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+
   <title>SignUp</title>
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -17,8 +20,8 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
-<body>
-    <div class="container">
+<body class='background' style="background-image: url('static/images/Dang1.jpg');">
+    <div class="container" id="title">
 			<div class="col-md-5 mx-auto">
 			  <div id="first">
 			      <div class="myform form ">
@@ -41,8 +44,7 @@
 
                         {% for field in form %}
                           <div class="form-group">
-                            {{ field.label_tag }}
-
+                            <label >{{field.label_tag }}</label>
                             {% if form.is_bound %}
                               {% if field.errors %}
                                 {% render_field field class="form-control is-invalid" %}
@@ -75,6 +77,8 @@
                             </div>
                         </form>
                      </div>
+            </div>
+        </div>
 			</div>
 		</div>
       </div>   
