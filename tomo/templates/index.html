@@ -29,8 +29,12 @@
     </div>
     {% if not user.id %}
     <div class="section">
-        <h2>Nearby events</h2>
-        <h4 href="#" style="float: right">See all</h4>
+        <div>
+            <nobr>
+                <h2>Featured
+                    <a style="float: right; font-size:50%" href="#">See all</a></h2>
+            </nobr>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
@@ -47,9 +51,9 @@
                                 {% elif event.attendees.all.count == 1 %}
                                 <p>{{event.attendees.all.username}} will go</p>
                                 {% elif event.attendees.all.count == 2 %}
-                                <p>{{event.attendees.all.username}} and {{event.attendees.all.username}} will go</p>
+                                <p>{{event.attendees.all.username|first}} and {{event.attendees.all.username|last}} will go</p>
                                 {% else %}
-                                <p>{{event.attendees.all.username}}, {{event.attendees.all.username}} and
+                                <p>{{event.attendees.all.username|first}}, {{event.attendees.all.username|last}} and
                                     {{event.attendees.all.count}} other people will go
                                 </p>
                                 {% endif %}
@@ -69,8 +73,10 @@
     </div>
     <div class="section">
         <div>
-            <h2>Featured</h2>
-            <a style="float: right" href="#"></a>
+            <nobr>
+                <h2>Featured
+                    <a style="float: right; font-size:50%" href="#">See all</a></h2>
+            </nobr>
         </div>
         <div class="container">
             <div class="row">
@@ -107,13 +113,19 @@
         <a href="{% url 'index' %}?view=slide">Events</a> |
         <a href="{% url 'index' %}?view=calendar">Calendar</a>
     </div>
-    {% if state == 'slide' %}
-    <div class="section">
-            <h2>Nearby events</h2>
-            <h4 href="#" style="float: right">See all</h4>
+    {% if state %}
+    <div class="slide">
+        <div class="section">
+            <div>
+                <nobr>
+                    <h2>Featured
+                        <a style="float: right; font-size:50%" href="#">See all</a></h2>
+                </nobr>
+            </div>
             <div class="container">
                 <div class="row">
-                    <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
+                    <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel"
+                        data-interval="1000">
                         <div class="MultiCarousel-inner">
                             {% for event in events %}
                             <div class="item">
@@ -145,16 +157,19 @@
                         </button>
                     </div>
                 </div>
-    </div>
-    </div>
-    <div class="section">
+            </div>
+        </div>
+        <div class="section">
             <div>
-                <nobr><h2>Featured
-                <a style="float: right; font-size:50%" href="#">See all</a></h2></nobr>
+                <nobr>
+                    <h2>Featured
+                        <a style="float: right; font-size:50%" href="#">See all</a></h2>
+                </nobr>
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel" data-interval="1000">
+                    <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel"
+                        data-interval="1000">
                         <div class="MultiCarousel-inner">
                             {% for i in "x"|rjust:"100" %}
                             <div class="item">
@@ -178,19 +193,25 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
     {% endif %}
 
-    {% if state == 'calendar' %}
-        {% for e in moded_views %}
-        <div class="card mb-3">
-                <div class="card-header">
-                  <a href="{% url 'detail' e.id %}">{{ e.name }}</a>
-                  <small>[{{ name.hosted_at }}]</small>
-        </div>
-        {% endfor %}
-    {% endif %}
+    {% if not state %}
 
+    {% for event in events %}
+    <div class="section">
+        <div class="card mb-3">
+            <div class="card-header">
+                <small>Hosted by: {{event.host}}</small><br>
+                <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
+                <small>[{{ event.hosted_at }}]</small><br>
+                <small>{{event.attendees.all.count}} people will go</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endif %}
 </body>
 
