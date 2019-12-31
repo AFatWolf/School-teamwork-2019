@@ -93,13 +93,7 @@ def index(request):
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
-        state = True
-        if 'view' in request.GET:
-            if request.GET["view"] == "slide":
-                state = True
-            else:
-                events = Event.objects.order_by('-hosted_at')
-                state = False
+        state = 'slide'
         data = { 
             'events': events,
             'user': current_user,
@@ -114,19 +108,19 @@ def index(request):
     print(data)
     return render(request, 'index.html', data)
 
-# def api_view(request):
-#     if 'view' in request.GET:
-#         if request.GET["view"] == "slide":
-#             events = Event.objects.order_by('-hosted_at')
-#             state = 'slide'
-#         else:
-#             events = Event.objects.order_by('-hosted_at')
-#             state = 'caledar'
-#     result = {
-#         'moded_view': events,
-#         'state': state
-#     }
-#     return JsonResponse(result)
+def api_view(request):
+    if 'view' in request.GET:
+        if request.GET["view"] == "slide":
+            events = Event.objects.order_by('-hosted_at')
+            state = 'slide'
+        else:
+            events = Event.objects.order_by('-hosted_at')
+            state = 'caledar'
+    result = {
+        'moded_view': events,
+        'state': state
+    }
+    return JsonResponse(result)
 
 # Detail of the Event
 def detail(request, event_id):
