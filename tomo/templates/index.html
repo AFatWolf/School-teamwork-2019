@@ -42,17 +42,7 @@
                                 <p>{{event.detail}}</p>
                                 <p>Date: {{event.hosted_at}}</p>
                                 <p>Host: {{event.host}}</p>
-                                {% if event.attendees.all.count == 0 %}
-                                <p>Nobody has registered yet</p>
-                                {% elif event.attendees.all.count == 1 %}
-                                <p>{{event.attendees.all.username}} will go</p>
-                                {% elif event.attendees.all.count == 2 %}
-                                <p>{{event.attendees.all.username}} and {{event.attendees.all.username}} will go</p>
-                                {% else %}
-                                <p>{{event.attendees.all.username}}, {{event.attendees.all.username}} and
-                                    {{event.attendees.all.count}} other people will go
-                                </p>
-                                {% endif %}
+                                <p>{{event.attendees.all.count}} people will attend</p>
                             </div>
                         </div>
                         {%endfor%}
@@ -107,7 +97,7 @@
         <a href="{% url 'index' %}?view=slide">Events</a> |
         <a href="{% url 'index' %}?view=calendar">Calendar</a>
     </div>
-    {% if state == 'slide' %}
+    {% if state %}
     <div class="section">
             <h2>Nearby events</h2>
             <h4 href="#" style="float: right">See all</h4>
@@ -122,17 +112,7 @@
                                     <p>{{event.detail}}</p>
                                     <p>Date: {{event.hosted_at}}</p>
                                     <p>Host: {{event.host}}</p>
-                                    {% if event.attendees.all.count == 0 %}
-                                    <p>Nobody has registered yet</p>
-                                    {% elif event.attendees.all.count == 1 %}
-                                    <p>{{event.attendees.all.username}} will go</p>
-                                    {% elif event.attendees.all.count == 2 %}
-                                    <p>{{event.attendees.all.username}} and {{event.attendees.all.username}} will go</p>
-                                    {% else %}
-                                    <p>{{event.attendees.all.username}}, {{event.attendees.all.username}} and
-                                        {{event.attendees.all.count}} other people will go
-                                    </p>
-                                    {% endif %}
+                                    <p>{{event.attendees.all.count}} will go</p>
                                 </div>
                             </div>
                             {%endfor%}
@@ -181,17 +161,19 @@
     </div>
     {% endif %}
 
-    {% if state == 'calendar' %}
-        {% for e in moded_views %}
+    {% if not state %}
+        {% for e in events %}
         <div class="card mb-3">
                 <div class="card-header">
-                  <a href="{% url 'detail' e.id %}">{{ e.name }}</a>
-                  <small>[{{ name.hosted_at }}]</small>
+                    <small>Hosted by: {{e.host}}</small><br>
+                  <a href="{% url 'detail' e.id %}">{{ e.name }}</a><br>
+                  <small>[{{ e.hosted_at }}]</small>
         </div>
         {% endfor %}
     {% endif %}
 
     {% endif %}
+        </div>
 </body>
 
 </html>
