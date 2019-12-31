@@ -1,11 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>Log In</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
     </head>
-    <body>
-        {% if wrongUsername %}
+    <body >
+        <!-- {% if wrongUsername %}
         <div><bold>Wrong Username!</bold></div> 
         {% endif %}
         {% if wrongPassword %}
@@ -20,6 +26,48 @@
             <input name="password" placeholder="Password" type="password">
             <br>
             <button type="submit">Log In</button>
-        </form>
+        </form> -->
+        <div class="">
+            <img src="{% static 'images/.jpg' %}" class="background" alt="">
+            <div class="container" >
+                <div class="row">
+                    <div class="card col-xl-4 offset-xl-4"> 
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Log in</h4>
+                            {% if wrongUsername %}
+                            <div class="text-warning text-center">Wrong Username!</div> 
+                            {% endif %}
+                            {% if wrongPassword %}
+                            <div class="text-warning text-center">Wrong Password!</div>
+                            {% endif %}
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="username">Username: </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> <!-- input-group-prepend -->
+                                        <input class="form-control" name="username" placeholder="Username" type="text">
+                                        <br>
+                                    </div> <!-- input-group -->
+                                    <label for="password">Password: </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                        </div> <!-- input-group-prepend -->
+                                        <input class="form-control" name="password" placeholder="Password" type="password">
+                                        <br>
+                                    </div> <!-- input-group -->
+                                </div> <!-- form-group -->
+                                <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                                <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
+                            </form>
+                        </div> <!-- card-body -->
+                    </div> <!-- card -->
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- background -->
+    </div>
     </body>
 </html>
