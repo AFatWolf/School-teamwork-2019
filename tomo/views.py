@@ -168,7 +168,9 @@ def create(request):
 
 def settings(request):
     edit = User.objects.get(pk=getCurrentUserId(request))
+
     if request.method == 'POST':
+        edit.username = request.POST.get('username')
         edit.first_name = request.POST.get('first_name')
         edit.last_name = request.POST.get('last_name')
         edit.description = request.POST.get('description')
