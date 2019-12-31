@@ -1,1 +1,7 @@
 *.pyc
+db old.sqlite3
+<<<<<<< HEAD
+*.sqlite3
+=======
+>>>>>>> parent of 71e3b4b... Merge branch 'master' of https://gitlab.com/s1f101910016/teamproject2018
+db.sqlite3
