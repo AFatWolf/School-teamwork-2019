@@ -134,17 +134,7 @@
                                     <p>{{event.detail}}</p>
                                     <p>Date: {{event.hosted_at}}</p>
                                     <p>Host: {{event.host}}</p>
-                                    {% if event.attendees.all.count == 0 %}
-                                    <p>Nobody has registered yet</p>
-                                    {% elif event.attendees.all.count == 1 %}
-                                    <p>{{event.attendees.all.username}} will go</p>
-                                    {% elif event.attendees.all.count == 2 %}
-                                    <p>{{event.attendees.all.username}} and {{event.attendees.all.username}} will go</p>
-                                    {% else %}
-                                    <p>{{event.attendees.all.username}}, {{event.attendees.all.username}} and
-                                        {{event.attendees.all.count}} other people will go
-                                    </p>
-                                    {% endif %}
+                                    <p>{{event.attendees.all.count}} people will go</p>
                                 </div>
                             </div>
                             {%endfor%}
