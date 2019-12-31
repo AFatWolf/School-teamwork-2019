@@ -1,2 +1,3 @@
 *.pyc
 db old.sqlite3
+*.sqlite3
