@@ -86,10 +86,12 @@
     display: inline-block;
     margin-right: 10px;
     text-align: center;
+    vertical-align: top;
 }
 
 .nono1 {
     display: inline-block;
+    vertical-align: middle;
 }
 
 .wrapper {
