@@ -1,9 +1,22 @@
 .tags_box {
-    border: solid red 2px;
+    /* border: solid #FF69B4 1px; */
+    border: solid white 1px;
+    background-color: 	#FFB6C1;
+    color: white;
     border-radius: 50px;
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
     padding: 2px 5px 2px 5px;
+}
+
+.submit-btn {
+    color: white;
+    background-color: #FF69B4;
+    
+}
+
+.card {
+    border: #FF69B4 solid 1px;
 }
