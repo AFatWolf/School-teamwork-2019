@@ -122,8 +122,11 @@
                             <div class="item">
                                 <div class="pad15">
                                     <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
-                                    <a class="lead" href="{% url 'detail' event.id%}" style="text-transform: uppercase; font-weight: bold;">{{event.name}}</a>
-                                    <p>{{event.detail}}</p>
+                                    <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
+                                            style="font-weight: bold;">{{event.name}}</a></div>
+                                    <div class="wrapper">
+                                        <p>{{event.detail}}</p>
+                                    </div>
                                     <small class="ppp"> Hosted by {{event.host}}</small><br>
                                     <small>{{event.attendees.all.count}} people will go</small>
                                 </div>
@@ -157,8 +160,10 @@
                                 <div class="pad15">
                                     <img src="https://www.meme-arsenal.com/memes/f786351845be7acd9ff36fd1e7b6b0d7.jpg"
                                         style='height: 100%; width: 100%; object-fit: contain'>
-                                    <a class="lead">Straight party at Thanh's room</a>
-                                    <p>Polite and formal party for gentlement ( ͡° ͜ʖ ͡°)</p>
+                                    <div class="wrapper"><a class="lead">Straight party at Thanh's room</a></div>
+                                    <div class="wrapper">
+                                        <p><a>Polite and formal party for gentlement ( ͡° ͜ʖ ͡°)</a></p>
+                                    </div>
                                     <p>Date: now</p>
                                     <p>None</p>
                                 </div>
@@ -188,10 +193,10 @@
                     <div>{{event.hosted_at|date:'g:i A'}}</div>
                 </div>
                 <div class="nono1">
-                <small>Hosted by: {{event.host}}</small><br>
-                <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
-                <small>{{event.attendees.all.count}} people will go</small>
-            </div>
+                    <small>Hosted by: {{event.host}}</small><br>
+                    <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
+                    <small>{{event.attendees.all.count}} people will go</small>
+                </div>
             </div>
         </div>
     </div>

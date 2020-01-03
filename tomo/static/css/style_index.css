@@ -86,20 +86,19 @@
     display: inline-block;
     margin-right: 10px;
     text-align: center;
+    vertical-align: middle;
 }
 
 .nono1 {
     display: inline-block;
+    vertical-align: middle;
 }
 
 .wrapper {
-    text-align: center;
+    text-overflow: ellipsis!important;
+    white-space: nowrap!important;
+    overflow: hidden!important;
 }
-
-.gay {
-    margin: auto;
-}
-
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
@@ -5347,7 +5346,9 @@ input[type=submit].btn-block {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, .125);
-    border-radius: .25rem
+    border-radius: .25rem;
+    width: 60%;
+    align-self: center;
 }
 
 .card>hr {
@@ -5397,7 +5398,7 @@ input[type=submit].btn-block {
     padding: .75rem 1.25rem;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, .03);
-    border-bottom: 1px solid rgba(0, 0, 0, .125)
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
 .card-header:first-child {
