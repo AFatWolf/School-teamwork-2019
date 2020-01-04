@@ -54,7 +54,11 @@
 
 .section {
     margin: 0 100px 0 100px;
-    padding: 32px 0 0;
+    
+}
+
+.rap-god {
+    padding-bottom: 32px;
 }
 
 /* h3 {
@@ -98,6 +102,10 @@
     text-overflow: ellipsis!important;
     white-space: nowrap!important;
     overflow: hidden!important;
+}
+
+.wrapper p {
+    display: block;
 }
 
 /*!

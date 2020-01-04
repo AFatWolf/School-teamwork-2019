@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.http import Http404, JsonResponse
 from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
+import datetime
 
 # def user(request):
 #     if 
@@ -93,10 +94,21 @@ def index(request):
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
+        date_data = Event.objects.values_list('hosted_at', flat=True).order_by('-hosted_at')
+        date_list=[]
+        for d in date_data:
+            date = d.strftime("%A, %B %#d, %Y")
+            if date not in date_list:
+                date_list.append(date)
+        # date_dict = { i : date_list[i] for i in range(0, len(date_list) ) }
+        dict_date = {}
+        for d in date_list:
+            new_list=[]
+            for e in events:
+                if e.hosted_at.strftime("%A, %B %#d, %Y") == d:
+                    new_list.append(e)
+                    dict_date[d] = new_list
         state=True
-        # for e in events:
-        #     u1=e.attendees.all()[0].username
-        #     u2=e.attendees.all()[1].username
         if 'view' in request.GET:
             if request.GET["view"] == "slide":
                 state = True
@@ -107,8 +119,7 @@ def index(request):
             'events': events,
             'user': current_user,
             'state': state,
-            # 'user1': u1,
-            # 'user2': u2,
+            'date_list': dict_date,
         }
     else:
         print("No no")
