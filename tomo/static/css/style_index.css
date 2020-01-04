@@ -57,6 +57,11 @@
     
 }
 
+.section-slide {
+    padding-top: 32px;
+    margin: 0 100px 0 100px;
+}
+
 .rap-god {
     padding-bottom: 32px;
 }
