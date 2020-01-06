@@ -3,11 +3,20 @@
 <html>
 
 <head>
-    <title>Welcome to *website's name here*</title>
+    <title>Welcome to TOMO</title>
     <meta charset="utf-8">
     <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+    <!-- <script src="//code.jquery.com/jquery-3.4.1.min.js"></script> -->
     <link rel="stylesheet" href="{% static 'css/style_index.css' %}" />
     <script src="{% static 'js/index.js' %}"></script>
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -184,30 +193,33 @@
     {% endif %}
 
     {% if not state %}
-    
-    {% for key, value in date_list.items %}
-    <div class="rap-god">
-    <div class="section">{{ key }}</div>
-        {% for event in value %}
-    <div class="section">
-        <div class="card mb-3">
-            <div class="card-header">
-                <div class="nono">
-                    <div>{{event.hosted_at|date:'g:i A'}}</div>
-                </div>
-                <div class="nono1">
-                    <small>Hosted by: {{event.host}}</small><br>
-                    <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
-                    <small>{{event.attendees.all.count}} people will go</small>
+    <div class="column1">
+        {% for key, value in date_list.items %}
+        <div class="rap-god">
+            <div class="section" style="text-transform: uppercase;">{{ key }}</div>
+            {% for event in value %}
+            <div class="section">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="nono">
+                            <div>{{event.hosted_at|date:'g:i A'}}</div>
+                        </div>
+                        <div class="nono1">
+                            <small>Hosted by: {{event.host}}</small><br>
+                            <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
+                            <small>{{event.attendees.all.count}} people will go</small>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-    </div>
-    
-    
         {% endfor %}
+
     </div>
-    {% endfor %}
+    <div class="column2">
+        <div id="datepicker">
+    </div>
 
     {% endif %}
     {% endif %}
