@@ -139,14 +139,12 @@ def detail(request, event_id):
         raise Http404("Event does not exist")
     if request.method == 'POST':
         try:
-            comment = Comment(event=event, text=request.POST['comment_text'], date=timezone.now())
-            comment.save()
+            Comment.objects.create(event=event, content=request.POST['comment_text'], date=timezone.now())
         except:
             pass
-    
     context = {
         'event': event,
-        'comment': event.comments.order_by('-posted_at')
+        'comments': event.comments.order_by('-date')
     }
     return render(request, 'detail.html', context)
 
