@@ -3,6 +3,8 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/all.min.css' %}" />
         <title>{{ event.name }}</title>
     </head>
     <body>
@@ -12,30 +14,36 @@
         <h2>Comments</h2>
         <!-- Post a comment -->
         <form action="{% url 'detail' event.id %}" method="post">
-            {% csrf_token %}
+        {% csrf_token %}
             <div class="form-group">
-              <label for="textInput">Text</label>
-              <textarea id="textInput" name="comment_text" class="form-control" row="3"></textarea>
+                <label for="textInput">Text</label>
+                <textarea id="textInput" name="comment_text" class="form-control" row="3"></textarea>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-        
-         <!-- View comments -->
+
+        <!-- Comment section -->
         {% if comments %}
         {% for comment in comments %}
         <div class="card mb-3">
             <div class="card-hearder">
                 <small>[{{ comment.date }}]</small>
+                <div class="float-right">
+                    <a onclick="like({{comment.id}});" class="btn btn-outline-dark btn-sm">
+                      <i class="fas fa-thumbs-up"></i>
+                      <span id="like{{comment.id}}">{{ comment.like }}</span>
+                    </a>
+                  </div>
             </div>
             <div class="card-body">
-                {{ comment.text | linebreaksbr }}
-            </div>
+            {{ comment.content | linebreaksbr }}
+        </div>
         </div>
         {% endfor %}
         {% else %}
-        <p>No comment yet.</p>
+        <p>No comment.</p>
         {% endif %}
         <a href="{% url 'index' %}">Home</a>
     </body>
