@@ -17,6 +17,7 @@
             <div class="one">
                 <h2>Description</h2>
                 <p>{{ event.detail }}</p>
+                <br>
                 <h2>Comments</h2>
                 <!-- Comment section -->
                 {% if comments %}
@@ -39,6 +40,7 @@
                 {% else %}
                 <p>No comment.</p>
                 {% endif %}
+                <br>
                 <!-- Post a comment -->
                 <form action="{% url 'detail' event.id %}" method="post">
                 {% csrf_token %}
