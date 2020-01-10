@@ -216,14 +216,14 @@ def settings(request):
         edit.age = request.POST.get('age')
         edit.new_password = request.POST.get('new_password')
         edit.confirm_password = request.POST.get('confirm_passowrd')  # reconfirm password
-
-        
         if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
             edit.password = edit.new_password
             edit.password.save()
             return redirect("login")  
-        
-    return render(request, 'settings.html')
+    context = {
+        'edit': edit
+    }   
+    return render(request, 'settings.html', context)
 
     
 def profile(request, user_name):
