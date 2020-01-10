@@ -103,6 +103,23 @@ $(document).ready(function () {
         ResCarousel(ell, Parent, slide);
     }
 
-    $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
+    //Datepicker for calendar
+    $(function () {
+        $(".datepicker").datepicker({ 
+            showButtonPanel: true,
+            onSelect: function (dateText, inst) {
+                console.log( dateText );
+                $.ajax({
+                    url: "/index/",
+                    data: {
+                        'date': dateText,
+                    },
+                    success: function () {
+                        $(".ajaxresponse").load("index?view=calendar");
+                    },
+                });
+            }
+        });
+    });
 
 });

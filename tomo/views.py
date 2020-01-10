@@ -7,6 +7,7 @@ from django.http import Http404, JsonResponse
 from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 import datetime
+import pytz
 
 # def user(request):
 #     if 
@@ -95,12 +96,14 @@ def index(request):
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         date_data = Event.objects.values_list('hosted_at', flat=True).order_by('-hosted_at')
+        list_date_data = list(date_data)
+        sorted_list_date = sorted(list_date_data, reverse=True)
+
         date_list=[]
-        for d in date_data:
+        for d in sorted_list_date:
             date = d.strftime("%A, %B %#d, %Y")
             if date not in date_list:
                 date_list.append(date)
-        # date_dict = { i : date_list[i] for i in range(0, len(date_list) ) }
         dict_date = {}
         for d in date_list:
             new_list=[]
@@ -108,6 +111,9 @@ def index(request):
                 if e.hosted_at.strftime("%A, %B %#d, %Y") == d:
                     new_list.append(e)
                     dict_date[d] = new_list
+                else:
+                    pass
+
         state=True
         if 'view' in request.GET:
             if request.GET["view"] == "slide":
@@ -115,21 +121,49 @@ def index(request):
             else:
                 events = Event.objects.order_by('-hosted_at')
                 state = False
+        if 'date' in request.GET:
+            pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
+            pivot = pytz.UTC.localize(pivot)
+            list_date_data.append(pivot)
+            sorted_list_date = sorted(list_date_data, reverse=True)
+            sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
+            date_list=[]
+            for d in sorted_list_date:
+                date = d.strftime("%A, %B %#d, %Y")
+                if date not in date_list:
+                    date_list.append(date)
+            dict_date = {}
+            for d in date_list:
+                new_list=[]
+                for e in events:
+                    if e.hosted_at.strftime("%A, %B %#d, %Y") == d:
+                        new_list.append(e)
+                        dict_date[d] = new_list
+                    else:
+                        pass
+            print("sorted: ",sorted_list_date)
+            data = { 
+                'events': events,
+                'user': current_user,
+                'state': state,
+                'date_list': dict_date,
+            }
+            return render(request, 'index.html',data)
+            # return redirect(index)
         data = { 
             'events': events,
             'user': current_user,
             'state': state,
             'date_list': dict_date,
         }
+        print("sorted out side: ",sorted_list_date)
     else:
         print("No no")
         print("Hey ", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }
-    print(data)
     return render(request, 'index.html', data)
-
 
 # Detail of the Event
 def detail(request, event_id):
@@ -182,14 +216,14 @@ def settings(request):
         edit.age = request.POST.get('age')
         edit.new_password = request.POST.get('new_password')
         edit.confirm_password = request.POST.get('confirm_passowrd')  # reconfirm password
+
+        
         if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
             edit.password = edit.new_password
             edit.password.save()
             return redirect("login")  
-    context = {
-        'edit': edit
-    }   
-    return render(request, 'settings.html', context)
+        
+    return render(request, 'settings.html')
 
     
 def profile(request, user_name):
