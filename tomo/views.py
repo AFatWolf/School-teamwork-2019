@@ -148,8 +148,11 @@ def index(request):
                 'state': state,
                 'date_list': dict_date,
             }
+            print("Render:")
+            print(render(request, 'index.html',data).content)
             return render(request, 'index.html',data)
             # return redirect(index)
+        
         data = { 
             'events': events,
             'user': current_user,
@@ -157,6 +160,7 @@ def index(request):
             'date_list': dict_date,
         }
         print("sorted out side: ",sorted_list_date)
+
     else:
         print("No no")
         print("Hey ", getCurrentUserId(request))
