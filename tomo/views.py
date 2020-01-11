@@ -1,12 +1,13 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User as AuthUser
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.utils import timezone
 from django.http import Http404, JsonResponse
 from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 import datetime
+
 
 # def user(request):
 #     if 
@@ -19,7 +20,10 @@ def signup(request):
             #form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = User.objects.create_user(username=username, password=password)
+            first_name= form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            email= form.cleaned_data.get(email)
+            user = User.objects.create_user(username=username, password=password, first_name = first_name, last_name=last_name, email=email)
             #login(request)
             #login(signup)
             return redirect('login')
@@ -183,9 +187,19 @@ def settings(request):
         edit.new_password = request.POST.get('new_password')
         edit.confirm_password = request.POST.get('confirm_passowrd')  # reconfirm password
         if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
-            edit.password = edit.new_password
-            edit.password.save()
-            return redirect("login")  
+           form = PasswordChangeForm(request.user, request.POST)
+                    
+                        user = form.save()
+                        update_session_auth_hash(request, user)  # Important!
+                        messages.success(request, 'Your password was successfully updated!')
+                        return redirect('change_password')
+                    
+                else:
+                    form = PasswordChangeForm(request.user)
+                return render(request, 'settings.html', {
+                    'form': form
+                })
+            #return redirect("login")  
     context = {
         'edit': edit
     }   
