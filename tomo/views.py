@@ -229,24 +229,9 @@ def settings(request):
         if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
            form = PasswordChangeForm(request.user, request.POST)
                     
-                        user = form.save()
-                        update_session_auth_hash(request, user)  # Important!
-                        messages.success(request, 'Your password was successfully updated!')
-                        return redirect('change_password')
-                    
-                else:
-                    form = PasswordChangeForm(request.user)
-                return render(request, 'settings.html', {
-                    'form': form
-                })
-            #return redirect("login")  
-    context = {
-        'edit': edit
-    }   
-    return render(request, 'settings.html', context)
-            edit.password = edit.new_password
-            edit.password.save()
-            return redirect("login")  
+           edit.password = edit.new_password
+           edit.password.save()
+           return redirect("login")  
         
     return render(request, 'settings.html')
 
