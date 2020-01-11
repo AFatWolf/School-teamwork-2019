@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1><b>Setting and Privacy</b><h1>
-    <form action="{% url 'settings'%}" method="post">
+    <form action="{% url 'settings' edit.id %}" method="post">
     {% csrf_token %}
             <input name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}"></br>
             <input name="last_name" type="text" placeholder="Last name" value="{{edit.last_name}}"></br>

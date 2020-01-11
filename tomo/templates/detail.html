@@ -17,6 +17,7 @@
             <div class="one">
                 <h2>Description</h2>
                 <p>{{ event.detail }}</p>
+                <br>
                 <h2>Comments</h2>
                 <!-- Comment section -->
                 {% if comments %}
@@ -39,6 +40,7 @@
                 {% else %}
                 <p>No comment.</p>
                 {% endif %}
+                <br>
                 <!-- Post a comment -->
                 <form action="{% url 'detail' event.id %}" method="post">
                 {% csrf_token %}
@@ -52,18 +54,27 @@
                 </form>
             </div>
             <div class="two">
-                <p style='float: left; margin-right: 5px' ><img src="{% static 'images/event_test.jpg' %}" alt="Avatar" style="width:200px"></p> 
+                <p style='float: left; margin-right: 5px' ><img id="ava" src="{% static 'images/event_test.jpg' %}" alt="Avatar" style="width:200px"></p> 
                 <p class='text_two'>Event: {{ event.name }}</p>
                 <p class='text_two'>Hosted by: </p>
                 <p class='text_two'>Hosted at: </p>
             </div>
             <div class="three">
-                <h2>Attendees (number) </h2>
+                <h2>Attendents</h2>
             </div>
             <div class="four">
                 <p>Location: </p>
-                <p>Map (here)</p>
-            </div>
+                <h3>My Google Maps Demo</h3>
+                <div id="map"></div>
+                <script>
+                function initMap() {
+                    var uluru = { lat: 35.7804643, lng: 139.7151025 };
+                    var map = new google.maps.Map(document.getElementById('map'), {zoom: 15, center: uluru});
+                    var marker = new google.maps.Marker({position: uluru, map: map}); 
+                }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQmcTCoxvxXpPHWwYQJG04bLkmtjbySjU&callback=initMap" async defer></script>
         </div>
+    </div>
     </body>
 </html>
