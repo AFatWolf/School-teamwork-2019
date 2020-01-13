@@ -81,6 +81,7 @@ def addTags(request):
         if request.method == 'GET':
             tags = Tag.objects.all()
             context = {
+                'user': user,
                 'tags': tags,
             }
             return render(request, 'addtags.html', context)
