@@ -28,6 +28,7 @@ class SignUpForm(Form):
     first_name=forms.CharField(max_length=30, required=False)
     last_name=forms.CharField(max_length=30, required=False)
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    first_time = models.IntegerField(default=1)
     
     class Meta:
         model = AuthUser
