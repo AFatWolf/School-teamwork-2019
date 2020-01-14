@@ -115,7 +115,7 @@ $(document).ready(function () {
                         'date': dateText,
                     },
                     success: function () {
-                        $(".ajaxresponse").load("index?view=calendar");
+                        $(".column1").load("index_calendar");
                     },
                 });
             }
