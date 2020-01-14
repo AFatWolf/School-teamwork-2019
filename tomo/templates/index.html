@@ -19,6 +19,8 @@
 </head>
 
 <body>
+    {% include 'navbar.html' %}
+
     <div class="cred">
         {% if not user.id %}
         <a href="login" class="btn btn-secondary">Login</a>
