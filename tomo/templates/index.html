@@ -19,9 +19,11 @@
 </head>
 
 <body>
-    {% include 'navbar.html' %}
+    <div class="head-bar">
+        {% include 'navbar.html' %}
+    </div> <!-- head-bar -->
 
-    <div class="cred">
+    <!-- <div class="cred">
         {% if not user.id %}
         <a href="login" class="btn btn-secondary">Login</a>
         <a href="signup" class="btn btn-primary">Sign up</a>
@@ -31,7 +33,7 @@
         <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
         <a href="{% url 'settings' %}" class="btn btn-secondary">settings</a>
         {% endif %}
-    </div>
+    </div> -->
 
     {% if not user.id %}<!--  Logged in display -->
     <div class="section-slide">
