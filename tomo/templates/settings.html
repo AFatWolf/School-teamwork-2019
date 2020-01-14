@@ -1,26 +1,65 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 <head>
     <title> Setting and Privacy </title>
     <meta charset = "utf8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" >
+    <link herf="{% static 'css/settings.css'%}">
+    <script src="{% static 'js/settings/pw_update.js' %}"></script>
+
 </head>
 <body>
     <h1><b>Setting and Privacy</b><h1>
-    <form action="{% url 'settings' edit.id %}" method="post">
+    <form action="{% url 'settings' %}" method="post">
     {% csrf_token %}
+    <div>
             <input name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}"></br>
             <input name="last_name" type="text" placeholder="Last name" value="{{edit.last_name}}"></br>
             <input name="user" type="text" placeholder="user" value="{{edit.username}}"></br>
+            <input name="age" type="number" placeholder="00" value="{{edit.age}}"></br>
             <textarea name="description" placeholder="description">{{ edit.description }}</textarea></br>
-            <input name="password" type="password"  value="{{edit.password}}" placeholder="password">{{edit.password}}</br>
+            <!-- input name="password" type="password"  value="{{edit.password}}" placeholder="password">{{edit.password}}</br>
             <input name="new_password" type="password"  value="{{edit.new_password}}"  placeholder="New password">{{edit.new_password}}</br>
             <input name="confirm_password" type="password"  value="{{edit.confrim_password}}" placeholder="Confirm new password">{{edit.confirm_password}}</br>
-            <input type="submit" value="Update">
-    {{ form }}
-    <button type="submit">Save changes</button>
+            <input type="submit" value="Update"-->
+            <button type="submit">Save changes</button>
+    </div>
+
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+
+                        {% if form.is_bound %}
+                            {% if field.errors %}
+                                {% render_field field class="form-control is-invalid" %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                      {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                              {% render_field field class="form-control is-valid" %}
+                            {% endif %}
+                            {% else %}
+                                {% render_field field class="form-control" %}
+                            {% endif %}
+                              <!-- {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                              {% endif %} -->
+            {% endfor %}
+           
+            <button type="submit">update</button>
     </form>
+
+
 </body>
 
 <html>
 
+ {#{ form }}

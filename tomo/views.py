@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.utils import timezone
@@ -8,6 +8,7 @@ from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
 import datetime
 import pytz
+from django.contrib import messages
 
 
 # def user(request):
@@ -23,7 +24,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             first_name= form.cleaned_data.get('first_name')
             last_name = form.cleaned_data.get('last_name')
-            email= form.cleaned_data.get(email)
+            email= form.cleaned_data.get('email')
             user = User.objects.create_user(username=username, password=password, first_name = first_name, last_name=last_name, email=email)
             #login(request)
             #login(signup)
@@ -222,19 +223,47 @@ def settings(request):
         edit.last_name = request.POST.get('last_name')
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')
-        edit.new_password = request.POST.get('new_password')
-        edit.confirm_password = request.POST.get('confirm_passowrd')  # reconfirm password
-
+        #if authenticate(username=edit.username, password=request.POST['password']) == None:
         
-        if authenticate(username=edit.username, password=request.POST['password']) == None and edit.confirm_password == edit.new_password:
-           form = PasswordChangeForm(request.user, request.POST)
-                    
-           edit.password = edit.new_password
-           edit.password.save()
-           return redirect("login")  
-        
-    return render(request, 'settings.html')
 
+        form = PasswordChangeForm(edit.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('logout') 
+
+        else:
+             messages.error(request, 'Please correct the error below.')
+        
+    else:
+            form = PasswordChangeForm(request.user)
+                
+    change = {
+            'edit':edit,
+            'form':form
+    }
+    return render(request, 'settings.html', change) 
+    
+    #return render(request, 'settings.html' )
+
+'''
+def change_password(request):
+    user = User.objects.get(pk=getCurrentUserId(request))
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            #user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'settings.html', {
+        'form': form
+    }) '''
     
 def profile(request, user_name):
     try:
