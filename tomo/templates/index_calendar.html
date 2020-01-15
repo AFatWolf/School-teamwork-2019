@@ -1,59 +1,27 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Welcome to TOMO</title>
-    <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="{% static 'css/style_index.css' %}" />
-    <script src="{% static 'js/index/index.js' %}"></script>
-    <!-- <script src="{% static 'js/index/datepicker-master/dist/datepicker.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'js/index/datepicker-master/dist/datepicker.min.css' %}" /> -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-</head>
-
-<body>
-{% if user.id %}<!--  NOT logged in display -->
-    <!-- <div class="float-right">
-        <a href="{% url 'index' %}?view=slide">Events</a> |
-        <a href="{% url 'index' %}?view=calendar">Calendar</a>
-    </div>     -->
-        {% if not state %}
-            <div class="column1">
-        {% for key, value in date_list.items %}
-        <div class="rap-god">
-            <div class="section" style="text-transform: uppercase;">{{ key }}</div>
-            {% for event in value %}
-            <div class="section">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <div class="nono">
-                            <div>{{event.hosted_at|date:'g:i A'}}</div>
-                        </div>
-                        <div class="nono1">
-                            <small>Hosted by: {{event.host}}</small><br>
-                            <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
-                            <small>{{event.attendees.all.count}} people will go</small>
+<div class="newly-loaded">
+    {% if not state %}
+        <div class="column1">
+            {% for key, value in date_list.items %}
+            <div class="rap-god">
+                <div class="section" style="text-transform: uppercase;">{{ key }}</div>
+                {% for event in value %}
+                <div class="section">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="nono">
+                                <div>{{event.hosted_at|date:'g:i A'}}</div>
+                            </div>
+                            <div class="nono1">
+                                <small>Hosted by: {{event.host}}</small><br>
+                                <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
+                                <small>{{event.attendees.all.count}} people will go</small>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
             {% endfor %}
-        </div>
-        {% endfor %}
-
-            </div>
-            <div class="column2">
-                <!-- <div data-toggle="datepicker">1234</div> -->
-                <div class="datepicker"></div>
-            </div>
-        {% endif %}
-    </div>
+        </div> <!-- column 1 -->
     {% endif %}
-</body>
+</div>

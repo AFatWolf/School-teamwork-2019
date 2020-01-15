@@ -27,7 +27,8 @@
             <input type="submit" value="Update"-->
             <button type="submit">Save changes</button>
     </div>
-
+    </form>
+    <form action="{% url 'settings' %}" method="post">
             {% for hidden_field in form.hidden_fields %}
                 {{ hidden_field }}
             {% endfor %}

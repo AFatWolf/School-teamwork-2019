@@ -127,12 +127,17 @@ def index(request):
             else:
                 events = Event.objects.order_by('-hosted_at')
                 state = False
+        # if user picked a date
         if 'date' in request.GET:
+            print("Date is in request GET")
+            print("Data is: {}".format(request.GET["date"]))
             pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
             pivot = pytz.UTC.localize(pivot)
             list_date_data.append(pivot)
             sorted_list_date = sorted(list_date_data, reverse=True)
             sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
+            print("List date: ", list_date_data)
+            print("Sorted list date: ", sorted_list_date);
             date_list=[]
             state=False
             for d in sorted_list_date:
@@ -151,29 +156,28 @@ def index(request):
             data = { 
                 'events': events,
                 'user': current_user,
-                'state': state,
+                'state':0, # display the calendar display
                 'date_list': dict_date,
             }
-            print(state)
+            print(dict_date)
             return render(request, 'index_calendar.html',data)
-            # return redirect(index)
-            print("Render:")
-            print(render(request, 'index.html',data).content)
-            return render(request, 'index.html',data)
-            # return redirect(index)
+
+        # if date not in GET
         data = { 
             'events': events,
             'user': current_user,
             'state': state,
             'date_list': dict_date,
         }
+        return render(request, 'index.html', data)
+
     else:
         print("No no")
-        print("Hey ", getCurrentUserId(request))
+        print("Hey yo im not one", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }
-    return render(request, 'index.html', data)
+        return render(request, 'index.html', data)
 
 # Detail of the Event
 def detail(request, event_id):
