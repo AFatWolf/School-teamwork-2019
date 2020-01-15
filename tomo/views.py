@@ -229,7 +229,6 @@ def settings(request):
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')
         #if authenticate(username=edit.username, password=request.POST['password']) == None:
-        
 
         form = PasswordChangeForm(edit.user, request.POST)
         if form.is_valid():
@@ -240,7 +239,7 @@ def settings(request):
 
         else:
              messages.error(request, 'Please correct the error below.')
-        
+             return redirect('settings')   
     else:
             form = PasswordChangeForm(request.user)
                 
