@@ -13,9 +13,6 @@ $(document).ready(function () {
 
     ResCarouselSize();
 
-
-
-
     $(window).resize(function () {
         ResCarouselSize();
     });
@@ -115,7 +112,7 @@ $(document).ready(function () {
                         'date': dateText,
                     },
                     success: function () {
-                        $(".ajaxresponse").load("index?view=calendar");
+                        $(".column1").load("index_calendar");
                     },
                 });
             }

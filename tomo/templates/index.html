@@ -19,7 +19,11 @@
 </head>
 
 <body>
-    <div class="cred">
+    <div class="head-bar">
+        {% include 'navbar.html' %}
+    </div> <!-- head-bar -->
+
+    <!-- <div class="cred">
         {% if not user.id %}
         <a href="login" class="btn btn-secondary">Login</a>
         <a href="signup" class="btn btn-primary">Sign up</a>
@@ -29,7 +33,7 @@
         <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
         <a href="{% url 'settings' %}" class="btn btn-secondary">settings</a>
         {% endif %}
-    </div>
+    </div> -->
 
     {% if not user.id %}<!--  Logged in display -->
     <div class="section-slide">
@@ -64,7 +68,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- section-slide -->
+
     <div class="section-slide">
         <div>
             <nobr>
@@ -98,7 +103,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- section-slide -->
     {% endif %}
 
     {% if user.id %}<!--  NOT logged in display -->
@@ -146,7 +151,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- section-slide -->
+        
         <div class="section-slide">
             <div>
                 <nobr>
@@ -189,36 +195,36 @@
     
         {% if not state %}
             <div class="column1">
-        {% for key, value in date_list.items %}
-        <div class="rap-god">
-            <div class="section" style="text-transform: uppercase;">{{ key }}</div>
-            {% for event in value %}
-            <div class="section">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <div class="nono">
-                            <div>{{event.hosted_at|date:'g:i A'}}</div>
-                        </div>
-                        <div class="nono1">
-                            <small>Hosted by: {{event.host}}</small><br>
-                            <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
-                            <small>{{event.attendees.all.count}} people will go</small>
+                {% for key, value in date_list.items %}
+                <div class="rap-god">
+                    <div class="section" style="text-transform: uppercase;">{{ key }}</div>
+                    {% for event in value %}
+                    <div class="section">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <div class="nono">
+                                    <div>{{event.hosted_at|date:'g:i A'}}</div>
+                                </div>
+                                <div class="nono1">
+                                    <small>Hosted by: {{event.host}}</small><br>
+                                    <a href="{% url 'detail' event.id %}">{{ event.name }}</a><br>
+                                    <small>{{event.attendees.all.count}} people will go</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% endfor %}
+                {% endfor %}
+            </div> <!-- column1 -->
 
-            </div>
             <div class="column2">
                 <!-- <div data-toggle="datepicker">1234</div> -->
                 <div class="datepicker"></div>
-            </div>
+            </div> <!-- column2 -->
         {% endif %}
     </div>
-    {% endif %}
+    {% endif %} <!-- NOT logged in display -->
 </body>
 
 </html>

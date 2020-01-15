@@ -134,6 +134,7 @@ def index(request):
             sorted_list_date = sorted(list_date_data, reverse=True)
             sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
             date_list=[]
+            state=False
             for d in sorted_list_date:
                 date = d.strftime("%A, %B %#d, %Y")
                 if date not in date_list:
@@ -147,14 +148,14 @@ def index(request):
                         dict_date[d] = new_list
                     else:
                         pass
-            print("sorted: ",sorted_list_date)
             data = { 
                 'events': events,
                 'user': current_user,
                 'state': state,
                 'date_list': dict_date,
             }
-            return render(request, 'index.html',data)
+            print(state)
+            return render(request, 'index_calendar.html',data)
             # return redirect(index)
             print("Render:")
             print(render(request, 'index.html',data).content)
@@ -166,7 +167,6 @@ def index(request):
             'state': state,
             'date_list': dict_date,
         }
-        print("sorted out side: ",sorted_list_date)
     else:
         print("No no")
         print("Hey ", getCurrentUserId(request))
