@@ -127,63 +127,17 @@ def index(request):
             else:
                 events = Event.objects.order_by('-hosted_at')
                 state = False
+        # if user picked a date
         if 'date' in request.GET:
-            # pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
-            # pivot = pytz.UTC.localize(pivot)
-            # list_date_data.append(pivot)
-            # sorted_list_date = sorted(list_date_data, reverse=True)
-            # sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
-            # date_list=[]
-            # state=False
-            # for d in sorted_list_date:
-            #     date = d.strftime("%A, %B %#d, %Y")
-            #     if date not in date_list:
-            #         date_list.append(date)
-            # dict_date = {}
-            # for d in date_list:
-            #     new_list=[]
-            #     for e in events:
-            #         if e.hosted_at.strftime("%A, %B %#d, %Y") == d:
-            #             new_list.append(e)
-            #             dict_date[d] = new_list
-            #         else:
-            #             pass
-            # data = { 
-            #     'events': events,
-            #     'user': current_user,
-            #     'state': state,
-            #     'date_list': dict_date,
-            # }
-            # print(state)
-            # return render(request, 'index_calendar.html',data)
-            # print("Render:")
-            # print(render(request, 'index.html',data).content)
-            # return render(request, 'index.html',data)
-            redirect(index_calendar)
-        data = { 
-            'events': events,
-            'user': current_user,
-            'state': state,
-            'date_list': dict_date,
-        }
-    else:
-        print("No no")
-        print("Hey ", getCurrentUserId(request))
-        events = Event.objects.all()
-        data = { 'events': events,
-        }
-    return render(request, 'index.html', data)
-
-def index_calendar(request):
-    if getCurrentUserId(request) != NO_USER:
-        current_user = User.objects.get(pk=getCurrentUserId(request))
-        events = Event.objects.all()
-        if 'date' in request.GET:
+            print("Date is in request GET")
+            print("Data is: {}".format(request.GET["date"]))
             pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
             pivot = pytz.UTC.localize(pivot)
             list_date_data.append(pivot)
             sorted_list_date = sorted(list_date_data, reverse=True)
             sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
+            print("List date: ", list_date_data)
+            print("Sorted list date: ", sorted_list_date);
             date_list=[]
             for d in sorted_list_date:
                 date = d.strftime("%A, %B %#d, %Y")
@@ -201,9 +155,28 @@ def index_calendar(request):
             data = { 
                 'events': events,
                 'user': current_user,
+                'state':0, # display the calendar display
                 'date_list': dict_date,
             }
+            print(dict_date)
             return render(request, 'index_calendar.html',data)
+
+        # if date not in GET
+        data = { 
+            'events': events,
+            'user': current_user,
+            'state': state,
+            'date_list': dict_date,
+        }
+        return render(request, 'index.html', data)
+
+    else:
+        print("No no")
+        print("Hey yo im not one", getCurrentUserId(request))
+        events = Event.objects.all()
+        data = { 'events': events,
+        }
+        return render(request, 'index.html', data)
 
 # Detail of the Event
 def detail(request, event_id):
@@ -255,7 +228,6 @@ def settings(request):
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')
         #if authenticate(username=edit.username, password=request.POST['password']) == None:
-        
 
         form = PasswordChangeForm(edit.user, request.POST)
         if form.is_valid():
@@ -266,7 +238,7 @@ def settings(request):
 
         else:
              messages.error(request, 'Please correct the error below.')
-        
+             return redirect('settings')   
     else:
             form = PasswordChangeForm(request.user)
                 

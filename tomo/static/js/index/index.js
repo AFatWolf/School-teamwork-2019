@@ -106,14 +106,8 @@ $(document).ready(function () {
             showButtonPanel: true,
             onSelect: function (dateText, inst) {
                 console.log( dateText );
-                $.ajax({
-                    url: "/index_calendar/",
-                    data: {
-                        'date': dateText,
-                    },
-                    success: function () {
-                        $(".column1").load("index_calendar");
-                    },
+                $(".column1").load(`/index?date=${encodeURIComponent(dateText)} .newly-loaded`, function(data) {
+                    console.log(data);
                 });
             }
         });
