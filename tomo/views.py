@@ -128,13 +128,63 @@ def index(request):
                 events = Event.objects.order_by('-hosted_at')
                 state = False
         if 'date' in request.GET:
+            # pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
+            # pivot = pytz.UTC.localize(pivot)
+            # list_date_data.append(pivot)
+            # sorted_list_date = sorted(list_date_data, reverse=True)
+            # sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
+            # date_list=[]
+            # state=False
+            # for d in sorted_list_date:
+            #     date = d.strftime("%A, %B %#d, %Y")
+            #     if date not in date_list:
+            #         date_list.append(date)
+            # dict_date = {}
+            # for d in date_list:
+            #     new_list=[]
+            #     for e in events:
+            #         if e.hosted_at.strftime("%A, %B %#d, %Y") == d:
+            #             new_list.append(e)
+            #             dict_date[d] = new_list
+            #         else:
+            #             pass
+            # data = { 
+            #     'events': events,
+            #     'user': current_user,
+            #     'state': state,
+            #     'date_list': dict_date,
+            # }
+            # print(state)
+            # return render(request, 'index_calendar.html',data)
+            # print("Render:")
+            # print(render(request, 'index.html',data).content)
+            # return render(request, 'index.html',data)
+            redirect(index_calendar)
+        data = { 
+            'events': events,
+            'user': current_user,
+            'state': state,
+            'date_list': dict_date,
+        }
+    else:
+        print("No no")
+        print("Hey ", getCurrentUserId(request))
+        events = Event.objects.all()
+        data = { 'events': events,
+        }
+    return render(request, 'index.html', data)
+
+def index_calendar(request):
+    if getCurrentUserId(request) != NO_USER:
+        current_user = User.objects.get(pk=getCurrentUserId(request))
+        events = Event.objects.all()
+        if 'date' in request.GET:
             pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
             pivot = pytz.UTC.localize(pivot)
             list_date_data.append(pivot)
             sorted_list_date = sorted(list_date_data, reverse=True)
             sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
             date_list=[]
-            state=False
             for d in sorted_list_date:
                 date = d.strftime("%A, %B %#d, %Y")
                 if date not in date_list:
@@ -151,29 +201,9 @@ def index(request):
             data = { 
                 'events': events,
                 'user': current_user,
-                'state': state,
                 'date_list': dict_date,
             }
-            print(state)
             return render(request, 'index_calendar.html',data)
-            # return redirect(index)
-            print("Render:")
-            print(render(request, 'index.html',data).content)
-            return render(request, 'index.html',data)
-            # return redirect(index)
-        data = { 
-            'events': events,
-            'user': current_user,
-            'state': state,
-            'date_list': dict_date,
-        }
-    else:
-        print("No no")
-        print("Hey ", getCurrentUserId(request))
-        events = Event.objects.all()
-        data = { 'events': events,
-        }
-    return render(request, 'index.html', data)
 
 # Detail of the Event
 def detail(request, event_id):

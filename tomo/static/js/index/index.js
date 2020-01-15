@@ -107,7 +107,7 @@ $(document).ready(function () {
             onSelect: function (dateText, inst) {
                 console.log( dateText );
                 $.ajax({
-                    url: "/index/",
+                    url: "/index_calendar/",
                     data: {
                         'date': dateText,
                     },
