@@ -64,7 +64,9 @@ def login(request):
         if getCurrentUserId(request) != NO_USER:
             return redirect(index)
         else:
-            context = {}
+            context = {
+                'notLogin': True
+            }
             return render(request, 'login.html', context)
 
 def logout(request):
