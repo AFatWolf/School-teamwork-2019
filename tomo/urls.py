@@ -16,5 +16,4 @@ urlpatterns = [
     path(r'profile/<str:user_name>/', views.profile, name='user_profile'),
     path(r'settings/', views.settings, name='settings'),
     #path(r'settings/change_password/', views.change_password, name='change_password'),
-    path(r'index_calendar/', views.index, name='index_calendar'),
 ]

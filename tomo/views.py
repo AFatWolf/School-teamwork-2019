@@ -139,7 +139,6 @@ def index(request):
             print("List date: ", list_date_data)
             print("Sorted list date: ", sorted_list_date);
             date_list=[]
-            state=False
             for d in sorted_list_date:
                 date = d.strftime("%A, %B %#d, %Y")
                 if date not in date_list:
