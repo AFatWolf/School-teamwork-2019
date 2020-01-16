@@ -79,8 +79,6 @@
     margin-top:80px;
 }
 
-.lead {}
-
 .datetime {
     /* font-weight: bold; */
     color: #0098ab;
@@ -111,6 +109,12 @@
 
 .wrapper p {
     display: block;
+}
+
+.datepicker {
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0 3px 6px #ccc;
+    box-shadow: 0 3px 6px #ccc;
 }
 
 /*!
