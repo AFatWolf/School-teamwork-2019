@@ -20,11 +20,11 @@
             <div class="card col-md-12 text-center"> 
                 <div class="card-body">
                     <h1 "card-title text-center"><b>Setting and Privacy</b><h1>
-                    <form action="{% url 'settings' %}" method="post">
+                    <form method="#">
                     {% csrf_token %}
 
-                    <div class="card col-md-12 text-center">
-                        <form>
+                    <div class="card col-md-5 text-center">
+                        <form id="user_data" action="{% url 'settings' %}" method ="post">
                         First name: <input id="first_name" name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}"></br>
                         </form>
                         <label  for="last_name">Last Name: </label>
@@ -47,14 +47,14 @@
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Save Changes</button>
                         </div>
                     </div> </br>
-                    
+                    </form>
                     
                     <div class="card col-mid-12 text-center">
                     {% if wrongPassword %}
                             <div class="text-warning text-center">Wrong Password!</div>
                     {% endif %}
 
-                    
+                    <form id="user_data" action="{% url 'settings'%}" method = "post">
                     <h4 class="card-title text-center">Change Password </h4>
                     {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field }}
