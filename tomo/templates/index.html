@@ -58,15 +58,15 @@
                             </div>
                         </div>
                         {%endfor%}
-                    </div>
+                    </div> <!-- MultiCarousel-inner -->
                     <button class="btn btn-primary leftLst">
                         <span class="fas fa-chevron-left"></span>
                     </button>
                     <button class="btn btn-primary rightLst">
                         <i class="fas fa-chevron-right"></i>
                     </button>
-                </div>
-            </div>
+                </div> <!-- MultiCarousel -->
+            </div> <!-- row -->
         </div>
     </div> <!-- section-slide -->
 
@@ -120,9 +120,9 @@
                         <a style="float: right; font-size:50%" href="#">See all</a></h2>
                 </nobr>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel"
+            <!-- <div class="container">
+                <div class="row"> -->
+                    <div class="MultiCarousel" data-items="1,3,3,4" data-slide="4" id="MultiCarousel"
                         data-interval="1000">
                         <div class="MultiCarousel-inner">
                             {% for event in events %}
@@ -149,8 +149,8 @@
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
-                </div>
-            </div>
+                <!-- </div>
+            </div> -->
         </div> <!-- section-slide -->
         
         <div class="section-slide">
@@ -166,7 +166,7 @@
                         data-interval="1000">
                         <div class="MultiCarousel-inner">
                             {% for i in "x"|rjust:"100" %}
-                            <div class="item">
+                            <div class="item"> 
                                 <div class="pad15">
                                     <img src="{% static 'images/froggy chair.png' %}"
                                         style='height: 100%; width: 100%; object-fit: contain'>
@@ -176,7 +176,7 @@
                                     </div>
                                     <p>Date: now</p>
                                     <p>None</p>
-                                </div>
+                                </div> --> <!-- pad15 -->
                             </div>
                             {%endfor%}
                         </div>

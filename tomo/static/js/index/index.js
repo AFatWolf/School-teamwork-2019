@@ -26,6 +26,12 @@ $(document).ready(function () {
         var btnParentSb = '';
         var itemsSplit = '';
         var sampwidth = $(itemsMainDiv).width();
+        // make it divisible by 3,4,5
+        console.log(`Before: ${sampwidth}`);
+        sampwidth = Math.floor(sampwidth / 60) * 60;
+        console.log(`After: ${sampwidth}`);
+        // // reset the width
+
         var bodyWidth = $('body').width();
         $(itemsDiv).each(function () {
             id = id + 1;
@@ -33,7 +39,6 @@ $(document).ready(function () {
             btnParentSb = $(this).parent().attr(dataItems);
             itemsSplit = btnParentSb.split(',');
             $(this).parent().attr("id", "MultiCarousel" + id);
-
 
             if (bodyWidth >= 1200) {
                 incno = itemsSplit[3];
@@ -58,19 +63,26 @@ $(document).ready(function () {
 
             $(".leftLst").addClass("over");
             $(".rightLst").removeClass("over");
-
         });
+        $(itemsMainDiv).each(function() {
+            // $(this).width(sampwidth - 30);
+            console.log(`This width is: ${$(this).width()}`);
+        })
     }
 
 
     //this function used to move the items
     function ResCarousel(e, el, s) {
+        /* e : direction
+        el : parent id
+        s : number of slides
+        */ 
         var leftBtn = ('.leftLst');
         var rightBtn = ('.rightLst');
         var translateXval = '';
         var divStyle = $(el + ' ' + itemsDiv).css('transform');
-        var values = divStyle.match(/-?[\d\.]+/g);
-        var xds = Math.abs(values[4]);
+        var values = divStyle.match(/-?[\d\.]+/g); // ?
+        var xds = Math.abs(values[4]); // something in translateXval
         if (e == 0) {
             translateXval = parseInt(xds) - parseInt(itemWidth * s);
             $(el + ' ' + rightBtn).removeClass("over");
@@ -95,6 +107,8 @@ $(document).ready(function () {
 
     //It is used to get some elements from btn
     function click(ell, ee) {
+        // ell = 0 : left
+        // ell = 1 : right
         var Parent = "#" + $(ee).parent().attr("id");
         var slide = $(Parent).attr("data-slide");
         ResCarousel(ell, Parent, slide);
