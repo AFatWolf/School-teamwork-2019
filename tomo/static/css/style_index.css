@@ -70,6 +70,7 @@
     display: inline-block;
     min-width: 60%;
     margin-top:80px;
+    margin-left: 80px;
 }
 
 .column2 {
@@ -115,6 +116,14 @@
     border: 1px solid #ccc;
     -webkit-box-shadow: 0 3px 6px #ccc;
     box-shadow: 0 3px 6px #ccc;
+}
+
+body {
+    background-color: rgba(0, 0, 0, .03);
+}
+
+.card-header {
+    background-color: #fff;
 }
 
 /*!
@@ -188,7 +197,6 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -5413,7 +5421,6 @@ input[type=submit].btn-block {
 .card-header {
     padding: .75rem 1.25rem;
     margin-bottom: 0;
-    background-color: rgba(0, 0, 0, .03);
     border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
