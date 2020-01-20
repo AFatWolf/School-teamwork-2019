@@ -5,36 +5,33 @@
   <head>
       <title> Setting and Privacy </title>
       <meta charset = "utf8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <script src="{% static "/js/settings/pw_update.js" %}"></script>
       <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" >
       <link rel="stylesheet" herf="{% static "css/settings.css" %}" />
 
       <!--link rel="stylesheet" href="{% static 'css/signup.css' %}" -->
-      <script src="{% static "js/settings/pw_update.js" %}"></script>
+      
 
   </head>
+
   <body>
 
-  <p>A Collapsible:</p>
-  <button type="button" class="collapsible">Open Collapsible</button>
-  <div class="content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-  </div>
-
-
-
+      
 
       <div class="container" >
           <div class="row">
-              <div class="card col-mid-12 text-center"> 
+              <div class="card col-mid text-center"> 
                   <div class="card-body">
                       <h1 "card-title text-center"><b>Setting and Privacy</b><h1>
                       <form method="#">
                       {% csrf_token %}
 
-                      <div class="card col-mid-12 text-center">
+                      <div class="card col-mid-12 text-center" >
                           <form id="user_data" action="{% url 'settings' %}" method ="post">
+                          <font size = "5">
                           <label for="fisrt_name">First name: </label>
                           <input id="first_name" name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}"></br>
                           
@@ -53,15 +50,16 @@
                           <input name="new_password" type="password"  value="{{edit.new_password}}"  placeholder="New password">{{edit.new_password}}</br>
                           <input name="confirm_password" type="password"  value="{{edit.confrim_password}}" placeholder="Confirm new password">{{edit.confirm_password}}</br>
                           <input type="submit" value="Update"-->
-                      
+                          
                           <div>
                               <button type="cancel" class="btn btn-mdb-color">Cancel</button>
                               <button type="submit" class="btn btn-success">Save Changes</button>
                           </div>
+                          </font>
                           </form>
                       </div> </br>
                       
-                      
+            
                       <div class="card col-mid-12 text-center">
                       {% if wrongPassword %}
                               <div class="text-warning text-center">Wrong Password!</div>
@@ -69,13 +67,17 @@
 
                       <form id="user_data" action="{% url 'settings'%}" method = "post">
                       {% csrf_token%}
+                      
                       <h4 class="card-title text-center">Change Password </h4>
+                      
                       {% for hidden_field in form.hidden_fields %}
                           {{ hidden_field }}
                       {% endfor %}
                       {% for field in form.visible_fields %}
-                          <div class="form-group">
+                          <div class="form-group" >
+                              <font size="5">
                               {{ field.label_tag }}
+                              </font>
                               {% if form.is_bound %}
                                   {% if field.errors %}
                                     {% render_field field class="form-control is-invalid" %}
@@ -95,7 +97,10 @@
                                 {% if field.help_text %}
                                       <small class="form-text text-muted">{{ field.messages}}</small>
                                 {% endif %} 
+                          
+                          </div>
                       {% endfor %}
+                      
                       </form>
                       <div>
                         <button type="cancel" class="btn btn-mdb-color">cancel</button>
@@ -106,12 +111,68 @@
               </div>
           </div>
       </div> 
-          
+                      
+      <button id="myBtn">Open Modal</button>
+
+             
+                
+                      <button id="myBtn">Change password</button>
+                      <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="card col-mid-12 text-center">
+                        {% if wrongPassword %}
+                                <div class="text-warning text-center">Wrong Password!</div>
+                        {% endif %}
+
+                        <form id="user_data" action="{% url 'settings'%}" method = "post">
+                        {% csrf_token%}
+                        
+                        <h4 class="card-title text-center">Change Password </h4>
+                        
+                        {% for hidden_field in form.hidden_fields %}
+                            {{ hidden_field }}
+                        {% endfor %}
+                        {% for field in form.visible_fields %}
+                            <div class="form-group" >
+                                <font size="5">
+                                {{ field.label_tag }}
+                                </font>
+                                {% if form.is_bound %}
+                                    {% if field.errors %}
+                                      {% render_field field class="form-control is-invalid" %}
+                                      {% for error in field.errors %}
+                                        <div class="invalid-feedback">
+                                          {{ error }}
+                                        </div>
+                                      {% endfor %}
+                                    {% else %}
+                                      {% render_field field class="form-control is-valid" %}
+                                    {% endif %}
+                                  {% else %}
+                                    {% render_field field class="form-control" %}
+                                  {% endif %}
+
+                                    
+                                  {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.messages}}</small>
+                                  {% endif %} 
+                            
+                            </div>
+                        {% endfor %}
+                        <div>
+                          <button type="cancel" class="btn btn-mdb-color">cancel</button>
+                          <button type="submit" class="btn btn-success">update</button>
+                        </div>
+                        </form>
+                        <div>
+                      </div>
+                    </div>
           
       
 
 
   </body>
 
-<html>
+</html>
 
