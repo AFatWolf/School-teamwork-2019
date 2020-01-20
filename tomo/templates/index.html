@@ -35,7 +35,7 @@
         {% endif %}
     </div> -->
 
-    {% if not user.id %}<!--  Logged in display -->
+    {% if not user.id %}<!--  Not logged in display -->
     <div class="section-slide">
         <div>
             <nobr>
@@ -106,7 +106,7 @@
     </div> <!-- section-slide -->
     {% endif %}
 
-    {% if user.id %}<!--  NOT logged in display -->
+    {% if user.id %}<!-- logged in display -->
     <div class="float-right">
         <a href="{% url 'index' %}?view=slide">Events</a> |
         <a href="{% url 'index' %}?view=calendar">Calendar</a>
@@ -127,9 +127,9 @@
                         <div class="MultiCarousel-inner">
                             {% for event in events %}
                             <div class="item">
-                                <div class="pad15">
-                                    <img src="{% static 'images/kirby.png' %}"
-                                        style='height: 100%; width: 100%; object-fit: contain'>
+                                <div class="card" onclick="window.open('{% url 'detail' event.id%}');" style="cursor: pointer;">
+                                    <img class="card-img-top" src="https://www.sigma-sein.com/en/wp/wp-content/uploads/2019/06/0_main_high-res-2-2560x1707.jpg" style="object-fit: cover;">
+                                    <div class="card-body">
                                     <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
                                     <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
                                             style="font-weight: bold;">{{event.name}}</a></div>
@@ -138,6 +138,7 @@
                                     </div>
                                     <small class="ppp"> Hosted by {{event.host}}</small><br>
                                     <small>{{event.attendees.all.count}} people will go</small>
+                                </div>
                                 </div>
                             </div>
                             {%endfor%}
@@ -153,6 +154,7 @@
             </div>
         </div> <!-- section-slide -->
         
+        {% for i in "x"|rjust:"10" %}
         <div class="section-slide">
             <div>
                 <nobr>
@@ -165,17 +167,20 @@
                     <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel"
                         data-interval="1000">
                         <div class="MultiCarousel-inner">
-                            {% for i in "x"|rjust:"100" %}
+                            {% for event in events %}
                             <div class="item">
-                                <div class="pad15">
-                                    <img src="{% static 'images/froggy chair.png' %}"
-                                        style='height: 100%; width: 100%; object-fit: contain'>
-                                    <div class="wrapper"><a class="lead">Straight party at Thanh's room</a></div>
+                                <div class="card" onclick="window.open('{% url 'detail' event.id%}');" style="cursor: pointer;">
+                                    <img class="card-img-top" src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_retina/public/Kehoe_Designs_Colorful_Install_0.jpg?itok=jfQpzevk" style="object-fit: cover;">
+                                    <div class="card-body">
+                                    <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
+                                    <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
+                                            style="font-weight: bold;">{{event.name}}</a></div>
                                     <div class="wrapper">
-                                        <p><a>Polite and formal party for gentlement ( ͡° ͜ʖ ͡°)</a></p>
+                                        <p>{{event.detail}}</p>
                                     </div>
-                                    <p>Date: now</p>
-                                    <p>None</p>
+                                    <small class="ppp"> Hosted by {{event.host}}</small><br>
+                                    <small>{{event.attendees.all.count}} people will go</small>
+                                </div>
                                 </div>
                             </div>
                             {%endfor%}
@@ -189,7 +194,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- section-slide -->
+        {%endfor%}
             </div>
         {% endif %}
     

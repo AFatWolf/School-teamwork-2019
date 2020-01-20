@@ -21,10 +21,12 @@
 
 .MultiCarousel .MultiCarousel-inner .item>div {
     text-align: left;
-    padding: 10px;
     margin: 10px;
-    background: #f1f1f1;
-    color: #666;
+    /* padding: 10px;
+    background: #fff;
+    color: #666; */
+    border-radius: 25px;
+    box-shadow: 0 3px 6px #ccc;
     /* text-overflow: ellipsis!important;
     white-space: nowrap!important;
     overflow: hidden!important; */
@@ -54,7 +56,7 @@
 
 .section {
     margin: 0 100px 0 200px;
-    
+
 }
 
 .section-slide {
@@ -69,7 +71,7 @@
 .column1 {
     display: inline-block;
     min-width: 60%;
-    margin-top:80px;
+    margin-top: 80px;
     margin-left: 80px;
 }
 
@@ -77,7 +79,7 @@
     display: inline-block;
     vertical-align: top;
     /* margin-right: 200px; */
-    margin-top:80px;
+    margin-top: 80px;
 }
 
 .datetime {
@@ -103,9 +105,9 @@
 }
 
 .wrapper {
-    text-overflow: ellipsis!important;
-    white-space: nowrap!important;
-    overflow: hidden!important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
 }
 
 .wrapper p {
@@ -124,6 +126,34 @@ body {
 
 .card-header {
     background-color: #fff;
+}
+
+.image-wrapper {
+    background-color: #757575;
+    background-position: 50%;
+    background-size: cover;
+    display: block;
+    position: relative;
+    /* background-image: url('/static/images/kirby.png'); */
+}
+
+
+/* Grow */
+.card {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+    transform: scale(1.1);
 }
 
 /*!
@@ -5370,7 +5400,7 @@ input[type=submit].btn-block {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, .125);
+    /* border: 1px solid rgba(0, 0, 0, .125); */
     border-radius: .25rem;
     align-self: center;
 }
@@ -5473,14 +5503,14 @@ input[type=submit].btn-block {
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: calc(.25rem - 1px);
-    border-top-right-radius: calc(.25rem - 1px)
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px
 }
 
 .card-img,
 .card-img-bottom {
-    border-bottom-right-radius: calc(.25rem - 1px);
-    border-bottom-left-radius: calc(.25rem - 1px)
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px
 }
 
 .card-deck .card {
