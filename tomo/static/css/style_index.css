@@ -35,8 +35,45 @@
 .MultiCarousel .leftLst,
 .MultiCarousel .rightLst {
     position: absolute;
-    border-radius: 50%;
-    top: calc(50% - 20px);
+    border: none;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    outline:none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 5%;
+    text-align: center;
+    opacity: .5;
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.MultiCarousel .leftLst:hover,
+.MultiCarousel .leftLst:active {
+    background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(211,211,211,1));
+    transform: scale(1.2);
+}
+
+.MultiCarousel .rightLst:hover,
+.MultiCarousel .rightLst:active {
+    /* background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(211,211,211,1)); */
+    background-image: radial-gradient(lightgray, white);
+    transform: scale(1.2);
 }
 
 .MultiCarousel .leftLst {
@@ -47,10 +84,12 @@
     right: 0;
 }
 
+
+
 .MultiCarousel .leftLst.over,
 .MultiCarousel .rightLst.over {
     pointer-events: none;
-    background: #ccc;
+    display: none;
 }
 
 
@@ -155,6 +194,15 @@ body {
 .card:active {
     transform: scale(1.1);
 }
+
+/* .card-img-top {
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    left: 50%;
+    top: 100%;
+} */
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
