@@ -12,7 +12,7 @@ $(document).ready(function () {
     });
 
     ResCarouselSize();
-
+    // delete?
     $(window).resize(function () {
         ResCarouselSize();
     });
@@ -43,20 +43,20 @@ $(document).ready(function () {
             if (bodyWidth >= 1200) {
                 incno = itemsSplit[3];
                 itemWidth = sampwidth / incno;
-            }
-            else if (bodyWidth >= 992) {
+            } else if (bodyWidth >= 992) {
                 incno = itemsSplit[2];
                 itemWidth = sampwidth / incno;
-            }
-            else if (bodyWidth >= 768) {
+            } else if (bodyWidth >= 768) {
                 incno = itemsSplit[1];
                 itemWidth = sampwidth / incno;
-            }
-            else {
+            } else {
                 incno = itemsSplit[0];
                 itemWidth = sampwidth / incno;
             }
-            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+            $(this).css({
+                'transform': 'translateX(0px)',
+                'width': itemWidth * itemNumbers
+            });
             $(this).find(itemClass).each(function () {
                 $(this).outerWidth(itemWidth);
             });
@@ -64,7 +64,7 @@ $(document).ready(function () {
             $(".leftLst").addClass("over");
             $(".rightLst").removeClass("over");
         });
-        $(itemsMainDiv).each(function() {
+        $(itemsMainDiv).each(function () {
             // $(this).width(sampwidth - 30);
             console.log(`This width is: ${$(this).width()}`);
         })
@@ -76,7 +76,7 @@ $(document).ready(function () {
         /* e : direction
         el : parent id
         s : number of slides
-        */ 
+        */
         var leftBtn = ('.leftLst');
         var rightBtn = ('.rightLst');
         var translateXval = '';
@@ -91,8 +91,7 @@ $(document).ready(function () {
                 translateXval = 0;
                 $(el + ' ' + leftBtn).addClass("over");
             }
-        }
-        else if (e == 1) {
+        } else if (e == 1) {
             var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
             translateXval = parseInt(xds) + parseInt(itemWidth * s);
             $(el + ' ' + leftBtn).removeClass("over");
@@ -116,11 +115,11 @@ $(document).ready(function () {
 
     //Datepicker for calendar
     $(function () {
-        $(".datepicker").datepicker({ 
+        $(".datepicker").datepicker({
             // showButtonPanel: true,
             onSelect: function (dateText, inst) {
-                console.log( dateText );
-                $(".column1").load(`/index?date=${encodeURIComponent(dateText)} .newly-loaded`, function(data) {
+                console.log(dateText);
+                $(".column1").load(`/index?date=${encodeURIComponent(dateText)} .newly-loaded`, function (data) {
                     console.log(data);
                 });
             }
@@ -132,6 +131,6 @@ $(document).ready(function () {
         var inputted_date = $(this).datepicker('getDate', true);
         console.log(inputted_date);
         $(".column1").load(`/index?date=${encodeURIComponent(inputted_date)} .newly-loaded`);
-      });
+    });
 
 });

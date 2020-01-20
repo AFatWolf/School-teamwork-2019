@@ -50,6 +50,9 @@ class Event(models.Model):
     # the time event is created
     created_at = models.DateTimeField(default=timezone.now())
     tags = models.ManyToManyField(Tag)
+    address = models.TextField(default="")
+    lat = models.FloatField(default=1)
+    lng = models.FloatField(default=1)
     host = models.ForeignKey(User, related_name="events", on_delete=models.CASCADE, default=8)
     attendees = models.ManyToManyField(User)
 

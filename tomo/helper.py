@@ -1,5 +1,7 @@
 from tomo.models import Event, User
 from django.db.models import Q
+import requests
+import json
 
 NO_USER = 0
 
@@ -42,4 +44,26 @@ def deleteCookieUserId(request):
         del request.session['user_id']
     except:
         pass
+
+# find latitude and longtitude using address
+def findGeocoding(address):
+    API_KEY_GOOGLE = 'AIzaSyCQmcTCoxvxXpPHWwYQJG04bLkmtjbySjU'
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + API_KEY_GOOGLE
+    request = requests.get(url)
+    if request.status_code == 200:
+        data = json.loads(request.content)
+        # return a {'lat': float, 'lng': float} object
+        location = data['results'][0]['geometry']['location']
+        location['lat'] = float(location['lat'])
+        location['lng'] = float(location['lng'])
+        print("Location found: ", location)
+        return location
+    elif request.status_code == 404:
+        print('Location not found')
+        return {
+            'lat': -1,
+            'lng': -1
+        }
+    else:
+        print("Error: ", request.content)
 

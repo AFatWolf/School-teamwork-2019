@@ -202,13 +202,38 @@ def update(request, event_id):
     if request.method == 'POST':
         event.name = request.POST['name']
         event.detail= request.POST['detail']
-        event.hosted_at = request.POST['hosted_at']
+        # event.hosted_at = request.POST['hosted_at']
+        # set adress
+        address = request.POST['address']
+        print("Address: ", address)
+        print("Event address: ", event.address)
+        if event.address != address:
+            location = findGeocoding(address)
+            if location and location['lat'] != -1 and location['lng'] != -1:
+                event.address = address
+                event.lat = location['lat']
+                event.lng = location['lng']
+        tags_id = request.POST.getlist('tags')
+        all_tags = Tag.objects.all()
+        # reset tags
+        for tag in all_tags:
+            event.tags.remove(tag)
+        # add the new tags
+        for tag_id in tags_id:
+            tag = Tag.objects.get(pk=tag_id)
+            event.tags.add(tag)
         event.save()
         return redirect(detail, event_id)
 
+    tags = Tag.objects.all()
+    event_tags = event.tags.all()
+    print(event_tags)
     context = {
         'event': event,
+        'tags': tags,
+        'event_tags' : event_tags,
     }
+    print("Context for update: ", context)
     return render(request, 'update.html', context)
 
 def create(request):

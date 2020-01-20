@@ -1,24 +1,67 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Update {{event.name}}</title>
-        <meta charset="utf-8">
-        <!-- <link rel="stylesheet" href="{% static 'css/style_index.css' %}" /> -->
-    </head>
-    <body>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign up</a>
-        <!-- <form action="{% url 'signup' %}">
+
+<head>
+    <title>Update {{event.name}}</title>
+    <meta charset="utf-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="{% static 'js/addtags.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/addtags.css' %}">
+</head>
+
+<body>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign up</a>
+    <!-- <form action="{% url 'signup' %}">
             <input type="submit" value="Signup" />
         </form> -->
-        <h1>{{event.name}}</h1>
-        <form action="{% url 'update' event.id %}" method="post">
-            {% csrf_token %}
-            <input name="name" type="text" placeholder="Event's name" value="{{event.name}}"></br>
-            <textarea name="detail" placeholder="Event's detail">{{ event.detail }}</textarea></br>
-            <input name="hosted_at" type="datetime-local"></br>
-            <input type="submit" value="Submit">
-        </form>
-    </body>
+    <h1>{{event.name}}</h1>
+    <form action="{% url 'update' event.id %}" method="post">
+        {% csrf_token %}
+
+        <label for="name">Event name:</label>
+        <input name="name" type="text" placeholder="Event's name" value="{{event.name}}"><br>
+        <label for="detail">Description:</label>
+        <textarea name="detail" placeholder="Event's detail">{{ event.detail }}</textarea><br>
+
+        <label for"hosted_at">Host time:</label>
+        <input name="hosted_at" type="datetime-local"><br>
+
+        <label for="address">Address:</label>
+        <input name="address" placeholder="Address" value="{{ event.address }}"><br>
+
+        <div>Tags:</div>
+        {% if tags %}
+            {% for tag in tags %}
+                <div class="tags_box not_choosen btn" value="{{ tag.id }}">{{ tag.name }}</div>
+            {% endfor %}
+        {% endif %}
+        {% if tags %}
+            {% for tag in tags%}
+                <input type="checkbox" id="tags_{{ tag.id}}" name="tags" value="{{ tag.id }}">
+            {% endfor %}
+        {% endif %}
+
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        $(document).ready(function() {
+        var box;
+        {% if event_tags %}
+            {% for event_tag in event_tags %}
+                box = document.querySelector(`div.tags_box[value='{{event_tag.id}}']`);
+                // box.className = box.className.replace("not_choosen", "choosen");
+                box.click();
+            {% endfor %}
+        {% endif %}
+        });
+
+    </script>
+
+</body>
+
 </html>
