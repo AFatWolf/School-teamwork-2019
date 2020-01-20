@@ -117,7 +117,7 @@ $(document).ready(function () {
     //Datepicker for calendar
     $(function () {
         $(".datepicker").datepicker({ 
-            showButtonPanel: true,
+            // showButtonPanel: true,
             onSelect: function (dateText, inst) {
                 console.log( dateText );
                 $(".column1").load(`/index?date=${encodeURIComponent(dateText)} .newly-loaded`, function(data) {
@@ -126,5 +126,12 @@ $(document).ready(function () {
             }
         });
     });
+
+    // $('[data-toggle="datepicker"]').datepicker();
+    $(".datepicker").on('pick.datepicker', function (e) {
+        var inputted_date = $(this).datepicker('getDate', true);
+        console.log(inputted_date);
+        $(".column1").load(`/index?date=${encodeURIComponent(inputted_date)} .newly-loaded`);
+      });
 
 });

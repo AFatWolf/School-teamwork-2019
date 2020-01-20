@@ -12,8 +12,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="{% static 'css/style_index.css' %}" />
     <script src="{% static 'js/index/index.js' %}"></script>
-    <!-- <script src="{% static 'js/index/datepicker-master/dist/datepicker.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'js/index/datepicker-master/dist/datepicker.min.css' %}" /> -->
+    <script src="{% static 'js/index/datepicker-master/dist/datepicker.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'js/index/datepicker-master/dist/datepicker.min.css' %}" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
@@ -217,13 +217,13 @@
                 </div>
                 {% endfor %}
             </div> <!-- column1 -->
+        <!-- wrapping-gift -->
 
             <div class="column2">
-                <!-- <div data-toggle="datepicker">1234</div> -->
+                <!-- <div data-toggle="datepicker"></div> -->
                 <div class="datepicker"></div>
             </div> <!-- column2 -->
         {% endif %}
-    </div>
     {% endif %} <!-- NOT logged in display -->
 </body>
 
