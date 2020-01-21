@@ -11,43 +11,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="{% static 'js/addtags.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/addtags.css' %}">
+    <link rel="stylesheet" href="{% static 'css/update.css' %}">
 </head>
 
 <body>
-    <a href="login.html">Login</a>
-    <a href="signup.html">Sign up</a>
+    <div class="head-bar">
+        {% include 'navbar.html' %}
+    </div>
     <!-- <form action="{% url 'signup' %}">
             <input type="submit" value="Signup" />
         </form> -->
-    <h1>{{event.name}}</h1>
-    <form action="{% url 'update' event.id %}" method="post">
-        {% csrf_token %}
+    <div class="row">
+        <div class="roundbox col-xl-10 offset-1">
+            <div class="row">
+                <h1 class="col-xl-2">{{event.name}}</h1>
+            </div>
+            <form action="{% url 'update' event.id %}" method="post">
+                {% csrf_token %}
 
-        <label for="name">Event name:</label>
-        <input name="name" type="text" placeholder="Event's name" value="{{event.name}}"><br>
-        <label for="detail">Description:</label>
-        <textarea name="detail" placeholder="Event's detail">{{ event.detail }}</textarea><br>
+                <div class="form-group row">
+                    <label for="name" class="col-xl-2 col-form-label">Event name:</label>
+                    <div class="col-xl-10">
+                        <input name="name" type="text" placeholder="Event's name" value="{{event.name}}">
+                    </div>
+                </div> <!-- form-group row -->
 
-        <label for"hosted_at">Host time:</label>
-        <input name="hosted_at" type="datetime-local"><br>
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label" for="detail">Description:</label>
+                    <div class="col-xl-10">
+                        <textarea name="detail" placeholder="Event's detail" rows="8" cols="100">{{ event.detail }}</textarea><br>
+                    </div>
+                </div>
 
-        <label for="address">Address:</label>
-        <input name="address" placeholder="Address" value="{{ event.address }}"><br>
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label" for"hosted_at">Host time:</label>
+                    <div class="col-xl-10">
+                        <input name="hosted_at" type="datetime-local"><br>
+                    </div>
+                </div>
 
-        <div>Tags:</div>
-        {% if tags %}
-            {% for tag in tags %}
-                <div class="tags_box not_choosen btn" value="{{ tag.id }}">{{ tag.name }}</div>
-            {% endfor %}
-        {% endif %}
-        {% if tags %}
-            {% for tag in tags%}
-                <input type="checkbox" id="tags_{{ tag.id}}" name="tags" value="{{ tag.id }}">
-            {% endfor %}
-        {% endif %}
+                <div class="form-group row">
+                    <label class="col-xl-2 col-form-label" for="address">Address:</label>
+                    <div class="col-xl-10">
+                        <input type="text" name="address" placeholder="Address" value="{{ event.address }}"><br>
+                    </div>
+                </div>
 
-        <input type="submit" value="Submit">
-    </form>
+                <div class="form-group row">
+                    <div class="col-xl-2 col-form-label" >Tags:</div>
+                    <div class="col-xl-10">
+                        {% if tags %}
+                            {% for tag in tags %}
+                                <div class="tags_box not_choosen btn" value="{{ tag.id }}">{{ tag.name }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        {% if tags %}
+                            {% for tag in tags%}
+                                <input type="checkbox" id="tags_{{ tag.id}}" name="tags" value="{{ tag.id }}">
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input class="text-center submit-btn" type=submit value="Update">
+                </div>
+            </form>
+        </div> <!-- roundbox -->
+    </div> <!-- row -->
     <script>
         $(document).ready(function() {
         var box;
