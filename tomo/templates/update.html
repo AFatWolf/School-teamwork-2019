@@ -32,28 +32,40 @@
                 <div class="form-group row">
                     <label for="name" class="col-xl-2 col-form-label">Event name:</label>
                     <div class="col-xl-10">
-                        <input name="name" type="text" placeholder="Event's name" value="{{event.name}}">
+                        <input id="name" name="name" type="text" placeholder="Event's name" value="{{event.name}}" disabled>
+                        <span class="edit" onclick="enableEdit('name', this)">
+                            <a href="javascript:void(0);"><i class="fa fa-pencil"></i> Edit</a>
+                        </span>
                     </div>
                 </div> <!-- form-group row -->
 
                 <div class="form-group row">
                     <label class="col-xl-2 col-form-label" for="detail">Description:</label>
                     <div class="col-xl-10">
-                        <textarea name="detail" placeholder="Event's detail" rows="8" cols="100">{{ event.detail }}</textarea><br>
+                        <textarea id="detail" name="detail" placeholder="Event's detail" rows="8" cols="100" disabled>{{ event.detail }}</textarea><br>
+                        <span class="edit" onclick="enableEdit('detail', this)">
+                            <a href="javascript:void(0);"><i class="fa fa-pencil"></i> Edit</a>
+                        </span>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-xl-2 col-form-label" for"hosted_at">Host time:</label>
                     <div class="col-xl-10">
-                        <input name="hosted_at" type="datetime-local"><br>
+                        <input id="hosted_at" name="hosted_at" type="datetime-local" disabled>
+                        <span class="edit" onclick="enableEdit('hosted_at', this)">
+                            <a href="javascript:void(0);"><i class="fa fa-pencil"></i> Edit</a>
+                        </span>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-xl-2 col-form-label" for="address">Address:</label>
                     <div class="col-xl-10">
-                        <input type="text" name="address" placeholder="Address" value="{{ event.address }}"><br>
+                        <input id="address" type="text" name="address" placeholder="Address" value="{{ event.address }}" disabled>
+                        <span class="edit" onclick="enableEdit('address', this)">
+                            <a href="javascript:void(0);"><i class="fa fa-pencil"></i> Edit</a>
+                        </span>
                     </div>
                 </div>
 
@@ -89,7 +101,16 @@
                 box.click();
             {% endfor %}
         {% endif %}
+
+        
         });
+        // set everything disabled
+        function enableEdit(id, self) {
+            let ele = document.getElementById(id);
+            ele.disabled = false;
+            self.hidden = "true";
+        }
+
 
     </script>
 

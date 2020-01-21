@@ -7,6 +7,11 @@ input[type=text] {
     width: 500px;
 }
 
+.edit {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
 .col-form-label {
     text-align: right;
     font-weight: 700;
