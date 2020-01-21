@@ -102,8 +102,15 @@ def index(request):
     if getCurrentUserId(request) != NO_USER:
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
-        user_tags = current_user.tags.all()
-        print(user_tags)
+
+        tags = current_user.tags.all()
+        dict_tag = {}
+        i=0
+        for t in tags:
+            if len(getEventWithTags(tags[i:i+1]))!=0:
+                ewt = getEventWithTags(tags[i:i+1])
+                dict_tag[t.name]=ewt
+            i+=1
 
         events = Event.objects.all()
         date_data = Event.objects.values_list('hosted_at', flat=True).order_by('-hosted_at')
@@ -172,12 +179,11 @@ def index(request):
             'user': current_user,
             'state': state,
             'date_list': dict_date,
+            'dict_tag': dict_tag,
         }
         return render(request, 'index.html', data)
 
     else:
-        print("No no")
-        print("Hey yo im not one", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }

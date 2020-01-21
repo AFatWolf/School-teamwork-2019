@@ -106,13 +106,17 @@
     </div> <!-- section-slide -->
     {% endif %}
 
+
+
+
+
     {% if user.id %}<!-- logged in display -->
     <div class="float-right">
-        <a href="{% url 'index' %}?view=slide">Events</a> |
-        <a href="{% url 'index' %}?view=calendar">Calendar</a>
+        <a href="{% url 'index' %}?view=slide" class="btn">Events</a> |
+        <a href="{% url 'index' %}?view=calendar" class="btn">Calendar</a>
     </div>
         {% if state %}
-            <div class="slide">
+        <div class="slide">
 
         <div class="section-slide">
             <div>
@@ -156,9 +160,59 @@
                 </div>
             </div>
         </div> <!-- section-slide -->
+
+
+        <!-- For tags events -->
+        {% for key,value in dict_tag.items %}
+        <div class="section-slide">
+            <div>
+                <nobr>
+                    <h2>{{key}}
+                        <a style="float: right; font-size:50%" href="#">See all</a></h2>
+                </nobr>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="MultiCarousel" data-items="1,3,5,4" data-slide="4" id="MultiCarousel"
+                        data-interval="1000">
+                        <div class="MultiCarousel-inner">
+                            {% for event in value %}
+                            <div class="item">
+                                <div class="card" onclick="window.open('{% url 'detail' event.id%}');" style="cursor: pointer;">
+                                    <div style="overflow: hidden;">
+                                    <img class="card-img-top" src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_retina/public/Kehoe_Designs_Colorful_Install_0.jpg?itok=jfQpzevk">
+                                    </div>
+                                    <div class="card-body">
+                                    <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
+                                    <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
+                                            style="font-weight: bold;">{{event.name}}</a></div>
+                                    <div class="wrapper">
+                                        <p>{{event.detail}}</p>
+                                    </div>
+                                    <small class="ppp"> Hosted by {{event.host}}</small><br>
+                                    <small>{{event.attendees.all.count}} people will go</small>
+                                </div>
+                                </div>
+                            </div>
+                            {%endfor%}
+                        </div>
+                        <button class="leftLst">
+                            <span class="fas fa-chevron-left fa-3x"></span>
+                        </button>
+                        <button class="rightLst">
+                            <i class="fas fa-chevron-right fa-3x"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- section-slide -->
+        {%endfor%}
             </div>
         {% endif %}
-    
+
+
+
+
         {% if not state %}
             <div class="column1">
                 {% for key, value in date_list.items %}
