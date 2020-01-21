@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<script src="{% static 'js/navbar.js' %}"></script>
 
 <nav class="navbar navbar-expand-lg bg-light fixed-top">
         <div class="navbar-header">
@@ -17,8 +18,9 @@
 
         <div class="search-bar">
             <form class="">
-                <input class="search-input" type="search" placeholder="Search" aria-label="Search">
+                <input id="search-input" class="search-input" type="search" placeholder="Search" aria-label="Search">
                 <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                <div class="search-results"></div>
             </form>
         </div>
 

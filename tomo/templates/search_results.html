@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+
+<div class="search-results-items">
+{% if results %}
+    {% for result in results %}
+        {% if result.name %}
+            <div class="search-results-item">
+            <!-- if it is event -->
+            {{ result.name }}
+            </div>
+        {% elif result.username %}
+        <div class="search-results-item">
+            <!-- if it is event -->
+            {{ result.username }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+</div> <!-- search-results-items -->

@@ -1,7 +1,4 @@
 // class to create a rounded rectangle
-class Tag {
-
-}
 
 $('document').ready(() => {
     let tags_box = document.getElementsByClassName("tags_box");

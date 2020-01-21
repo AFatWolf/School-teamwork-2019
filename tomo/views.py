@@ -308,3 +308,24 @@ def profile(request, user_name):
         'user': user,
     }
     return render(request, 'profile.html', context)
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('q', 'a' * 10) 
+        events = Event.objects.all()
+        users = User.objects.all()
+        results = []
+        for event in events:
+            if query in event.name:
+                results.append(event)
+        for user in users:
+            if query in user.username or query in user.first_name or query in user.last_name:
+                    results.append(user)
+        print("Query: ", query)
+        print("Return: ", results)
+        context = {
+            'results': results,
+        }
+        return render(request, "search_results.html", context)
+
+

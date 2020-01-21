@@ -1,0 +1,20 @@
+.search-results-items {
+    position: absolute;
+    border-top: solid 1px #bbbbbb;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    width: 100%;
+}
+
+.search-results-item {
+    background-color: white;
+    border-bottom: solid 1px #cccccc;
+    margin: 2px 2px 2px 2px;
+    color: #aaaaaa;
+    /* width: 100%; */
+}
+
+.search-results-item:hover {
+    background: #ffba5a;
+    color: white;
+}

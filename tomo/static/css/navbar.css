@@ -52,3 +52,7 @@ button.search-button:focus {
     border-top: none;
 }
 
+.search-results {
+    position: relative;
+}
+
