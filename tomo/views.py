@@ -42,12 +42,14 @@ def login(request):
             user = User.objects.get(username=username)
         except Exception as e:
             context = {
-                'wrongUsername': True 
+                'wrongUsername': True,
+                'notLogin': True,
             }
             return render(request, 'login.html', context)
         if authenticate(username=username, password=password) == None:
             context = {
-                'wrongPassword': True
+                'wrongPassword': True,
+                'notLogin': True,
             }
             return render(request, 'login.html', context)
         else:
@@ -320,15 +322,15 @@ def profile(request, user_name):
 
 def search(request):
     if request.method == 'GET':
-        query = request.GET.get('q', 'a' * 10) 
+        query = request.GET.get('q', 'a' * 10).lower() 
         events = Event.objects.all()
         users = User.objects.all()
         results = []
         for event in events:
-            if query in event.name:
+            if query in event.name.lower():
                 results.append(event)
         for user in users:
-            if query in user.username or query in user.first_name or query in user.last_name:
+            if query in user.username.lower()  or query in user.first_name.lower() or query in user.last_name.lower():
                     results.append(user)
         print("Query: ", query)
         print("Return: ", results)
