@@ -65,7 +65,7 @@
 
 .MultiCarousel .leftLst:hover,
 .MultiCarousel .leftLst:active {
-    background-image: radial-gradient(lightgray, white);
+    background-image: linear-gradient(to left, rgba(255,0,0,0), rgba(211,211,211,1));
     transform: scale(1.2);
 }
 

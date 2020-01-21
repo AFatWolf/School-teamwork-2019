@@ -102,6 +102,9 @@ def index(request):
     if getCurrentUserId(request) != NO_USER:
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
+        user_tags = current_user.tags.all()
+        print(user_tags)
+
         events = Event.objects.all()
         date_data = Event.objects.values_list('hosted_at', flat=True).order_by('-hosted_at')
         list_date_data = list(date_data)
