@@ -42,12 +42,14 @@ def login(request):
             user = User.objects.get(username=username)
         except Exception as e:
             context = {
-                'wrongUsername': True 
+                'wrongUsername': True,
+                'notLogin': True,
             }
             return render(request, 'login.html', context)
         if authenticate(username=username, password=password) == None:
             context = {
-                'wrongPassword': True
+                'wrongPassword': True,
+                'notLogin': True,
             }
             return render(request, 'login.html', context)
         else:
@@ -102,6 +104,16 @@ def index(request):
     if getCurrentUserId(request) != NO_USER:
         current_user = User.objects.get(pk=getCurrentUserId(request))
         print("Hey ", getCurrentUserId(request))
+
+        tags = current_user.tags.all()
+        dict_tag = {}
+        i=0
+        for t in tags:
+            if len(getEventWithTags(tags[i:i+1]))!=0:
+                ewt = getEventWithTags(tags[i:i+1])
+                dict_tag[t.name]=ewt
+            i+=1
+
         events = Event.objects.all()
         date_data = Event.objects.values_list('hosted_at', flat=True).order_by('-hosted_at')
         list_date_data = list(date_data)
@@ -169,12 +181,11 @@ def index(request):
             'user': current_user,
             'state': state,
             'date_list': dict_date,
+            'dict_tag': dict_tag,
         }
         return render(request, 'index.html', data)
 
     else:
-        print("No no")
-        print("Hey yo im not one", getCurrentUserId(request))
         events = Event.objects.all()
         data = { 'events': events,
         }
@@ -316,15 +327,15 @@ def profile(request, user_name):
 
 def search(request):
     if request.method == 'GET':
-        query = request.GET.get('q', 'a' * 10) 
+        query = request.GET.get('q', 'a' * 10).lower() 
         events = Event.objects.all()
         users = User.objects.all()
         results = []
         for event in events:
-            if query in event.name:
+            if query in event.name.lower():
                 results.append(event)
         for user in users:
-            if query in user.username or query in user.first_name or query in user.last_name:
+            if query in user.username.lower()  or query in user.first_name.lower() or query in user.last_name.lower():
                     results.append(user)
         print("Query: ", query)
         print("Return: ", results)

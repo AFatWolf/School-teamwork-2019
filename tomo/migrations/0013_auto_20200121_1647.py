@@ -15,16 +15,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='comment',
             name='date',
-            field=models.DateTimeField(default=datetime.datetime(2020, 1, 21, 7, 47, 17, 13204, tzinfo=utc)),
+            field=models.DateTimeField(default=datetime.datetime(2020, 1, 21, 7, 47, 45, 821536, tzinfo=utc)),
         ),
         migrations.AlterField(
             model_name='event',
             name='created_at',
-            field=models.DateTimeField(default=datetime.datetime(2020, 1, 21, 7, 47, 17, 9203, tzinfo=utc)),
+            field=models.DateTimeField(default=datetime.datetime(2020, 1, 21, 7, 47, 45, 819541, tzinfo=utc)),
         ),
         migrations.AlterField(
             model_name='event',
             name='hosted_at',
-            field=models.DateTimeField(default=datetime.datetime(2020, 1, 21, 7, 47, 17, 9203, tzinfo=utc)),
+            field=models.DateTimeField(default=datetime.datetime(2020, 1, 21, 7, 47, 45, 819541, tzinfo=utc)),
         ),
     ]

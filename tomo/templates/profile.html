@@ -3,15 +3,36 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/all.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />
         <title>{{ user.username }}</title>
     </head>
     <body>
-        <p>{{ user.first_name }}</p>
-        <p>{{ user.last_name }}</p>
-        <p>{{ user.description }}</p>
-        <p>{{ user.age }}</p>
-        <p>{{ user.contact }}</p>
-        <!-- List of events host -->
-        <!-- List of events attending-->
+        <div class="top">   
+            <h1>{{ user.name }}</h1>
+            <a style="float: right" href="{% url 'index' %}">Home</a>
+        </div>
+        <div class="box">
+            <div class="one">
+                <h2>Description</h2>
+                <p>{{ user.description }}</p>
+            </div>
+        </div>
+        <div class="two">
+            <p style='float: left; margin-right: 5px' ><img id="ava" src="{% static 'images/profile_test.jpg' %}" alt="Avatar" style="width:200px"></p>
+            <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+            <p>Age: {{ user.age }}</p>
+            <p>Contact: {{ user.contact }}</p>
+        </div>
+        <div class="three">
+            <h2>Event Host:</p>
+            <!-- List of events host -->  
+        </div>
+        <div class="four">
+            <h2>Event Attending:</h2>
+            <!-- List of events attending-->  
+        </div>
+        
     </body>
 </html>
