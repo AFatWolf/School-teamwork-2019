@@ -270,18 +270,22 @@ def create(request):
 
 def settings(request):
     edit = User.objects.get(pk=getCurrentUserId(request))
-    if request.POST.get('save_changes') == 'save_changes':
+    if request.method=="POST" :
         edit.first_name = request.POST.get('first_name')
         edit.last_name = request.POST.get('last_name')
         edit.description = request.POST.get('description')
-        edit.age = request.POST.get('age')
-        #if authenticate(username=edit.username, password=request.POST['password']) == None:
-        
-    
-        edit = {'edit' : edit}
+        edit.age = request.POST.get('age')  
+        edit.email = request.POST.get('email')
+        edit.save()
+    form = {
+            'edit' : edit
+    }
   
-        return render(request, 'settings.html', edit)
+    return render(request, 'settings.html', form)
 
+
+def password_update(request):
+    edit = User.objects.get(pk=getCurrentUserId(request))
     if request.method=="POST":
         form = PasswordChangeForm(edit.user, request.POST)
         if form.is_valid():
@@ -299,7 +303,7 @@ def settings(request):
     change = {
             'form':form
     }
-    return render(request, 'settings.html', change) 
+    return render(request, 'password.html', change) 
     
     #return render(request, 'settings.html' )
 
