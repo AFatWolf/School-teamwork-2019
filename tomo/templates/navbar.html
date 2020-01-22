@@ -25,7 +25,7 @@
         </div>
 
         {% if notLogin == None %}
-            {% if user %}
+            {% if user.username %}
             <ul class="action-options navbar-nav navbar-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -39,5 +39,15 @@
                 </li>
             </ul>
             {% endif %}
+        {% endif %}
+        {% if not user.username %}
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+                </li>
+            </ul>
         {% endif %}
 </nav>

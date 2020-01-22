@@ -1,5 +1,5 @@
 // SOURCE: http://codepen.io/Thibka/pen/mWGxNj
-$(document).ready(
+$(document).ready( function() {
     var canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d'),
     canvasWidth = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth),
@@ -204,4 +204,9 @@ $(document).ready(
 
     if (u > 1) giveBirth(e, u - 1);
     }
-)
+
+    // to make container clickable
+    // $('.container').click(function(event) { 
+    //     $("#canvas").trigger("click");
+    // })
+})

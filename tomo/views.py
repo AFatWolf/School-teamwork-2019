@@ -239,14 +239,21 @@ def update(request, event_id):
     tags = Tag.objects.all()
     event_tags = event.tags.all()
     print(event_tags)
-    user_id = getCurrentUserId(request)
-    user = User.objects.get(pk=user_id)
-    context = {
-        'event': event,
-        'tags': tags,
-        'event_tags' : event_tags,
-        'user': user,
-    }
+    try:
+        user_id = getCurrentUserId(request)
+        user = User.objects.get(pk=user_id)
+        context = {
+            'event': event,
+            'tags': tags,
+            'event_tags' : event_tags,
+            'user': user,
+        }
+    except:
+        context = {
+            'event': event,
+            'tags': tags,
+            'event_tags': event_tags,
+        }
     print("Context for update: ", context)
     return render(request, 'update.html', context)
 
