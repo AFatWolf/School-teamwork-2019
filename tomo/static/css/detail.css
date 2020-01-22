@@ -31,7 +31,8 @@
     border-radius: 25px;
     width: 55vw;
     float: left;
-    height: 50vmin;
+    height: auto;
+    min-height: 50vh;
     background-color: #94BAE7;
     padding: 1vh 1vw;
     margin: 1vh;
