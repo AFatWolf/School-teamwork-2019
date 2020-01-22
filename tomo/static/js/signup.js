@@ -10,12 +10,12 @@ $(document).ready( function() {
     window.msRequestAnimationFrame;
     var persons = [],
     numberOfFirefly = 30,
-    birthToGive = 25;
+    birthToGive = 10;
 
     var colors = [];
     /* Galactic Tea - http://www.colourlovers.com/palette/1586746/Galactic_Tea*/
     colors[2] = [];
-    colors[2]['background'] = '#bfbcd1';
+    colors[2]['background'] = '#ff4c4c';
     colors[2][1] = 'rgba(74,49,89,';
     colors[2][2] = 'rgba(130,91,109,';
     colors[2][3] = 'rgba(185,136,131,';
@@ -42,7 +42,7 @@ $(document).ready( function() {
 
     function Firefly(id) {
     this.id = id;
-    this.width = getRandomInt(3, 6);
+    this.width = getRandomInt(12, 24);
     this.height = this.width;
     this.x = getRandomInt(0, (canvas.width - this.width));
     this.y = getRandomInt(0, (canvas.height - this.height));
