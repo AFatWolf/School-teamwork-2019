@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.http import Http404, JsonResponse
 from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
+from .forms import *
 import datetime
 import pytz
 from django.contrib import messages
@@ -211,13 +212,14 @@ def detail(request, event_id):
 def update(request, event_id):
     event = Event.objects.get(pk=event_id)
     if request.method == 'POST':
-        event.name = request.POST['name']
-        event.detail= request.POST['detail']
+        event.name = request.POST.get('name', event.name)
+        event.detail= request.POST.get('detail', event.detail)
         # event.hosted_at = request.POST['hosted_at']
         # set adress
-        address = request.POST['address']
+        address = request.POST.get('address', event.address)
         print("Address: ", address)
         print("Event address: ", event.address)
+        # check if the address change
         if event.address != address:
             location = findGeocoding(address)
             if location and location['lat'] != -1 and location['lng'] != -1:
@@ -233,20 +235,30 @@ def update(request, event_id):
         for tag_id in tags_id:
             tag = Tag.objects.get(pk=tag_id)
             event.tags.add(tag)
+
+        # handle images
+        form = UploadEventImageForm(request.POST, request.FILES, instance=event)
+        if form.is_valid():
+            form.save()
+
         event.save()
         return redirect(detail, event_id)
 
+    # GET
     tags = Tag.objects.all()
     event_tags = event.tags.all()
     print(event_tags)
     try:
         user_id = getCurrentUserId(request)
         user = User.objects.get(pk=user_id)
+        form = UploadEventImageForm()
+
         context = {
             'event': event,
             'tags': tags,
             'event_tags' : event_tags,
             'user': user,
+            'form': form,
         }
     except:
         context = {

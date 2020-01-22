@@ -42,6 +42,10 @@ class Host(models.Model):
     # lists of events that you host = this too 
     pass
 
+def getEventImageFolder(instance, filename):
+    print("Instance: ", instance.id, instance.name)
+    return "events/{}/{}".format(instance.id, filename)
+
 class Event(models.Model):
     name = models.CharField(max_length=1024)
     detail = models.TextField()
@@ -54,10 +58,12 @@ class Event(models.Model):
     lat = models.FloatField(default=1)
     lng = models.FloatField(default=1)
     host = models.ForeignKey(User, related_name="events", on_delete=models.CASCADE, default=8)
+    cover_image = models.ImageField(upload_to=getEventImageFolder, default="/media/default.jpg")
     attendees = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
+
 
 class Comment(models.Model):
     content = models.TextField()
