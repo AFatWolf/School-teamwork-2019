@@ -18,19 +18,16 @@
   </head>
 
   <body>
-
-      
-
       <div class="container" >
           <div class="row">
               <div class="card col-mid text-center"> 
                   <div class="card-body">
                       <h1 "card-title text-center"><b>Setting and Privacy</b><h1>
-                      <form method="#">
+                      <form action="{% url 'settings'%}" method='post'>
                       {% csrf_token %}
 
                       <div class="card col-mid-12 text-center" >
-                          <form id="user_data" action="{% url 'settings' %}" method ="post">
+                          <!-- form id="user_data" action="{% url 'settings' %}" method ="post"-->
                           <font size = "5">
                           <label for="fisrt_name">First name: </label>
                           <input id="first_name" name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}"></br>
@@ -52,11 +49,11 @@
                           <input type="submit" value="Update"-->
                           
                           <div>
-                              <button type="cancel" class="btn btn-mdb-color">Cancel</button>
-                              <button type="submit" class="btn btn-success">Save Changes</button>
+                              <button type="cancel" value='Cancel' class="btn btn-mdb-color" name='cancel'>Cancel</button>
+                              <button type="submit" value='save_changes' class="btn btn-success" name='save_changes'>Save Changes</button>
                           </div>
                           </font>
-                          </form>
+                      
                       </div> </br>
                       
             
@@ -116,8 +113,6 @@
                       
       <button id="myBtn">Open Modal</button>
 
-             
-                
                       <button id="myBtn">Change password</button>
                       <div id="myModal" class="modal">
                       <div class="modal-content">
