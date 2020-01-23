@@ -10,6 +10,7 @@ from .forms import *
 import datetime
 import pytz
 from django.contrib import messages
+import random
 
 
 # def user(request):
@@ -149,8 +150,8 @@ def index(request):
             pivot = datetime.datetime.strptime(request.GET["date"], "%m/%d/%Y")
             pivot = pytz.UTC.localize(pivot)
             list_date_data.append(pivot)
-            sorted_list_date = sorted(list_date_data, reverse=True)
-            sorted_list_date = sorted_list_date[:sorted_list_date.index(pivot)+1]
+            sorted_list_date = sorted(list_date_data)
+            sorted_list_date = sorted_list_date[sorted_list_date.index(pivot):]
             print("List date: ", list_date_data)
             print("Sorted list date: ", sorted_list_date);
             date_list=[]
@@ -187,8 +188,17 @@ def index(request):
         return render(request, 'index.html', data)
 
     else:
+        tags=Tag.objects.all()
+        dict_tag = {}
+        for c in range(0,5):
+            i = random.randint(0,len(tags)-1)
+            t=tags[i]
+            dict_tag[t.name]=getEventWithTags(tags[i:i+1])
         events = Event.objects.all()
-        data = { 'events': events,
+
+        data = { 
+            'events': events,
+            'dict_tag': dict_tag,
         }
         return render(request, 'index.html', data)
 
