@@ -11,14 +11,16 @@
     <body class = "body">
         <div class="top">   
             <h1>{{ event.name }}</h1>
+            <p>Hosted by: {{ event.host }}</p>
             <p>Hosted at: {{ event.hosted_at }} <a style="float: right" href="{% url 'index' %}">Home</a></p>
         </div>
         <div class="box">
             <div class="one">
-                <h2>Description</h2>
+                <img id="ava" src="{{ event.cover_image.url }}" alt="Avatar">
+                <h2 style="padding-left: 1.2vh;">Description</h2>
                 <p>{{ event.detail }}</p>
                 <br>
-                <h2>Comments</h2>
+                <h2 style="padding-left: 1.2vh;" >Comments</h2>
                 <!-- Comment section -->
                 {% if comments %}
                 {% for comment in comments %}
@@ -53,23 +55,6 @@
                     </div>
                 </form>
             </div>
-            <div class="two">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <p style='float: left; margin-right: 5px' ><img id="ava" src="{{ event.cover_image.url }}" alt="Avatar"></p> 
-                        </div>
-                        <div class="col-lg-8">
-                            <p style="font-size: 1.2vw;">Event: {{ event.name }}</p>
-                            <p style="font-size: 1.2vw;">Hosted by: </p>
-                            <p style="font-size: 1.2vw;">Hosted at: {{ event.address }} </p> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="three">
-                <h2>Attendents</h2>
-            </div>
             <div class="four">
                 <h3>Location: {{ event.address }} </h3>   
                 <div id="map"></div>
@@ -81,7 +66,11 @@
                 }
                 </script>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQmcTCoxvxXpPHWwYQJG04bLkmtjbySjU&callback=initMap" async defer></script>
+            </div>
+            <div class="three">
+                <h2>Attendents({{event.attendees.all.count}})</h2>
+            </div>
+            
         </div>
-    </div>
     </body>
 </html>
