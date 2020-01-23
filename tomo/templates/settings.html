@@ -19,9 +19,9 @@
 
 
   <body >
-    <div class="head-bar">
-      {% include 'navbar.html' %}
-    </div>
+      <div class="head-bar">
+          {% include 'navbar.html' %}
+      </div>
       <div id="user_info" class="card-body col-sm-4 offset-4" >
         <div class="modal-content p-3 mb-2 bg-primary text-white">
           <div class="card-body" >
@@ -75,7 +75,7 @@
                           <input type="submit" value="Update"-->
                           
                           <div>
-                                <button type="cancel" value='cancel' class="btn btn-mdb-color" name='cancel'>Cancel</button>
+                                <button type="cancel" herf={% url 'index' %}value='cancel' class="btn btn-mdb-color" name='cancel'>Cancel</button>
                                 <button type="submit" value='save_changes' class="btn btn-success" name='save_changes'>Save Changes</button>
                           </div>
 
