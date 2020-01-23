@@ -10,28 +10,40 @@
     </head>
     <body>
         <div class="top">   
-            <h1>{{ user.name }}</h1>
-            <a style="float: right" href="{% url 'index' %}">Home</a>
+            <h1>{{ user.username }}</h1>
+            <p><a style="float: right" href="{% url 'index' %}">Home</a></p>
         </div>
         <div class="box">
             <div class="one">
                 <h2>Description</h2>
                 <p>{{ user.description }}</p>
             </div>
-        </div>
-        <div class="two">
-            <p style='float: left; margin-right: 5px' ><img id="ava" src="{% static 'images/profile_test.jpg' %}" alt="Avatar" style="width:200px"></p>
-            <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
-            <p>Age: {{ user.age }}</p>
-            <p>Contact: {{ user.contact }}</p>
-        </div>
-        <div class="three">
-            <h2>Event Host:</p>
-            <!-- List of events host -->  
-        </div>
-        <div class="four">
-            <h2>Event Attending:</h2>
-            <!-- List of events attending-->  
+            
+            <div class="two">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <p style='float: left; margin-right: 5px' ><img id="ava" src="{% static 'images/profile_test.jpg' %}" alt="Avatar"></p> 
+                        </div>
+                        <div class="col-lg-8">
+                            <p style="font-size: 1.2vw;">Name: {{ user.first_name }} {{ user.last_name }}</p>
+                            <p style="font-size: 1.2vw;">Age: {{ user.age }}</p>
+                            <p style="font-size: 1.2vw;">Contact: {{ user.contact }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="three">
+                <h2>Event Host:</p>
+                <!-- List of events host -->  
+            </div>
+
+            <div class="four">
+                <h2>Event Attending:</h2>
+                <!-- List of events attending-->  
+            </div>
+
         </div>
         
     </body>
