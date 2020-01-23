@@ -61,7 +61,7 @@ def login(request):
             except Exception as e:
                 print(e)
             if user.first_time:
-                user.first_time = 0
+                
                 return redirect(addTags)
             else:
                 return redirect(index)
@@ -99,6 +99,9 @@ def addTags(request):
             for tag_id in tags_id:
                 tag = Tag.objects.get(pk=tag_id)
                 user.tags.add(tag)
+                
+            user.first_time = 0
+            user.save()
             print("User tags: ", user.tags.all())
             return redirect(index)
 
@@ -214,10 +217,21 @@ def detail(request, event_id):
             Comment.objects.create(event=event, content=request.POST['comment_text'], date=timezone.now())
         except:
             pass
-    context = {
-        'event': event,
-        'comments': event.comments.order_by('-date')
-    }
+        return redirect(detail, event_id)
+    try:
+        user = User.objects.get(pk=getCurrentUserId(request))
+        context = {
+            'event': event,
+            'comments': event.comments.order_by('-date'),
+            'user': user,
+
+        }
+    except:
+        context = {
+            'event': event,
+            'comments': event.comments.order_by('-date'),
+
+        }
     return render(request, 'detail.html', context)
 
 def update(request, event_id):
@@ -227,7 +241,10 @@ def update(request, event_id):
         event.detail= request.POST.get('detail', event.detail)
         hosted_at = request.POST.get('hosted_at', event.hosted_at)
         # change it to string, then to datetime, then add timezone by making aware
-        event.hosted_at = makeAwareDatetime(parse_datetime(str(hosted_at)))
+        try:
+            event.hosted_at = makeAwareDatetime(parse_datetime(str(hosted_at)))
+        except:
+            pass
         # event.hosted_at = request.POST['hosted_at']
         # set adress
         address = request.POST.get('address', event.address)
@@ -257,29 +274,33 @@ def update(request, event_id):
         return redirect(detail, event_id)
 
     # GET
-    tags = Tag.objects.all()
-    event_tags = event.tags.all()
-    print(event_tags)
-    try:
-        user_id = getCurrentUserId(request)
-        user = User.objects.get(pk=user_id)
-        form = UploadEventImageForm()
+    if getCurrentUserId(request) == event.host.id:
+        tags = Tag.objects.all()
+        event_tags = event.tags.all()
+        print(event_tags)
+        try:
+            user_id = getCurrentUserId(request)
+            user = User.objects.get(pk=user_id)
+            form = UploadEventImageForm()
 
-        context = {
-            'event': event,
-            'tags': tags,
-            'event_tags' : event_tags,
-            'user': user,
-            'form': form,
-        }
-    except:
-        context = {
-            'event': event,
-            'tags': tags,
-            'event_tags': event_tags,
-        }
-    print("Context for update: ", context)
-    return render(request, 'update.html', context)
+            context = {
+                'event': event,
+                'tags': tags,
+                'event_tags' : event_tags,
+                'user': user,
+                'form': form,
+            }
+        except:
+            context = {
+                'event': event,
+                'tags': tags,
+                'event_tags': event_tags,
+            }
+        print("Context for update: ", context)
+        return render(request, 'update.html', context)
+    else:
+        user = User.objects.get(pk=getCurrentUserId(request))
+        return render(request, 'cant_update.html', {'user': user})
 
 def create(request):
     if request.method == 'POST':

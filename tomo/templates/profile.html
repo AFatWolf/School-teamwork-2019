@@ -9,6 +9,10 @@
         <title>{{ user.username }}</title>
     </head>
     <body>
+        <div class="head-bar">
+            {% include 'navbar.html' %}
+        </div> <!-- head-bar -->
+        
         <div class="top">   
             <h1>{{ user.username }}</h1>
             <p><a style="float: right" href="{% url 'index' %}">Home</a></p>
