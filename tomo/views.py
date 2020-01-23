@@ -281,6 +281,7 @@ def update(request, event_id):
 
 def create(request):
     if request.method == 'POST':
+        host = User.objects.get(pk=getCurrentUserId(request))
         name = request.POST.get('name', None)
         s_detail = request.POST.get('detail', '')
         address = request.POST.get('address', None)
@@ -294,9 +295,9 @@ def create(request):
         # create event
         if name != None:
             if address != None:
-                event = Event.objects.create(name=name, detail=s_detail, address=address, lat=lat, lng=lng)
+                event = Event.objects.create(name=name, detail=s_detail, address=address, lat=lat, lng=lng, host=host)
             else:
-                event = Event.objects.create(name=name, detail=s_detail)
+                event = Event.objects.create(name=name, detail=s_detail, host=host)
             # forms
             form = UploadEventImageForm(request.POST, request.FILES, instance=event)
             if form.is_valid():
@@ -311,9 +312,11 @@ def create(request):
     
     form = UploadEventImageForm()
     tags = Tag.objects.all()
+    user = User.objects.get(pk=getCurrentUserId(request))
     context = {
         'form': form,
         'tags': tags,
+        'user': user,
     }
     return render(request, 'create.html', context)
 

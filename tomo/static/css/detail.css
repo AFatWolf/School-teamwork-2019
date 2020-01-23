@@ -77,4 +77,7 @@
     height: 40vh;
     background-color:black;
 }
-}
+
+img {
+    fit-content: cover; 
+} 
