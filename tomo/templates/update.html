@@ -61,7 +61,7 @@
                 <div class="form-group row">
                     <label class="col-xl-2 col-form-label" for"hosted_at">Host time:</label>
                     <div class="col-xl-10">
-                        <input id="hosted_at" name="hosted_at" type="datetime-local" disabled>
+                        <input id="hosted_at" name="hosted_at" type="datetime-local" value="{{ event.hosted_at | date:'Y-m-d\TH:i' }}" disabled>
                         <span class="edit" onclick="enableEdit('hosted_at', this)">
                             <a href="javascript:void(0);"><i class="fa fa-pencil"></i> Edit</a>
                         </span>

@@ -2,6 +2,7 @@ from tomo.models import Event, User
 from django.db.models import Q
 import requests
 import json
+import pytz
 
 NO_USER = 0
 
@@ -66,4 +67,10 @@ def findGeocoding(address):
         }
     else:
         print("Error: ", request.content)
+        return {
+            'lat': -1,
+            'lng': -1
+        }
 
+def makeAwareDatetime(time):
+    return pytz.utc.localize(time)

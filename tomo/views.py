@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.http import Http404, JsonResponse
 from .models import Attend, Host, Tag, Event, Comment, User, SignUpForm
 from .helper import *
@@ -224,11 +225,12 @@ def update(request, event_id):
     if request.method == 'POST':
         event.name = request.POST.get('name', event.name)
         event.detail= request.POST.get('detail', event.detail)
+        hosted_at = request.POST.get('hosted_at', event.hosted_at)
+        # change it to string, then to datetime, then add timezone by making aware
+        event.hosted_at = makeAwareDatetime(parse_datetime(str(hosted_at)))
         # event.hosted_at = request.POST['hosted_at']
         # set adress
         address = request.POST.get('address', event.address)
-        print("Address: ", address)
-        print("Event address: ", event.address)
         # check if the address change
         if event.address != address:
             location = findGeocoding(address)
@@ -285,19 +287,23 @@ def create(request):
         name = request.POST.get('name', None)
         s_detail = request.POST.get('detail', '')
         address = request.POST.get('address', None)
-        if address != None:
-            location = findGeocoding(address)
-            if location['lat'] != -1 and location['lng'] != -1:
-                lat = location['lat']
-                lng = location['lng']
+        hosted_at = request.POST.get('hosted_at', None)
+
+        
         # tags
         tags_id = request.POST.getlist('tags')
         # create event
-        if name != None:
-            if address != None:
+        if name:
+            if address:
+                location = findGeocoding(address)
+                if location['lat'] != -1 and location['lng'] != -1:
+                    lat = location['lat']
+                    lng = location['lng']
                 event = Event.objects.create(name=name, detail=s_detail, address=address, lat=lat, lng=lng, host=host)
             else:
                 event = Event.objects.create(name=name, detail=s_detail, host=host)
+            if hosted_at:
+                event.hosted_at = makeAwareDatetime(parse_datetime(str(hosted_at)))
             # forms
             form = UploadEventImageForm(request.POST, request.FILES, instance=event)
             if form.is_valid():
@@ -320,6 +326,11 @@ def create(request):
     }
     return render(request, 'create.html', context)
 
+def attend(request, event_id):
+    event = Event.objects.get(pk=event_id)
+    user = User.objects.get(pk=getCurrentUserId(request))
+    event.attendees.add(user)
+    return detail(request, event_id)
 
 def settings(request):
     edit = User.objects.get(pk=getCurrentUserId(request))
@@ -335,7 +346,6 @@ def settings(request):
     }
   
     return render(request, 'settings.html', form)
-
 
 def password_update(request):
     edit = User.objects.get(pk=getCurrentUserId(request))
@@ -407,5 +417,3 @@ def search(request):
             'results': results,
         }
         return render(request, "search_results.html", context)
-
-
