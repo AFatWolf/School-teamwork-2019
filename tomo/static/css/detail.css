@@ -1,15 +1,12 @@
 .top {
-    background-color: #31659C;
+    background-color: white;
     padding-left: 16px;
     padding-top: 8px;
     padding-bottom: 8px;
     padding: 10px;
-    color: white ;
+    color: black ;
 }
 
-.body {
-    background-color: azure;
-}
 .sbox{
     width: 100px;
     display: inline;
@@ -29,12 +26,13 @@
 }
 .one {
     border-radius: 25px;
-    width: 55vw;
+    width: 62vw;
     float: left;
     height: auto;
     min-height: 50vh;
-    background-color: #94BAE7;
+    background-color: white;
     padding: 1vh 1vw;
+    padding-right: 1.5vh;
     margin: 1vh;
 }
 .two {
@@ -42,42 +40,45 @@
     width: 40vw;
     float: right;
     height: 20vh;
-    background-color: #94BAE7;
+    background-color: white;
     padding: 1vh;
     margin: 1vh;
 }
 .three {
     border-radius: 25px;
-    width: 40vw;
-    float: right;
+    width: 62vw;
+    float: left;
     height: 20vh;
-    background-color: #94BAE7;
+    background-color: white;
     padding: 1vh 1vw;
     margin: 1vh;
 }
 
 .four{
     border-radius: 25px;
-    width: 40vw;
+    width: 34vw;
     float: right;
     height: auto;
-    background-color: #94BAE7;
+    background-color:  white;
     padding: 1vh 1vw;
     margin: 1vh;
 }
 
 #ava {
-    border-radius: 50%;
-    width: 9.5vw;
-    height: 18vmin;
+    width: 60vw;
+    height: 40vh;
   }
 
 #map{
     width: 100%;
-    height: 40vh;
+    height: 35vh;
     background-color:black;
 }
 
 img {
     fit-content: cover; 
-} 
+}
+
+body {
+    background-color: rgba(0, 0, 0, .03);
+}
