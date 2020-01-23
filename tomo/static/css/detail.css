@@ -41,9 +41,9 @@
     border-radius: 25px;
     width: 40vw;
     float: right;
-    height: 220px;
+    height: 20vh;
     background-color: #94BAE7;
-    padding: 1vh 1vw;
+    padding: 1vh;
     margin: 1vh;
 }
 .three {
@@ -68,10 +68,13 @@
 
 #ava {
     border-radius: 50%;
+    width: 9.5vw;
+    height: 18vmin;
   }
 
 #map{
     width: 100%;
     height: 40vh;
     background-color:black;
+}
 }
