@@ -271,13 +271,41 @@ def update(request, event_id):
 
 def create(request):
     if request.method == 'POST':
-        event = Event.objects.create(
-            name = request.POST['title'],
-            detail = request.POST['detail'],
-            hosted_at = request.POST['hosted_at']
-        )
-        return redirect('detail', event.id)
-    return render(request, 'create.html')
+        name = request.POST.get('name', None)
+        s_detail = request.POST.get('detail', '')
+        address = request.POST.get('address', None)
+        if address != None:
+            location = findGeocoding(address)
+            if location['lat'] != -1 and location['lng'] != -1:
+                lat = location['lat']
+                lng = location['lng']
+        # tags
+        tags_id = request.POST.getlist('tags')
+        # create event
+        if name != None:
+            if address != None:
+                event = Event.objects.create(name=name, detail=s_detail, address=address, lat=lat, lng=lng)
+            else:
+                event = Event.objects.create(name=name, detail=s_detail)
+            # forms
+            form = UploadEventImageForm(request.POST, request.FILES, instance=event)
+            if form.is_valid():
+                form.save()
+            for tag_id in tags_id:
+                tag = Tag.objects.get(pk=tag_id)
+                event.tags.add(tag)
+            event.save()
+            return redirect(detail, event.id)
+        else:
+            return redirect(create)
+    
+    form = UploadEventImageForm()
+    tags = Tag.objects.all()
+    context = {
+        'form': form,
+        'tags': tags,
+    }
+    return render(request, 'create.html', context)
 
 
 def settings(request):

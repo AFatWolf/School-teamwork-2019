@@ -13,6 +13,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+def getUserImageFolder(instance, filename):
+    return "users/{}/{}".format(instance.id, filename)
+
 class User(AuthUser):
     # username
     # password
@@ -23,6 +26,7 @@ class User(AuthUser):
     age = models.IntegerField(default=0)
     first_time = models.IntegerField(default=1)
     tags = models.ManyToManyField(Tag)
+    avatar_image = models.ImageField(upload_to=getUserImageFolder, default="default.jpg")
 
 class SignUpForm(Form):
     first_name=forms.CharField(max_length=30, required=False)
@@ -43,7 +47,6 @@ class Host(models.Model):
     pass
 
 def getEventImageFolder(instance, filename):
-    print("Instance: ", instance.id, instance.name)
     return "events/{}/{}".format(instance.id, filename)
 
 class Event(models.Model):
@@ -58,7 +61,7 @@ class Event(models.Model):
     lat = models.FloatField(default=1)
     lng = models.FloatField(default=1)
     host = models.ForeignKey(User, related_name="events", on_delete=models.CASCADE, default=8)
-    cover_image = models.ImageField(upload_to=getEventImageFolder, default="/media/default.jpg")
+    cover_image = models.ImageField(upload_to=getEventImageFolder, default="default.jpg")
     attendees = models.ManyToManyField(User)
 
     def __str__(self):
