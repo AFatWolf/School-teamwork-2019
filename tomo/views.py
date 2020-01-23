@@ -99,7 +99,7 @@ def addTags(request):
             for tag_id in tags_id:
                 tag = Tag.objects.get(pk=tag_id)
                 user.tags.add(tag)
-                
+
             user.first_time = 0
             user.save()
             print("User tags: ", user.tags.all())
@@ -415,8 +415,13 @@ def profile(request, user_name):
     except Event.DoesNotExist:
         raise Http404("User does not exist")
     
+    events_host = user.events.all()
+    events_attend = user.event_set.all()
+    
     context = {
         'user': user,
+        'events_host': events_host,
+        'events_attend': events_attend,
     }
     return render(request, 'profile.html', context)
 
