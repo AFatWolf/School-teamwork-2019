@@ -58,7 +58,7 @@
                     <img id="ava" src="{{ event.cover_image.url }}" alt="Avatar">
                     <h3 style="padding-left: 1.2vh;">Description</h3>
                     {% if event.detail %}
-                        <div>{{ event.detail }}</div>
+                        <div>{{ event.detail | linebreaksbr}}</div>
                     {% else %}
                         <div>For now, it has no description.</div>
                     {% endif %}
