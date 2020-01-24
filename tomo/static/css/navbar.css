@@ -3,7 +3,8 @@
 }
 
 .navbar {
-    background: #2B65EC;
+    /* background: #2B65EC; */
+    background: #2a1a5e;
 }
 
 .navbar-brand {
@@ -16,8 +17,9 @@
 }
 
 .nav-link:hover, .navbar-brand:hover{
-    color: orange;
+    color: #f6f078;
     font-weight: 600;
+    text-shadow: 3px 3px 5px #e26241, -3px -3px 5px #e26241;
 }
 
 .search-bar {
@@ -56,7 +58,7 @@ button.search-button:focus {
 
 .user-options:hover {
     font-weight: 600;
-    color: orange;
+    color: #f6f078;
 }
 
 .dropdown-item-wrapper {

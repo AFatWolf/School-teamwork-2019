@@ -15,8 +15,9 @@ body{
    text-decoration:none !important;
    }
    h1,h2,h3, label{
-   font-family: 'Kaushan Script', cursive;
-  
+   /* font-family: 'Kaushan Script', cursive; */
+    font-weight: 500;
+    color: white;
    }
     .myform{
   position: relative;
@@ -34,11 +35,26 @@ body{
   outline: 0;
   max-width: 500px;
    }
+
    .tx-tfm{
    text-transform:uppercase;
    }
    .mybtn{
    border-radius:50px;
+   background: white;
+   color: #2a1a5e;
+   }
+   .mybtn:hover {
+     background: #94BAE7;
+     color: white;
+   }
+
+   .mybtn-text {
+      font-weight: 500;
+   }
+   
+   .already-account {
+     color: white;
    }
   
    .login-or {
