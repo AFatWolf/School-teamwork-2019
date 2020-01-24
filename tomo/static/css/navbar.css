@@ -17,9 +17,9 @@
 }
 
 .nav-link:hover, .navbar-brand:hover{
-    color: #f6f078;
+    color: #f1fa3c;
     font-weight: 600;
-    text-shadow: 3px 3px 5px #e26241, -3px -3px 5px #e26241;
+    /* text-shadow: 3px 3px 5px #e26241, -3px -3px 5px #e26241; */
 }
 
 .search-bar {
