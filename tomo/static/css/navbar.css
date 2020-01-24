@@ -2,6 +2,26 @@
     margin-bottom: 70px;
 }
 
+.navbar {
+    /* background: #2B65EC; */
+    background: #2a1a5e;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.nav-link {
+    color: white;
+    font-weight: 500;
+}
+
+.nav-link:hover, .navbar-brand:hover{
+    color: #f6f078;
+    font-weight: 600;
+    text-shadow: 3px 3px 5px #e26241, -3px -3px 5px #e26241;
+}
+
 .search-bar {
     border: solid white 0px;
     border-radius: 5px;
@@ -34,6 +54,11 @@ button.search-button:focus {
 
 .action-options {
     margin-left: 10px;
+}
+
+.user-options:hover {
+    font-weight: 600;
+    color: #f6f078;
 }
 
 .dropdown-item-wrapper {

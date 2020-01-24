@@ -61,7 +61,7 @@ def login(request):
             except Exception as e:
                 print(e)
             if user.first_time:
-                user.first_time = 0
+                
                 return redirect(addTags)
             else:
                 return redirect(index)
@@ -99,6 +99,9 @@ def addTags(request):
             for tag_id in tags_id:
                 tag = Tag.objects.get(pk=tag_id)
                 user.tags.add(tag)
+
+            user.first_time = 0
+            user.save()
             print("User tags: ", user.tags.all())
             return redirect(index)
 
@@ -214,10 +217,28 @@ def detail(request, event_id):
             Comment.objects.create(event=event, content=request.POST['comment_text'], date=timezone.now())
         except:
             pass
-    context = {
-        'event': event,
-        'comments': event.comments.order_by('-date')
-    }
+        return redirect(detail, event_id)
+    try:
+        user = User.objects.get(pk=getCurrentUserId(request))
+        # check if attended
+        attended = event.attendees.filter(pk=user.id).exists()
+        # if it is host
+        hosted = False
+        if event.host == user:
+            hosted = True
+            
+        context = {
+            'event': event,
+            'comments': event.comments.order_by('-date'),
+            'user': user,
+            'attended': attended,
+            'hosted': hosted,
+        }
+    except:
+        context = {
+            'event': event,
+            'comments': event.comments.order_by('-date'),
+        }
     return render(request, 'detail.html', context)
 
 def update(request, event_id):
@@ -227,7 +248,10 @@ def update(request, event_id):
         event.detail= request.POST.get('detail', event.detail)
         hosted_at = request.POST.get('hosted_at', event.hosted_at)
         # change it to string, then to datetime, then add timezone by making aware
-        event.hosted_at = makeAwareDatetime(parse_datetime(str(hosted_at)))
+        try:
+            event.hosted_at = makeAwareDatetime(parse_datetime(str(hosted_at)))
+        except:
+            pass
         # event.hosted_at = request.POST['hosted_at']
         # set adress
         address = request.POST.get('address', event.address)
@@ -257,29 +281,33 @@ def update(request, event_id):
         return redirect(detail, event_id)
 
     # GET
-    tags = Tag.objects.all()
-    event_tags = event.tags.all()
-    print(event_tags)
-    try:
-        user_id = getCurrentUserId(request)
-        user = User.objects.get(pk=user_id)
-        form = UploadEventImageForm()
+    if getCurrentUserId(request) == event.host.id:
+        tags = Tag.objects.all()
+        event_tags = event.tags.all()
+        print(event_tags)
+        try:
+            user_id = getCurrentUserId(request)
+            user = User.objects.get(pk=user_id)
+            form = UploadEventImageForm()
 
-        context = {
-            'event': event,
-            'tags': tags,
-            'event_tags' : event_tags,
-            'user': user,
-            'form': form,
-        }
-    except:
-        context = {
-            'event': event,
-            'tags': tags,
-            'event_tags': event_tags,
-        }
-    print("Context for update: ", context)
-    return render(request, 'update.html', context)
+            context = {
+                'event': event,
+                'tags': tags,
+                'event_tags' : event_tags,
+                'user': user,
+                'form': form,
+            }
+        except:
+            context = {
+                'event': event,
+                'tags': tags,
+                'event_tags': event_tags,
+            }
+        print("Context for update: ", context)
+        return render(request, 'update.html', context)
+    else:
+        user = User.objects.get(pk=getCurrentUserId(request))
+        return render(request, 'cant_update.html', {'user': user})
 
 def create(request):
     if request.method == 'POST':
@@ -329,8 +357,14 @@ def create(request):
 def attend(request, event_id):
     event = Event.objects.get(pk=event_id)
     user = User.objects.get(pk=getCurrentUserId(request))
-    event.attendees.add(user)
-    return detail(request, event_id)
+    # havent attended
+    if not event.attendees.filter(pk=user.id).exists():
+        event.attendees.add(user)
+        return render(request, 'attend_btn.html', {'attended': True,})
+    # attended
+    else:
+        event.attendees.remove(user)
+        return render(request, 'attend_btn.html', {"attend": False},);
 
 def settings(request):
     edit = User.objects.get(pk=getCurrentUserId(request))
@@ -395,8 +429,25 @@ def profile(request, user_name):
     except Event.DoesNotExist:
         raise Http404("User does not exist")
     
+    events_host = user.events.all()
+    events_attend = user.event_set.all()
+    try:
+        main_user = User.objects.get(pk=getCurrentUserId(request))
+    except:
+        main_user = {'id': 0,}
+    is_host = False
+    try:
+        if user.id == getCurrentUserId(request):
+            is_host = True
+    except:
+        pass
     context = {
         'user': user,
+        'events_host': events_host,
+        'events_attend': events_attend,
+        'is_host': is_host,
+        'main_user': main_user,
+        'notLogin': True
     }
     return render(request, 'profile.html', context)
 

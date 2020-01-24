@@ -119,7 +119,7 @@ $(document).ready(function () {
             // showButtonPanel: true,
             onSelect: function (dateText, inst) {
                 console.log(dateText);
-                $(".column1").load(`/index?date=${encodeURIComponent(dateText)} .newly-loaded`, function (data) {
+                $(".column1").load(`/index?date=${encodeURIComponent(dateText)}`, function (data) {
                     console.log(data);
                 });
             }
