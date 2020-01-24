@@ -43,7 +43,7 @@
                         <br>
                         <div class="col-12 user-small-info">About:</div>
                             {% if user.description %}
-                                <div class="col-12">{{ user.description }}</div>
+                                <div class="col-12">{{ user.description | linebreaksbr }}</div>
                             {% else %}
                                 <div class="col-12">Nothing yet.</div>    
                             {% endif %}

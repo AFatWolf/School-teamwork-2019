@@ -40,7 +40,11 @@
                         <!-- Avatar here-->
                           <div class="two">
                             <div class="col-lg-4">
-                                <div style='float: center; margin-right: 5px; text-align: center;' ><img id="ava" src="{{edit.avatar_image.url}}" alt="Avatar"></div> 
+                                <div style='float: center; margin-right: 5px; text-align: center;' >
+                                  {% if edit.avatar_image %}
+                                    <img id="ava" src="{{edit.avatar_image.url}}" alt="Avatar">
+                                  {% endif %}
+                                </div> 
                                 {{ form.avatar_image }}
                             </div>
                           </div>
@@ -57,7 +61,7 @@
                           <div>
                             <!-- form id="user_data" action="{% url 'settings' %}" method ="post"-->
                             <label  for="last_name" class="col-xl-3 col-form-label">Last Name: </label>
-                            <input id="last_name" name="last_name" type="text" placeholder="Last name" value="{{edit.last_name}}">
+                            <input id="last_name" name="last_name" type="text" placeholder="Last name" value="{{edit.last_name}}" disabled>
                             <span class="edit" onclick="enableEdit('last_name', this)">
                               <a href="javascript:void(0);" class="text-warning"><i class="fa fa-pencil"></i> Edit</a>
                             </span>
@@ -65,7 +69,7 @@
 
                           <div>
                             <label for="user" class="col-xl-3 col-form-label">Username: </label>
-                            <input id="user" name="user" type="text" placeholder="user" value="{{edit.username}}">
+                            <input id="user" name="user" type="text" placeholder="user" value="{{edit.username}}" disabled>
                             <span class="edit" onclick="enableEdit('user', this)">
                               <a href="javascript:void(0);" class="text-warning"><i class="fa fa-pencil"></i> Edit</a>
                             </span>
@@ -73,7 +77,7 @@
 
                           <div>
                             <label for="email" class="col-xl-3 col-form-label">E-mail: </label>
-                            <input id="email" name="email" type="text" placeholder="email" value="{{edit.email}}">
+                            <input id="email" name="email" type="text" placeholder="email" value="{{edit.email}}" disabled>
                             <span class="edit" onclick="enableEdit('email', this)">
                               <a href="javascript:void(0);" class="text-warning"><i class="fa fa-pencil"></i> Edit</a>
                             </span>
@@ -81,7 +85,7 @@
 
                           <div>
                             <label for="age" class="col-xl-3 col-form-label"> Age: </label>
-                            <input for="age" name="age" type="number" placeholder="00" value="{{edit.age}}">
+                            <input for="age" id="age" name="age" type="number" placeholder="00" value="{{edit.age}}" disabled>
                             <span class="edit" onclick="enableEdit('age', this)">
                               <a href="javascript:void(0);" class="text-warning"><i class="fa fa-pencil"></i> Edit</a>
                             </span>
@@ -89,8 +93,8 @@
 
                           <div>
                             <label for="description" class="col-xl-3 col-form-label">Description: </label>
-                            <textarea id="description" name="description" placeholder="description" rows="3" cols="20">{{ edit.description }}</textarea>
-                            <span class="edit" onclick="enableEdit('description, this)">
+                            <textarea id="description" name="description" placeholder="description" rows="3" cols="40" disabled>{{ edit.description }}</textarea>
+                            <span class="edit" onclick="enableEdit('description', this)">
                               <a href="javascript:void(0);" class="text-warning"><i class="fa fa-pencil"></i> Edit</a>
                             </span>
                           </div>

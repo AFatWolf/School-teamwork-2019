@@ -367,13 +367,17 @@ def attend(request, event_id):
         return render(request, 'attend_btn.html', {"attend": False},);
 
 def settings(request):
-    edit = User.objects.get(pk=getCurrentUserId(request))
+    try:
+        edit = User.objects.get(pk=getCurrentUserId(request))
+    except Exception as e:
+        print("WTF")
+        print(e)
     if request.method=="POST" :
-        edit.first_name = request.POST.get('first_name')
-        edit.last_name = request.POST.get('last_name')
-        edit.description = request.POST.get('description')
-        edit.age = request.POST.get('age')  
-        edit.email = request.POST.get('email')
+        edit.first_name = request.POST.get('first_name', edit.first_name)
+        edit.last_name = request.POST.get('last_name', edit.last_name)
+        edit.description = request.POST.get('description', edit.description)
+        edit.age = request.POST.get('age', edit.age)  
+        edit.email = request.POST.get('email', edit.email)
         form = UploadUserAvatarImageForm(request.POST, request.FILES, instance=edit)
         if form.is_valid():
             print("I have saved ! ------------")
