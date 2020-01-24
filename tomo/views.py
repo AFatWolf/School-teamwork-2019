@@ -374,18 +374,23 @@ def settings(request):
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')  
         edit.email = request.POST.get('email')
-        edit.avatar_image = request.POST.get('avatar_image')
+        form = UploadUserAvatarImageForm(request.POST, request.FILES, instance=edit)
+        if form.is_valid():
+            print("I have saved ! ------------")
+            form.save()
         edit.save()
+        return redirect('user_profile', edit.username)
     try:
         user = User.objects.get(pk=getCurrentUserId(request))
     except:
         user = None
-    form = {
+    form = UploadUserAvatarImageForm()
+    context = {
             'edit' : edit,
             'user': user,
+            'form': form,
     }
-  
-    return render(request, 'settings.html', form)
+    return render(request, 'settings.html', context)
 
 def password_update(request):
     edit = User.objects.get(pk=getCurrentUserId(request))

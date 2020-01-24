@@ -32,7 +32,7 @@
           <div class="card-body" >
               <div class="container"> 
                   <div class="row">
-                          <form action="{% url 'settings' %}" method='post'>
+                          <form action="{% url 'settings' %}" method='post' enctype="multipart/form-data">
                           <h2 class="card-title text-center"><b>Setting and Privacy</b><h2>
                           {% csrf_token %}
                           
@@ -40,9 +40,8 @@
                         <!-- Avatar here-->
                           <div class="two">
                             <div class="col-lg-4">
-                                
-                                <p style='float: center; margin-right: 5px' ><img id="ava" value="{{edit.avatar_image}}" alt="Avatar"></p> 
-                                <input type="file" placeholder="edit" value="{{edit.avatar_image}}" />
+                                <div style='float: center; margin-right: 5px; text-align: center;' ><img id="ava" src="{{edit.avatar_image.url}}" alt="Avatar"></div> 
+                                {{ form.avatar_image }}
                             </div>
                           </div>
 
