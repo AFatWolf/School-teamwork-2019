@@ -176,12 +176,20 @@ input[type=text] {
   font-weight: 700;
 }
 
+#ava {
+  width: 250px;
+  height: 250px;
+  fit-content: cover;
+}
+
 .two {
   border-radius: 25px;
   width: 42vw;
   float: right;
   height: 20vh;
   background-color: #94BAE7;
-  padding: 1vh;
+  /* padding: 1vh; */
+  padding-left: 0px;
+  padding-right: 0px;; 
   margin: 1vh;
 }

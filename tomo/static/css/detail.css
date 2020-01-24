@@ -229,6 +229,36 @@
     font-weight: 500;
 }
 
+.attendee-wrap {
+    background: white;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .5);
+    border-radius: 5px;
+    width: 100%;
+    height: 95%;
+    margin: auto;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.attendee-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;  
+    color: black;
+}
+
+.attendee-avatar-image {
+    margin: auto;
+    width: 100%;
+    height: 50px;
+    width: 50px ;
+    border-radius: 40px;
+    /* border: 1px solid black ; */
+    fit-content: cover; 
+}
+
 i.fa-map-marker {
     
 }
