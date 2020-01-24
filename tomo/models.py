@@ -15,8 +15,8 @@ class Tag(models.Model):
 
 def getUserImageFolder(instance, filename):
     print("Can I say that I am hereeee----------------!")
-    # return "users/{0}/{1}".format(instance.id, filename)
-    return filename
+    return "users/{0}/{1}".format(instance.id, filename)
+    # return filename
 
 class User(AuthUser):
     # username
