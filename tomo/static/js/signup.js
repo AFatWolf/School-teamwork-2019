@@ -20,6 +20,7 @@ $(document).ready( function() {
     colors[2][2] = 'rgba(130,91,109,';
     colors[2][3] = 'rgba(185,136,131,';
     colors[2][4] = 'rgba(249,241,204,';
+    
 
     var colorTheme = 2, //getRandomInt(0,colors.length-1);
     mainSpeed = 1;

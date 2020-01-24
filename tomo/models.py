@@ -77,8 +77,3 @@ class Comment(models.Model):
     # ForeginKey for Event
     event = models.ForeignKey(Event, related_name='comments', on_delete=models.CASCADE, default=1)
     user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE, default=8)
-
-
-
-
-

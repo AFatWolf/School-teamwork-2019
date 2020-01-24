@@ -10,7 +10,7 @@ $(document).ready(function () {
             });
         }
     });
-    // searchInput.blur((event) => {
-    //     $(".search-results").empty();
-    // });
+    searchInput.blur((event) => {
+        $(".search-results").empty();
+    });
 })
