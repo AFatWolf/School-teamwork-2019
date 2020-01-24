@@ -179,6 +179,8 @@
     border-radius: 20px;
     /* border: solid black 1px; */
     background: white;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    
 }
 
 #textInput {
@@ -277,5 +279,6 @@ body {
 }
 
 .comment-text {
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
+    border: 1px solid rgba(0, 0, 0, .1);
 }

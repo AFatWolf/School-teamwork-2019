@@ -214,7 +214,8 @@ def detail(request, event_id):
         raise Http404("Event does not exist")
     if request.method == 'POST':
         try:
-            Comment.objects.create(event=event, content=request.POST['comment_text'], date=timezone.now())
+            user = User.objects.get(pk=getCurrentUserId(request))
+            Comment.objects.create(event=event, user=user, content=request.POST['comment_text'], date=timezone.now())
         except:
             pass
         return redirect(detail, event_id)
