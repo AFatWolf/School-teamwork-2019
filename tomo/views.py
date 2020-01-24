@@ -376,8 +376,13 @@ def settings(request):
         edit.email = request.POST.get('email')
         edit.avatar_image = request.POST.get('avatar_image')
         edit.save()
+    try:
+        user = User.objects.get(pk=getCurrentUserId(request))
+    except:
+        user = None
     form = {
-            'edit' : edit
+            'edit' : edit,
+            'user': user,
     }
   
     return render(request, 'settings.html', form)
@@ -447,7 +452,7 @@ def profile(request, user_name):
         'events_attend': events_attend,
         'is_host': is_host,
         'main_user': main_user,
-        'notLogin': True
+        'other_user': True,
     }
     return render(request, 'profile.html', context)
 
