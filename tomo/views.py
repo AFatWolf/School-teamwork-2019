@@ -220,17 +220,24 @@ def detail(request, event_id):
         return redirect(detail, event_id)
     try:
         user = User.objects.get(pk=getCurrentUserId(request))
+        # check if attended
+        attended = event.attendees.filter(pk=user.id).exists()
+        # if it is host
+        hosted = False
+        if event.host == user:
+            hosted = True
+            
         context = {
             'event': event,
             'comments': event.comments.order_by('-date'),
             'user': user,
-
+            'attended': attended,
+            'hosted': hosted,
         }
     except:
         context = {
             'event': event,
             'comments': event.comments.order_by('-date'),
-
         }
     return render(request, 'detail.html', context)
 
@@ -350,8 +357,14 @@ def create(request):
 def attend(request, event_id):
     event = Event.objects.get(pk=event_id)
     user = User.objects.get(pk=getCurrentUserId(request))
-    event.attendees.add(user)
-    return detail(request, event_id)
+    # havent attended
+    if not event.attendees.filter(pk=user.id).exists():
+        event.attendees.add(user)
+        return render(request, 'attend_btn.html', {'attended': True,})
+    # attended
+    else:
+        event.attendees.remove(user)
+        return render(request, 'attend_btn.html', {"attend": False},);
 
 def settings(request):
     edit = User.objects.get(pk=getCurrentUserId(request))
@@ -361,6 +374,7 @@ def settings(request):
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')  
         edit.email = request.POST.get('email')
+        edit.avatar_image = request.POST.get('avatar_image')
         edit.save()
     form = {
             'edit' : edit
@@ -417,11 +431,23 @@ def profile(request, user_name):
     
     events_host = user.events.all()
     events_attend = user.event_set.all()
-    
+    try:
+        main_user = User.objects.get(pk=getCurrentUserId(request))
+    except:
+        main_user = {'id': 0,}
+    is_host = False
+    try:
+        if user.id == getCurrentUserId(request):
+            is_host = True
+    except:
+        pass
     context = {
         'user': user,
         'events_host': events_host,
         'events_attend': events_attend,
+        'is_host': is_host,
+        'main_user': main_user,
+        'notLogin': True
     }
     return render(request, 'profile.html', context)
 

@@ -54,13 +54,21 @@
                 <div class="col-12 event-intro">Event hosted ({{ events_host.count }})</div>
                 {% if events_host %}
                     {% for event in events_host %}
-                        <div class="col-6">
-                            <div class="row event-wrap" onclick="goToEvent(`{% url 'detail' event.id %}`)">
+                        <div class="col-6 event-wrap-wrap">
+                            <div class="row event-wrap">
                                 <div class="col-4">
                                     <img class="event-image" src="{{ event.cover_image.url }}">
                                 </div>
                                 <div class="col-8">
                                     <div class="event-name">{{ event.name }}</div>
+                                    <div class="go-update-btn row">
+                                        {% if user.id == event.host.id %}
+                                            <span class="col-5 go-btn" onclick="goToEvent(`{% url 'detail' event.id %}`)">Go</span>
+                                            <span class="col-7 update-btn" onclick="goToEvent(`{% url 'update' event.id %}`)">Update</span>
+                                        {% else %}
+                                            <span class="col-12 go-btn" onclick="goToEvent(`{% url 'detail' event.id %}`)">Go</span>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,16 +79,24 @@
                 <div class="col-12 event-intro">Event attend: ({{ events_attend.count }})</div>
                 {% if events_attend %}
                     {% for event in events_attend %}
-                        <div class="col-12">
-                            <div class="row event-wrap" onclick="goToEvent(`{% url 'detail' event.id %}`)">
-                                <div class="col-4">
-                                    <img class="event-image" src="{{ event.cover_image.url }}">
-                                </div>
-                                <div class="col-8">
-                                    <div>{{ event.name }}</div>
+                    <div class="col-6 event-wrap-wrap">
+                        <div class="row event-wrap">
+                            <div class="col-4">
+                                <img class="event-image" src="{{ event.cover_image.url }}">
+                            </div>
+                            <div class="col-8">
+                                <div class="event-name">{{ event.name }}</div>
+                                <div class="go-update-btn row">
+                                    {% if main_user.id == event.host.id %}
+                                        <span class="col-5 go-btn" onclick="goToEvent(`{% url 'detail' event.id %}`)">Go</span>
+                                        <span class="col-7 update-btn" onclick="goToEvent(`{% url 'update' event.id %}`)">Update</span>
+                                    {% else %}
+                                        <span class="col-12 go-btn" onclick="goToEvent(`{% url 'detail' event.id %}`)">Go</span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {% endfor %}
                 {% endif %}
             </div> <!-- row -->

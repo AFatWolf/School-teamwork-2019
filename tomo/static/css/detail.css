@@ -81,8 +81,34 @@
     margin-bottom: 10px;
 }
 
-.host-row {
-    width: 70%;
+.row.host-row {
+    /* width: 70%; */
+    margin-right: 0px;
+}
+
+.attend-btn {
+    /* display: inline; */
+    border: 2px solid black;
+    /* background-color: #db75c5; */
+    color: rgba(0, 0, 0, .2)
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: 500;
+    width: 50%;
+    height: 70%;
+    margin: auto;
+    padding-top: 5px;
+    text-align: center;
+}
+
+.attend-btn:hover {
+    border: 2px solid black;
+    /* border: 1px solid rgba(0, 0, 0, .03); */
+    transform: scale(1.1);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .03), -1px -1px 10px rgba(0, 0, 0, .03);
 }
 
 .host-name {
