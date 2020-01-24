@@ -32,6 +32,15 @@
                           {% csrf_token %}
                           
                           <font size = "4">
+                        <!-- Avatar here-->
+                          <div class="two">
+                            <div class="col-lg-4">
+                                
+                                <p style='float: center; margin-right: 5px' ><img id="ava" value="{{edit.avatar_image}}" alt="Avatar"></p> 
+                                <input type="file" placeholder="edit" value="{{edit.avatar_image}}" />
+                            </div>
+                          </div>
+
 
                           <label for="first_name" >First name: </label>
                           <input id="first_name" name="first_name" type="text" placeholder="First name" value="{{edit.first_name}}" disabled>
@@ -51,6 +60,8 @@
                           
                           <label for="user">User name: </label>
                           <input id="user" name="user" type="text" placeholder="user" value="{{edit.username}}"></br>
+
+                          
 
                           <label for="email">E-mail: </label>
                           <input id="email" name="email" type="text" placeholder="email" value="{{edit.email}}"></br>

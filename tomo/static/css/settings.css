@@ -175,3 +175,13 @@ input[type=text] {
   text-align: right;
   font-weight: 700;
 }
+
+.two {
+  border-radius: 25px;
+  width: 42vw;
+  float: right;
+  height: 20vh;
+  background-color: #94BAE7;
+  padding: 1vh;
+  margin: 1vh;
+}

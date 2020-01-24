@@ -340,6 +340,7 @@ def settings(request):
         edit.description = request.POST.get('description')
         edit.age = request.POST.get('age')  
         edit.email = request.POST.get('email')
+        edit.avatar_image = request.POST.get('avatar_image')
         edit.save()
     form = {
             'edit' : edit
