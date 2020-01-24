@@ -60,8 +60,7 @@
                                    </div>
                                    <div class="card-body">
                                    <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
-                                   <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
-                                           style="font-weight: bold;">{{event.name}}</a></div>
+                                   <div class="wrapper"><a class="lead" style="font-weight: bold;">{{event.name}}</a></div>
                                    <div class="wrapper">
                                        <p>{{event.detail}}</p>
                                    </div>
@@ -118,8 +117,7 @@
                                     </div>
                                     <div class="card-body">
                                     <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
-                                    <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
-                                            style="font-weight: bold;">{{event.name}}</a></div>
+                                    <div class="wrapper"><a class="lead" style="font-weight: bold;">{{event.name}}</a></div>
                                     <div class="wrapper">
                                         <p>{{event.detail}}</p>
                                     </div>
@@ -164,8 +162,7 @@
                                     </div>
                                     <div class="card-body">
                                     <p class="datetime">{{event.hosted_at|date:'D, M j, g:i A'}}</p>
-                                    <div class="wrapper"><a class="lead" href="{% url 'detail' event.id%}"
-                                            style="font-weight: bold;">{{event.name}}</a></div>
+                                    <div class="wrapper"><a class="lead" style="font-weight: bold;">{{event.name}}</a></div>
                                     <div class="wrapper">
                                         <p>{{event.detail}}</p>
                                     </div>
@@ -195,10 +192,10 @@
             <div class="column1">
                 {% for key, value in date_list.items %}
                 <div class="rap-god">
-                    <div class="section" style="text-transform: uppercase;">{{ key }}</div>
+                    <div class="section-text" style="text-transform: uppercase;">{{ key }}</div>
                     {% for event in value %}
                     <div class="section">
-                        <div class="card mb-3">
+                        <div class="card mb-3" onclick="window.open('{% url 'detail' event.id%}');" style="cursor: pointer;">
                             <div class="card-header">
                                 <div class="nono">
                                     <div>{{event.hosted_at|date:'g:i A'}}</div>

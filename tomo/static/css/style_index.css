@@ -93,9 +93,14 @@
 }
 
 
+.section-text {
+    margin: 0 100px 0 200px;
+    color:#0098ab;
+    font-weight: bold;
+
+}
 .section {
     margin: 0 100px 0 200px;
-
 }
 
 .section-slide {
@@ -180,6 +185,7 @@ img {
     object-fit: cover;
     max-height: 93.5px;
 }
+
 
 /* Grow */
 .card {
@@ -387,12 +393,10 @@ a:hover {
 }
 
 a:not([href]) {
-    color: inherit;
     text-decoration: none
 }
 
 a:not([href]):hover {
-    color: inherit;
     text-decoration: none
 }
 
@@ -627,7 +631,7 @@ h6 {
 
 .lead {
     font-size: 1.25rem;
-    font-weight: 300
+    color: #007bff;
 }
 
 .display-1 {
